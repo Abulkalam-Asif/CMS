@@ -1,0 +1,72 @@
+[
+  {
+    "rollNo": "BITF21M004",
+    "firstName": "Muhammad Abul Kalam",
+    "lastName": "Asif",
+    "gender": "Male",
+    "program": "Information Technology"
+  },
+  {
+    "rollNo": "BITF21M032",
+    "firstName": "Syed Jafar",
+    "lastName": "Naqvi",
+    "gender": "Male",
+    "program": "Information Technology"
+  },
+  {
+    "rollNo": "BITF21M036",
+    "firstName": "Hazeez",
+    "lastName": "Haider",
+    "gender": "Male",
+    "program": "Information Technology"
+  },
+  {
+    "rollNo": "BITF21M045",
+    "firstName": "Abdullah",
+    "lastName": "Aftab",
+    "gender": "Male",
+    "program": "Information Technology"
+  },
+  {
+    "rollNo": "BITF21M039",
+    "firstName": "Hasnain",
+    "lastName": "Shehzad",
+    "gender": "Male",
+    "program": "Information Technology"
+  },
+  {
+    "rollNo": "BITF21M017",
+    "firstName": "Mian Ali",
+    "lastName": "Hasnain",
+    "gender": "Male",
+    "program": "Information Technology"
+  },
+  {
+    "rollNo": "BITF21M015",
+    "firstName": "Hajirah",
+    "lastName": "Sheikh",
+    "gender": "Female",
+    "program": "Information Technology"
+  },
+  {
+    "rollNo": "BITF21M008",
+    "firstName": "Laiba",
+    "lastName": "Shaikh",
+    "gender": "Female",
+    "program": "Information Technology"
+  },
+  {
+    "rollNo": "BSEF21M001",
+    "firstName": "Inzamam",
+    "lastName": "Amjad",
+    "gender": "Male",
+    "program": "Software Engineering"
+  },
+  {
+    "rollNo": "BSEF21M002",
+    "firstName": "Amir",
+    "lastName": "Jatt",
+    "gender": "Male",
+    "program": "Software Engineering"
+  }
+]

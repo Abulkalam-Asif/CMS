@@ -1,0 +1,17 @@
+{
+  "name": "react-node-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "both": "concurrently \"npm run start-client\" \"npm run start-api\"",
+    "start-client": "cd client && npm run dev",
+    "start-api": "cd api && nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.0",
+    "jsonwebtoken": "^9.0.1"
+  }
+}
