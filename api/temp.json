@@ -1,72 +1,176 @@
 [
-  {
-    "rollNo": "BITF21M004",
-    "firstName": "Muhammad Abul Kalam",
-    "lastName": "Asif",
-    "gender": "Male",
-    "program": "Information Technology"
-  },
-  {
-    "rollNo": "BITF21M032",
-    "firstName": "Syed Jafar",
-    "lastName": "Naqvi",
-    "gender": "Male",
-    "program": "Information Technology"
-  },
-  {
-    "rollNo": "BITF21M036",
-    "firstName": "Hazeez",
-    "lastName": "Haider",
-    "gender": "Male",
-    "program": "Information Technology"
-  },
-  {
-    "rollNo": "BITF21M045",
-    "firstName": "Abdullah",
-    "lastName": "Aftab",
-    "gender": "Male",
-    "program": "Information Technology"
-  },
-  {
-    "rollNo": "BITF21M039",
-    "firstName": "Hasnain",
-    "lastName": "Shehzad",
-    "gender": "Male",
-    "program": "Information Technology"
-  },
-  {
-    "rollNo": "BITF21M017",
-    "firstName": "Mian Ali",
-    "lastName": "Hasnain",
-    "gender": "Male",
-    "program": "Information Technology"
-  },
-  {
-    "rollNo": "BITF21M015",
-    "firstName": "Hajirah",
-    "lastName": "Sheikh",
-    "gender": "Female",
-    "program": "Information Technology"
-  },
-  {
-    "rollNo": "BITF21M008",
-    "firstName": "Laiba",
-    "lastName": "Shaikh",
-    "gender": "Female",
-    "program": "Information Technology"
-  },
-  {
-    "rollNo": "BSEF21M001",
-    "firstName": "Inzamam",
-    "lastName": "Amjad",
-    "gender": "Male",
-    "program": "Software Engineering"
-  },
-  {
-    "rollNo": "BSEF21M002",
-    "firstName": "Amir",
-    "lastName": "Jatt",
-    "gender": "Male",
-    "program": "Software Engineering"
-  }
+  [
+    {
+      "rollNo": "BITF21M004",
+      "password": "moon",
+      "firstName": "Muhammad Abul Kalam",
+      "lastName": "Asif",
+      "gender": "Male",
+      "program": "Information Technology"
+    },
+    {
+      "rollNo": "BITF21M032",
+      "password": "jafar",
+      "firstName": "Syed Jafar",
+      "lastName": "Naqvi",
+      "gender": "Male",
+      "program": "Information Technology"
+    },
+    {
+      "rollNo": "BITF21M036",
+      "password": "hazeez",
+      "firstName": "Hazeez",
+      "lastName": "Haider",
+      "gender": "Male",
+      "program": "Information Technology"
+    },
+    {
+      "rollNo": "BITF21M045",
+      "password": "abdullah",
+      "firstName": "Abdullah",
+      "lastName": "Aftab",
+      "gender": "Male",
+      "program": "Information Technology"
+    },
+    {
+      "rollNo": "BITF21M039",
+      "password": "hasnain",
+      "firstName": "Hasnain",
+      "lastName": "Shehzad",
+      "gender": "Male",
+      "program": "Information Technology"
+    },
+    {
+      "rollNo": "BITF21M017",
+      "password": "mian",
+      "firstName": "Mian Ali",
+      "lastName": "Hasnain",
+      "gender": "Male",
+      "program": "Information Technology"
+    },
+    {
+      "rollNo": "BITF21M015",
+      "password": "harirah",
+      "firstName": "Hajirah",
+      "lastName": "Sheikh",
+      "gender": "Female",
+      "program": "Information Technology"
+    },
+    {
+      "rollNo": "BITF21M008",
+      "password": "laiba",
+      "firstName": "Laiba",
+      "lastName": "Shaikh",
+      "gender": "Female",
+      "program": "Information Technology"
+    },
+    {
+      "rollNo": "BSEF21M001",
+      "password": "inzamam",
+      "firstName": "Inzamam",
+      "lastName": "Amjad",
+      "gender": "Male",
+      "program": "Software Engineering"
+    },
+    {
+      "rollNo": "BSEF21M002",
+      "password": "amir",
+      "firstName": "Amir",
+      "lastName": "Jatt",
+      "gender": "Male",
+      "program": "Software Engineering"
+    }
+  ],
+  [
+    {
+      "teacherId": "ITF21004",
+      "password": "moon",
+      "firstName": "Muhammad Abul Kalam",
+      "lastName": "Asif",
+      "gender": "Male",
+      "department": "Information Technology",
+      "qualification": "MS Information Technology"
+    },
+    {
+      "teacherId": "ITF21032",
+      "password": "jafar",
+      "firstName": "Syed Jafar",
+      "lastName": "Naqvi",
+      "gender": "Male",
+      "department": "Information Technology",
+      "qualification": "MS Computer Science"
+    },
+    {
+      "teacherId": "ITF21036",
+      "password": "hazeez",
+      "firstName": "Hazeez",
+      "lastName": "Haider",
+      "gender": "Male",
+      "department": "Information Technology",
+      "qualification": "PhD Machine Learning"
+    },
+    {
+      "teacherId": "ITF21045",
+      "password": "abdullah",
+      "firstName": "Abdullah",
+      "lastName": "Aftab",
+      "gender": "Male",
+      "department": "Information Technology",
+      "qualification": "MS Artificial Intelligence"
+    },
+    {
+      "teacherId": "ITF21039",
+      "password": "hasnain",
+      "firstName": "Hasnain",
+      "lastName": "Shehzad",
+      "gender": "Male",
+      "department": "Information Technology",
+      "qualification": "PhD Information Technology"
+    },
+    {
+      "teacherId": "ITF21017",
+      "password": "mian",
+      "firstName": "Mian Ali",
+      "lastName": "Hasnain",
+      "gender": "Male",
+      "department": "Information Technology",
+      "qualification": "MS Computer Science"
+    },
+    {
+      "teacherId": "ITF21015",
+      "password": "harirah",
+      "firstName": "Hajirah",
+      "lastName": "Sheikh",
+      "gender": "Female",
+      "department": "Information Technology",
+      "qualification": "PhD Artificial Intelligence"
+    },
+    {
+      "teacherId": "ITF21008",
+      "password": "laiba",
+      "firstName": "Laiba",
+      "lastName": "Shaikh",
+      "gender": "Female",
+      "department": "Information Technology",
+      "qualification": "MS Software Engineering"
+    },
+    {
+      "teacherId": "SEF21001",
+      "password": "inzamam",
+      "firstName": "Inzamam",
+      "lastName": "Amjad",
+      "gender": "Male",
+      "department": "Software Engineering",
+      "qualification": "PhD Software Engineering"
+    },
+    {
+      "teacherId": "SEF21002",
+      "password": "amir",
+      "firstName": "Amir",
+      "lastName": "Jatt",
+      "gender": "Male",
+      "department": "Software Engineering",
+      "qualification": "PhD Data Science"
+    }
+  ]
 ]

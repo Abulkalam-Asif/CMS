@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, DataInput, Spinner } from "../components";
+import { Button, DataInput, H1, HR, Spinner } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleAlert } from "../store/slices/alertSlice";
 import { setUserData } from "../store/slices/userDataSlice";
@@ -10,7 +10,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const login = useSelector((state) => state.login);
   const navigate = useNavigate();
-  
+
   const loginFields = {
     teacher: ["teacherId", "Teacher ID"],
     student: ["rollNo", "Roll No."],
@@ -64,7 +64,7 @@ const Login = () => {
         dispatch(toggleAlert({ type: "error", message: error?.data?.message }));
       } else {
         dispatch(toggleAlert({ type: "success", message: data?.message }));
-        dispatch(setUserData(data));
+        dispatch(setUserData({ userType: login, data }));
         navigate("/student");
         localStorage.setItem("access_token", data?.access_token);
       }
@@ -73,11 +73,9 @@ const Login = () => {
 
   return (
     <>
-      <div className="p-2 max-w-screen-xl mx-auto">
-        <h1 className="font-bold my-4 text-pink-700 text-3xl capitalize">
-          Login as {login}
-        </h1>
-        <hr className="border-2 border-pink-700" />
+      <div>
+        <H1 className="capitalize" content={`Login as ${login}`} />
+        <HR />
         <form className="px-12">
           <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-16">
             <DataInput

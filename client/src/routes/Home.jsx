@@ -1,5 +1,5 @@
 import React from "react";
-import { LinkButton } from "../components";
+import { H1, LinkButton } from "../components";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../store/slices/loginSlice";
 
@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-2 mt-40">
-        <h1 className="font-bold my-8 text-pink-700 text-6xl">Login As</h1>
+        <H1 className="my-8" content="Login As" size="text-6xl" />
         <div className="flex gap-8 items-center">
           <LinkButton
             to="/login"

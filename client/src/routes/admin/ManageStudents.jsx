@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Button, DataInput, LinkButton, Spinner } from "../../components";
+import React, { useState } from "react";
+import {
+  Button,
+  DataInput,
+  H1,
+  HR,
+  LinkButton,
+  Spinner,
+} from "../../components";
 import { toggleAlert } from "../../store/slices/alertSlice";
 import { useDispatch } from "react-redux";
 import {
@@ -7,6 +14,9 @@ import {
   useLazyGetStudentSingleQuery,
 } from "../../store/api/adminApi/adminStudentApi";
 import Table from "../../containers/Table";
+import { setUserData } from "../../store/slices/userDataSlice";
+import { setAddOrEditStudent } from "../../store/slices/addOrEditStudentSlice";
+import { STUDENT_ROLL_NO_LENGTH } from "../../constants";
 
 const ManageStudents = () => {
   const dispatch = useDispatch();
@@ -40,7 +50,7 @@ const ManageStudents = () => {
       return;
     }
     // If data entered by the user is invalid, show the alert.
-    if (rollNo.length != 10) {
+    if (rollNo.length != STUDENT_ROLL_NO_LENGTH) {
       dispatch(
         toggleAlert({
           type: "error",
@@ -77,18 +87,22 @@ const ManageStudents = () => {
     }
   };
 
+  const editHandler = () => {
+    dispatch(setUserData({ userType: "student", data: studentData }));
+    dispatch(setAddOrEditStudent("edit"));
+  };
+
   return (
     <>
-      <div className="p-2 max-w-screen-xl mx-auto">
-        <h1 className="font-bold my-4 text-pink-700 text-3xl">
-          Manage Students
-        </h1>
-        <hr className="border-2 border-pink-700" />
+      <div>
+        <H1 content="Manage Students" />
+        <HR />
         <div className="flex gap-x-8 py-4 px-4">
           <LinkButton
             size="medium"
             to="/admin/manageStudents/addNewStudent"
             content="Add New Student"
+            onClick={() => dispatch(setAddOrEditStudent("add"))}
           />
           <LinkButton
             size="medium"
@@ -98,13 +112,18 @@ const ManageStudents = () => {
         </div>
         <form className="grid grid-cols-2 items-end gap-x-16 gap-y-4 mt-8">
           <DataInput
-            labelText="Search a Student to Edit or Delete"
+            labelText={
+              <>
+                Search a Student to <span className="text-pink-700">Edit</span>{" "}
+                or <span className="text-pink-700">Delete</span>
+              </>
+            }
             nameIdHtmlFor="searchStudent"
             placeholder="Enter roll no."
             onChange={handleInputChange}
             value={rollNo}
-            warning={rollNo.length != 10}
-            warningText={"Length should be exactly 10 characters"}
+            warning={rollNo.length != STUDENT_ROLL_NO_LENGTH}
+            warningText={`Length should be exactly ${STUDENT_ROLL_NO_LENGTH} characters`}
           />
           <Button content="Search" onClick={searchHandler} />
         </form>
@@ -119,7 +138,7 @@ const ManageStudents = () => {
           ) : (
             showStudentData && (
               <>
-                <hr className="border-2 border-pink-700 mb-8" />
+                <HR className="mb-4" />
                 <Table
                   data={[studentData?.student]}
                   keysToInclude={[
@@ -139,6 +158,8 @@ const ManageStudents = () => {
                 />
                 <div className="mt-4 flex justify-end gap-x-4">
                   <Button
+                    className="px-8"
+                    size="medium"
                     content="Delete"
                     onClick={deleteHandler}
                     customAttributes={{
@@ -146,7 +167,10 @@ const ManageStudents = () => {
                     }}
                   />
                   <LinkButton
+                    className="px-8"
+                    size="medium"
                     content="Edit"
+                    onClick={editHandler}
                     to="/admin/manageStudents/addNewStudent"
                   />
                 </div>

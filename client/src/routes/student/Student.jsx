@@ -5,11 +5,11 @@ import { toggleAlert } from "../../store/slices/alertSlice";
 import { useStudentLoginMutation } from "../../store/api/studentApi";
 import { setUserData } from "../../store/slices/userDataSlice";
 import { useState } from "react";
-import { Spinner } from "../../components";
+import { H1, HR, Spinner } from "../../components";
 
 const Student = () => {
   const [studentData, setStudentData] = useState(null);
-  const userData = useSelector((state) => state.userData?.student);
+  const userData = useSelector((state) => state.userData?.data?.student);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -52,15 +52,20 @@ const Student = () => {
           className="absolute right-1/2 translate-x-1/2 bottom-1/2 translate-y-1/2"
         />
       ) : (
-        <div className="max-w-screen-xl mx-auto">
-          <h1 className="font-bold my-4 text-2xl">
-            Welcome&nbsp;
-            <span className="text-3xl text-pink-700">
-              {studentData &&
-                `${studentData?.firstName} ${studentData?.lastName}`}
-            </span>
-          </h1>
-          <hr className="border-2 border-pink-700" />
+        <div>
+          <H1
+            size="text-2xl"
+            content={
+              <>
+                Welcome{" "}
+                <span className="text-3xl">
+                  {studentData &&
+                    `${studentData?.firstName} ${studentData?.lastName}`}
+                </span>
+              </>
+            }
+          />
+          <HR />
         </div>
       )}
     </>

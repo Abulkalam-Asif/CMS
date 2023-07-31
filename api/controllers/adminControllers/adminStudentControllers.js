@@ -30,7 +30,9 @@ const admin_student_get_single = async (req, res) => {
   }
   const keysToKeep = ["rollNo", "firstName", "lastName", "gender", "program"];
   try {
-    let foundStudent = await Student.findOne({ rollNo: req.params["rollNo"].toUpperCase() });
+    req.params["rollNo"] = req.params["rollNo"].toUpperCase();
+
+    let foundStudent = await Student.findOne({ rollNo: req.params["rollNo"] });
     if (!foundStudent) {
       return res.status(404).json({ message: "Student not found." });
     }
@@ -54,18 +56,18 @@ const admin_student_post = async (req, res) => {
   }
   try {
     // Converting rollNo to uppercase
-    req.body.rollNo = req.body.rollNo.toUpperCase();
+    req.body["rollNo"] = req.body["rollNo"].toUpperCase();
     // Removing extra spaces from all fields
     for (const key in req.body) {
       req.body[key] = removeExtraSpaces(req.body[key]);
     }
 
-    let student = await Student.findOne({ rollNo: req.body.rollNo });
+    let student = await Student.findOne({ rollNo: req.body["rollNo"] });
     if (student) {
       return res.status(400).json({ message: "A student with given Roll No. already exists." });
     }
     // Hashing the password
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const hashedPassword = await bcrypt.hash(req.body["password"], 10);
     student = new Student({ ...req.body, password: hashedPassword });
     await student.save();
     res.status(200).json({ message: "Student added successfully." });
@@ -78,7 +80,9 @@ const admin_student_post = async (req, res) => {
 // Deletes a student from database based on rollNo
 const admin_student_delete = async (req, res) => {
   try {
-    const { deletedCount } = await Student.deleteOne({ rollNo: req.params["rollNo"].toUpperCase() });
+    req.params["rollNo"] = req.params["rollNo"].toUpperCase();
+
+    const { deletedCount } = await Student.deleteOne({ rollNo: req.params["rollNo"] });
     if (deletedCount === 0) {
       res.status(404).json({ message: "Student not found for deletion. Please try again." });
     } else {
@@ -97,10 +101,23 @@ const admin_student_put = async (req, res) => {
     return res.status(402).json(errors.array());
   }
   try {
-    const student = await Student.findOneAndUpdate({ rollNo: req.params["rollNo"].toUpperCase() }, req.body);
+    req.params["rollNo"] = req.params["rollNo"].toUpperCase();
+    req.body["rollNo"] = req.body["rollNo"].toUpperCase();
 
-    res.json({ student });
-
+    let student = await Student.findOne({ rollNo: req.params["rollNo"] });
+    if (!student) {
+      // The rollNo which is sent in parameters is not found
+      return res.status(404).json({ message: "Student not found." });
+    }
+    student = await Student.findOne({ rollNo: req.body["rollNo"] });
+    if (student && req.body["rollNo"] !== req.params["rollNo"]) {
+      // A user with the new rollNo already exists (If the admin doesn't want to change the rollNo, it means that the rollNo in the body will be equal to the rollNo in the params. In that case, the operation will be legal and this if will not be executed)
+      return res.status(409).json({ message: `A student with roll no. ${req.body["rollNo"]} already exists.` });
+    }
+    const hashedPassword = await bcrypt.hash(req.body["password"], 10);
+    req.body.password = hashedPassword;
+    await Student.findOneAndUpdate({ rollNo: req.params["rollNo"] }, req.body);
+    res.status(200).json({ message: "Student updated successfully." });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal server error." });

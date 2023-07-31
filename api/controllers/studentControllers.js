@@ -24,14 +24,15 @@ const student_login = async (req, res) => {
     }
   } else {
     try {
-      req.body.rollNo = req.body.rollNo.toUpperCase();
+      req.body["rollNo"] = req.body["rollNo"].toUpperCase();
+
       // Checking if the student exists
-      const student = await Student.findOne({ rollNo: req.body.rollNo });
+      const student = await Student.findOne({ rollNo: req.body["rollNo"] });
       if (!student) {
         res.status(404).json({ message: "Student not found." });
       } else {
         // Matching the password with hashed password
-        const passwordCheck = await bcrypt.compare(req.body.password, student.password);
+        const passwordCheck = await bcrypt.compare(req.body["password"], student.password);
         if (passwordCheck) {
           // sending response with JWT token
           const jwtData = { rollNo: student.rollNo };

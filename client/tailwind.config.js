@@ -6,7 +6,15 @@ export default {
     'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'right': 'right',
+        'grid-template-rows': 'grid-template-rows',
+      },
+      listStyleType: {
+        square: 'square'
+      }
+    }
   },
   plugins: [
     require('flowbite/plugin')

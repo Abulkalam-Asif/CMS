@@ -28,7 +28,7 @@ const DataInput = (props) => {
           )}
         </div>
         <input
-          className="border-2 w-full border-gray-300 rounded-lg p-2 focus:border-black"
+          className="border-2 w-full border-gray-300 rounded-lg p-2 placeholder:text-gray-400 focus:border-black"
           type={type}
           name={nameIdHtmlFor}
           id={nameIdHtmlFor}

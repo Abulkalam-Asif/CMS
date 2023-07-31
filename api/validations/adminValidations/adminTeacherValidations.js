@@ -1,17 +1,18 @@
 const { body, param } = require('express-validator');
 
-const admin_student_get_single_validation = [
-  param('rollNo')
+
+const admin_teacher_get_single_validation = [
+  param('teacherId')
     .optional()
-    .isString().withMessage('rollNo should be a string.')
-    .isLength({ min: 10, max: 10 }).withMessage('rollNo should be exactly 10 characters long.'),
+    .isString().withMessage('teacherId should be a string.')
+    .isLength({ min: 8, max: 8 }).withMessage('teacherId should be exactly 8 characters long.'),
 ]
 
-const admin_student_post_validation = [
-  body('rollNo')
-    .notEmpty().withMessage('rollNo is required.')
-    .isString().withMessage('rollNo should be a string.')
-    .isLength({ min: 10, max: 10 }).withMessage('rollNo should be exactly 10 characters long.'),
+const admin_teacher_post_validation = [
+  body('teacherId')
+    .notEmpty().withMessage('teacherId is required.')
+    .isString().withMessage('teacherId should be a string.')
+    .isLength({ min: 8, max: 8 }).withMessage('teacherId should be exactly 8 characters long.'),
 
   body('firstName')
     .notEmpty().withMessage('firstName is required.')
@@ -33,20 +34,25 @@ const admin_student_post_validation = [
     .isString().withMessage('gender should be a string.')
     .isIn(["Male", "Female"]).withMessage("gender should be either Male or Female."),
 
-  body('program')
-    .notEmpty().withMessage('program is required.')
-    .isString().withMessage('program should be a string.')
+  body('qualification')
+    .notEmpty().withMessage('qualification is required.')
+    .isString().withMessage('qualification should be a string.')
+    .isLength({ min: 4 }).withMessage('qualification should be minimum 4 characters long.'),
+
+  body('department')
+    .notEmpty().withMessage('department is required.')
+    .isString().withMessage('department should be a string.')
     .isIn(["Computer Science",
       "Information Technology",
       "Software Engineering",
-      "Data Science",]).withMessage("program should be either Computer Science, Information Technology, Software Engineering or Data Science"),
-]
+      "Data Science",]).withMessage("department should be either Computer Science, Information Technology, Software Engineering or Data Science"),
+];
 
-const admin_student_put_validation = [
-  body('rollNo')
+const admin_teacher_put_validation = [
+  body('teacherId')
     .optional()
-    .isString().withMessage('rollNo should be a string.')
-    .isLength({ min: 10, max: 10 }).withMessage('rollNo should be exactly 10 characters long.'),
+    .isString().withMessage('teacherId should be a string.')
+    .isLength({ min: 8, max: 8 }).withMessage('teacherId should be exactly 8 characters long.'),
 
   body('firstName')
     .optional()
@@ -68,13 +74,19 @@ const admin_student_put_validation = [
     .isString().withMessage('gender should be a string.')
     .isIn(["Male", "Female"]).withMessage("gender should be either Male or Female."),
 
-  body('program')
+  body('qualification')
     .optional()
-    .isString().withMessage('program should be a string.')
+    .isString().withMessage('qualification should be a string.')
+    .isLength({ min: 4 }).withMessage('qualification should be minimum 4 characters long.'),
+
+  body('department')
+    .optional()
+    .isString().withMessage('department should be a string.')
     .isIn(["Computer Science",
       "Information Technology",
       "Software Engineering",
-      "Data Science",]).withMessage("program should be either Computer Science, Information Technology, Software Engineering or Data Science"),
-]
+      "Data Science",]).withMessage("department should be either Computer Science, Information Technology, Software Engineering or Data Science"),
+];
 
-module.exports = { admin_student_get_single_validation, admin_student_post_validation, admin_student_put_validation };
+
+module.exports = { admin_teacher_get_single_validation, admin_teacher_post_validation, admin_teacher_put_validation };

@@ -16,13 +16,20 @@ export const adminStudentApi = baseApi.injectEndpoints({
       })
     }),
     deleteStudent: builder.mutation({
-      query: (id) => ({
-        url: `/admin/student/${id}`,
+      query: (rollNo) => ({
+        url: `/admin/student/${rollNo}`,
         method: "DELETE",
       })
-    })
+    }),
+    updateStudent: builder.mutation({
+      query: ({ rollNo, body }) => ({
+        url: `/admin/student/${rollNo}`,
+        method: "PUT",
+        body,
+      })
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useGetStudentsAllQuery, useLazyGetStudentSingleQuery, useAddStudentMutation, useDeleteStudentMutation } = adminStudentApi;
+export const { useGetStudentsAllQuery, useLazyGetStudentSingleQuery, useAddStudentMutation, useDeleteStudentMutation, useUpdateStudentMutation } = adminStudentApi;

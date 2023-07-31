@@ -49,7 +49,7 @@ const Table = (props) => {
     const { data: mutationData, error: mutationError } =
       await deleteDataMutation.caller(rollNo);
     if (mutationError) {
-      dispatch(toggleAlert({ type: "error", message: error?.data?.message }));
+      dispatch(toggleAlert({ type: "error", message: mutationError?.data?.message }));
     } else {
       dispatch(
         toggleAlert({ type: "success", message: mutationData?.message })
@@ -61,10 +61,12 @@ const Table = (props) => {
 
   return deleteDataMutation?.isLoading ? (
     <>
-      <Spinner
-        size="w-24 h-24"
-        className="absolute right-1/2 translate-x-1/2 bottom-1/2 translate-y-1/2"
-      />
+      <div className="relative">
+        <Spinner
+          size="w-24 h-24"
+          className="absolute right-1/2 translate-x-1/2 bottom-1/2 translate-y-1/2"
+        />
+      </div>
     </>
   ) : (
     <>

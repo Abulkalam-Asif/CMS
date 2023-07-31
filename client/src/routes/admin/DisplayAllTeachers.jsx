@@ -3,71 +3,72 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { H1, HR, LinkButton, Spinner } from "../../components";
 import {
-  useGetStudentsAllQuery,
-  useDeleteStudentMutation,
-} from "../../store/api/adminApi/adminStudentApi";
+  useDeleteTeacherMutation,
+  useGetTeachersAllQuery,
+} from "../../store/api/adminApi/adminTeacherApi";
 import Table from "../../containers/Table";
 
-const DisplayAllStudents = () => {
+const DisplayAllTeachers = () => {
   const {
-    data: studentsData,
-    isLoading: isGettingStudents,
-    refetch: refetchStudents,
-  } = useGetStudentsAllQuery();
-  const [deleteStudentMutation, { isLoading: isDeletingStudent }] =
-    useDeleteStudentMutation();
+    data: teachersData,
+    isLoading: isGettingTeachers,
+    refetch: refetchTeachers,
+  } = useGetTeachersAllQuery();
+  const [deleteTeacherMutation, { isLoading: isDeletingTeacher }] =
+    useDeleteTeacherMutation();
 
   return (
     <>
       <div>
         <div className="flex justify-between items-center">
-          <H1 content="Students List" />
+          <H1 content="Teachers List" />
           <LinkButton
-            to="/admin/manageStudents"
+            to="/admin/manageTeachers"
             content={
               <>
                 <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
-                Back to Manage Students
+                Back to Manage Teachers
               </>
             }
           />
         </div>
         <HR />
         <div className="mt-4">
-          {isGettingStudents ? (
+          {isGettingTeachers ? (
             <Spinner
               size="w-24 h-24"
               className="absolute right-1/2 translate-x-1/2 bottom-1/2 translate-y-1/2"
             />
           ) : (
             <Table
-              data={studentsData?.studentsList}
+              data={teachersData?.teachersList}
               noData={
                 <>
                   <span className="mr-4 text-lg font-semibold">
-                    No Students found!
+                    No Teachers found!
                   </span>
                   <LinkButton
-                    to="/admin/manageStudents/addNewStudent"
-                    content="Add New Student"
+                    to="/admin/manageTeachers/addNewTeacher"
+                    content="Add New Teacher"
                   />
                 </>
               }
               keysToInclude={[
-                ["rollNo", "Roll No."],
+                ["teacherId", "Teacher ID"],
                 ["firstName", "First Name"],
                 ["lastName", "Last Name"],
                 ["gender", "Gender"],
-                ["program", "Program"],
+                ["qualification", "Qualification"],
+                ["department", "Department"],
                 ["action", "Action"],
               ]}
               excludeSort={["action"]}
               deleteDataMutation={{
-                caller: deleteStudentMutation,
-                isLoading: isDeletingStudent,
+                caller: deleteTeacherMutation,
+                isLoading: isDeletingTeacher,
               }}
-              deleteButtonName="rollNo"
-              refetchData={refetchStudents}
+              deleteButtonName="teacherId"
+              refetchData={refetchTeachers}
             />
           )}
         </div>
@@ -76,4 +77,4 @@ const DisplayAllStudents = () => {
   );
 };
 
-export default DisplayAllStudents;
+export default DisplayAllTeachers;

@@ -1,15 +1,28 @@
 import React from "react";
-import { LinkButton } from "../../components";
+import { H1, HR, LinkButton } from "../../components";
 
 const Admin = () => {
   return (
     <>
-      <div className="p-2">
-        <h1 className="font-bold">Admin Panel</h1>
-        <div className="flex gap-2 py-4 px-4">
-          <LinkButton to="/admin/manageStudents" content="Manage Students" />
-          <LinkButton to="/admin/manageTeachers" content="Manage Teachers" />
-          <LinkButton to="/admin/manageCourses" content="Manage Courses" />
+      <div>
+        <H1 content="Admin Panel" />
+        <HR />
+        <div className="flex gap-x-8 py-4 px-4">
+          <LinkButton
+            to="/admin/manageStudents"
+            size="medium"
+            content="Manage Students"
+          />
+          <LinkButton
+            to="/admin/manageTeachers"
+            size="medium"
+            content="Manage Teachers"
+          />
+          <LinkButton
+            to="/admin/manageCourses"
+            size="medium"
+            content="Manage Courses"
+          />
         </div>
       </div>
     </>

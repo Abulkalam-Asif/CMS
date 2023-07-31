@@ -1,0 +1,274 @@
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  DataInput,
+  Spinner,
+  Select,
+  LinkButton,
+  H1,
+  HR,
+} from "../../components";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  useAddStudentMutation,
+  useUpdateStudentMutation,
+} from "../../store/api/adminApi/adminStudentApi";
+import { toggleAlert } from "../../store/slices/alertSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  STUDENT_FIRSTNAME_MAX_LENGTH,
+  STUDENT_FIRSTNAME_MIN_LENGTH,
+  STUDENT_LASTNAME_MAX_LENGTH,
+  STUDENT_LASTNAME_MIN_LENGTH,
+  STUDENT_PASSWORD_MIN_LENGTH,
+  STUDENT_ROLL_NO_LENGTH,
+} from "../../constants";
+
+const AddEditStudent = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [addStudent, { isLoading: isAddStudentLoading }] =
+    useAddStudentMutation();
+  const [updateStudent] = useUpdateStudentMutation();
+  const studentData = useSelector((state) => state.userData?.data?.student);
+  const addOrEditStudent = useSelector((state) => state.addOrEditStudent);
+
+  const defaultStudent = {
+    rollNo: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    gender: "Male",
+    program: "Computer Science",
+  };
+  const [student, setStudent] = useState(null);
+  const [updateButtonName, setUpdateButtonName] = useState(null);
+
+  useEffect(() => {
+    if (addOrEditStudent === "edit") {
+      setStudent(studentData);
+      setUpdateButtonName(studentData?.rollNo);
+    } else {
+      setStudent(defaultStudent);
+    }
+  }, []);
+
+  const handleInputChange = (e) => {
+    setStudent({ ...student, [e.target.name]: e.target.value });
+  };
+
+  const addStudentHandler = async (e) => {
+    e.preventDefault();
+    // Removing extra spaces from input fields
+    const trimmedStudent = {};
+    for (let key in student) {
+      trimmedStudent[key] = student[key].replace(/\s+/g, " ").trim();
+    }
+    // If extra spaces were found and removed, show alert to resubmit the form.
+    for (let key in student) {
+      if (trimmedStudent[key].localeCompare(student[key]) !== 0) {
+        dispatch(
+          toggleAlert({
+            type: "error",
+            message: `Extra spaces found and removed from the fields. Please resubmit.`,
+          })
+        );
+        setStudent(trimmedStudent);
+        return;
+      }
+    }
+    // If data entered by the user is invalid, show the alert.
+    if (
+      student?.firstName.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
+      student?.firstName.length > STUDENT_FIRSTNAME_MAX_LENGTH ||
+      student?.lastName.length < STUDENT_LASTNAME_MIN_LENGTH ||
+      student?.lastName.length > STUDENT_LASTNAME_MAX_LENGTH ||
+      student?.rollNo.length != STUDENT_ROLL_NO_LENGTH ||
+      student?.password.length < STUDENT_PASSWORD_MIN_LENGTH
+    ) {
+      dispatch(
+        toggleAlert({
+          type: "error",
+          message: "Please fill the form with valid data.",
+        })
+      );
+    } else {
+      const { error, data } = await addStudent(student);
+      if (error) {
+        dispatch(toggleAlert({ type: "error", message: error.data.message }));
+      } else {
+        dispatch(toggleAlert({ type: "success", message: data?.message }));
+        setStudent(defaultStudent);
+      }
+    }
+  };
+  const updateStudentHandler = async (e) => {
+    e.preventDefault();
+    // Removing extra spaces from input fields
+    const trimmedStudent = {};
+    for (let key in student) {
+      trimmedStudent[key] = student[key].replace(/\s+/g, " ").trim();
+    }
+    // If extra spaces were found and removed, show alert to resubmit the form.
+    for (let key in student) {
+      if (trimmedStudent[key].localeCompare(student[key]) !== 0) {
+        dispatch(
+          toggleAlert({
+            type: "error",
+            message: `Extra spaces found and removed from the fields. Please resubmit.`,
+          })
+        );
+        setStudent(trimmedStudent);
+        return;
+      }
+    }
+    // If data entered by the user is invalid, show the alert.
+    if (
+      student?.firstName.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
+      student?.firstName.length > STUDENT_FIRSTNAME_MAX_LENGTH ||
+      student?.lastName.length < STUDENT_LASTNAME_MIN_LENGTH ||
+      student?.lastName.length > STUDENT_LASTNAME_MAX_LENGTH ||
+      student?.rollNo.length != STUDENT_ROLL_NO_LENGTH ||
+      student?.password.length < STUDENT_PASSWORD_MIN_LENGTH
+    ) {
+      dispatch(
+        toggleAlert({
+          type: "error",
+          message: "Please fill the form with valid data.",
+        })
+      );
+    } else {
+      const { error, data } = await updateStudent({
+        rollNo: e.target.name,
+        body: student,
+      });
+      if (error) {
+        dispatch(toggleAlert({ type: "error", message: error.data.message }));
+      } else {
+        dispatch(toggleAlert({ type: "success", message: data?.message }));
+        setStudent(defaultStudent);
+        navigate("/admin/manageStudents");
+      }
+    }
+  };
+
+  return (
+    <>
+      <div>
+        <div className="flex justify-between items-center">
+          <H1
+            className="font-bold my-4 text-pink-700 text-3xl"
+            content={`${
+              addOrEditStudent === "edit" ? "Edit Student" : "Add New Student"
+            }`}
+          />
+          <LinkButton
+            to="/admin/manageStudents"
+            content={
+              <>
+                <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
+                Back to Manage Students
+              </>
+            }
+          />
+        </div>
+        <HR />
+        <form className="px-12 pt-8">
+          <div className="grid grid-cols-2 gap-x-16 gap-y-4">
+            <DataInput
+              labelText="First Name"
+              nameIdHtmlFor="firstName"
+              placeholder="Enter first name"
+              value={student?.firstName}
+              onChange={handleInputChange}
+              warning={
+                student?.firstName.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
+                student?.firstName.length > STUDENT_FIRSTNAME_MAX_LENGTH
+              }
+              warningText={`Length should be ${STUDENT_FIRSTNAME_MIN_LENGTH}-${STUDENT_FIRSTNAME_MAX_LENGTH} characters`}
+            />
+            <DataInput
+              labelText="Last Name"
+              nameIdHtmlFor="lastName"
+              onChange={handleInputChange}
+              value={student?.lastName}
+              placeholder="Enter last name"
+              warning={
+                student?.lastName.length < STUDENT_LASTNAME_MIN_LENGTH ||
+                student?.lastName.length > STUDENT_LASTNAME_MAX_LENGTH
+              }
+              warningText={`Length should be ${STUDENT_FIRSTNAME_MIN_LENGTH}-${STUDENT_FIRSTNAME_MAX_LENGTH} characters`}
+            />
+            <DataInput
+              labelText="Roll No."
+              nameIdHtmlFor="rollNo"
+              placeholder="Sample [BITF21M001]"
+              onChange={handleInputChange}
+              value={student?.rollNo}
+              warning={student?.rollNo.length != STUDENT_ROLL_NO_LENGTH}
+              warningText={`Length should be exactly ${STUDENT_ROLL_NO_LENGTH} characters`}
+            />
+            <DataInput
+              labelText="Assign a Password"
+              nameIdHtmlFor="password"
+              onChange={handleInputChange}
+              value={student?.password}
+              placeholder="Assign a password to the student"
+              warning={student?.password.length < STUDENT_PASSWORD_MIN_LENGTH}
+              warningText={`Length should be minimum ${STUDENT_PASSWORD_MIN_LENGTH} characters`}
+            />
+            <Select
+              nameIdHtmlFor="gender"
+              labelText="Gender"
+              onChange={handleInputChange}
+              initialValue={student?.gender}
+              options={["Male", "Female"]}
+            />
+            <Select
+              nameIdHtmlFor="program"
+              labelText="Program"
+              onChange={handleInputChange}
+              initialValue={student?.program}
+              options={[
+                "Computer Science",
+                "Information Technology",
+                "Software Engineering",
+                "Data Science",
+              ]}
+            />
+          </div>
+          <div className="flex mt-8 justify-center gap-4">
+            {addOrEditStudent === "edit" ? (
+              <Button
+                content={
+                  <>{false ? <Spinner size="w-6 h-6" /> : "Update Student"}</>
+                }
+                onClick={updateStudentHandler}
+                customAttributes={{
+                  name: updateButtonName,
+                }}
+              />
+            ) : (
+              <Button
+                content={
+                  <>
+                    {isAddStudentLoading ? (
+                      <Spinner size="w-6 h-6" />
+                    ) : (
+                      "Add Student"
+                    )}
+                  </>
+                }
+                onClick={addStudentHandler}
+              />
+            )}
+          </div>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default AddEditStudent;

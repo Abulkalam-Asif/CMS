@@ -1,7 +1,7 @@
 import React from "react";
 
 const Select = (props) => {
-  const { nameIdHtmlFor, labelText, options, onChange } = props;
+  const { nameIdHtmlFor, labelText, options, onChange, initialValue } = props;
   return (
     <>
       <div>
@@ -14,6 +14,7 @@ const Select = (props) => {
           id={nameIdHtmlFor}
           name={nameIdHtmlFor}
           onChange={onChange}
+          value={initialValue}
           className="border-2 w-full border-gray-300 rounded-lg px-4 py-2 focus:border-black">
           {options?.map((option, index) => (
             <option key={index} value={option}>
