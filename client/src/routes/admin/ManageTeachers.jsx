@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Button, DataInput, H1, HR, LinkButton } from "../../components";
+import {
+  Button,
+  DataInput,
+  H1,
+  HR,
+  LinkButton,
+  Spinner,
+} from "../../components";
 import { useDispatch } from "react-redux";
 import { setAddOrEditTeacher } from "../../store/slices/addOrEditTeacherSlice";
 import {
@@ -7,6 +14,9 @@ import {
   useLazyGetTeacherSingleQuery,
 } from "../../store/api/adminApi/adminTeacherApi";
 import { TEACHER_ID_LENGTH } from "../../constants";
+import Table from "../../containers/Table";
+import { toggleAlert } from "../../store/slices/alertSlice";
+import { setUserData } from "../../store/slices/userDataSlice";
 
 const ManageTeachers = () => {
   const dispatch = useDispatch();
@@ -20,15 +30,15 @@ const ManageTeachers = () => {
     useDeleteTeacherMutation();
 
   const handleInputChange = (e) => {
-    setRollNo(e.target.value);
+    setTeacherId(e.target.value);
   };
 
   const searchHandler = async (e) => {
     e.preventDefault();
-    // Removing extra spaces from roll no
-    const trimmedRollNo = rollNo.replace(/\s+/g, " ").trim();
+    // Removing extra spaces from teacher ID
+    const trimmedTeacherId = teacherId.replace(/\s+/g, " ").trim();
     // If extra spaces were found and removed, show alert to resubmit the form.
-    if (trimmedRollNo.localeCompare(rollNo) !== 0) {
+    if (trimmedTeacherId.localeCompare(teacherId) !== 0) {
       dispatch(
         toggleAlert({
           type: "error",
@@ -36,19 +46,19 @@ const ManageTeachers = () => {
           seconds: 4000,
         })
       );
-      setRollNo(trimmedRollNo);
+      setTeacherId(trimmedTeacherId);
       return;
     }
     // If data entered by the user is invalid, show the alert.
-    if (rollNo.length != STUDENT_ROLL_NO_LENGTH) {
+    if (teacherId.length != TEACHER_ID_LENGTH) {
       dispatch(
         toggleAlert({
           type: "error",
-          message: "Please enter valid roll no.",
+          message: "Please enter valid teacher ID.",
         })
       );
     } else {
-      const { error } = await getTeacherData(rollNo);
+      const { error } = await getTeacherData(teacherId);
       if (error) {
         setShowTeacherData(false);
         dispatch(
@@ -61,6 +71,25 @@ const ManageTeachers = () => {
         setShowTeacherData(true);
       }
     }
+  };
+
+  const deleteHandler = async (e) => {
+    const teacherId = e?.target?.name;
+    const { data: mutationData, error: mutationError } =
+      await deleteTeacherMutation(teacherId);
+    if (mutationError) {
+      dispatch(toggleAlert({ type: "error", message: error?.data?.message }));
+    } else {
+      dispatch(
+        toggleAlert({ type: "success", message: mutationData?.message })
+      );
+      setShowTeacherData(false);
+    }
+  };
+
+  const editHandler = () => {
+    dispatch(setUserData({ userType: "teacher", data: teacherData }));
+    dispatch(setAddOrEditTeacher("edit"));
   };
 
   return (
@@ -98,7 +127,7 @@ const ManageTeachers = () => {
           />
           <Button content="Search" onClick={searchHandler} />
         </form>
-        {/* <div className="relative mt-8">
+        <div className="relative mt-8">
           {isFetchingTeacherData || isDeletingTeacher ? (
             <>
               <Spinner
@@ -113,18 +142,20 @@ const ManageTeachers = () => {
                 <Table
                   data={[teacherData?.teacher]}
                   keysToInclude={[
-                    ["teacherId", "Roll No."],
+                    ["teacherId", "Teacher ID"],
                     ["firstName", "First Name"],
                     ["lastName", "Last Name"],
                     ["gender", "Gender"],
-                    ["program", "Program"],
+                    ["qualification", "Qualification"],
+                    ["department", "Department"],
                   ]}
                   excludeSort={[
                     "teacherId",
                     "firstName",
                     "lastName",
                     "gender",
-                    "program",
+                    "qualification",
+                    "department",
                   ]}
                 />
                 <div className="mt-4 flex justify-end gap-x-4">
@@ -148,7 +179,7 @@ const ManageTeachers = () => {
               </>
             )
           )}
-        </div> */}
+        </div>
       </div>
     </>
   );

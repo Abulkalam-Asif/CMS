@@ -66,11 +66,15 @@ const AddEditTeacher = () => {
     // Removing extra spaces from input fields
     const trimmedTeacher = {};
     for (let key in teacher) {
-      trimmedTeacher[key] = teacher[key].replace(/\s+/g, " ").trim();
+      if (typeof teacher[key] === "string")
+        trimmedTeacher[key] = teacher[key].replace(/\s+/g, " ").trim();
     }
     // If extra spaces were found and removed, show alert to resubmit the form.
     for (let key in teacher) {
-      if (trimmedTeacher[key].localeCompare(teacher[key]) !== 0) {
+      if (
+        typeof trimmedTeacher[key] === "string" &&
+        trimmedTeacher[key].localeCompare(teacher[key]) !== 0
+      ) {
         dispatch(
           toggleAlert({
             type: "error",
@@ -83,13 +87,18 @@ const AddEditTeacher = () => {
     }
     // If data entered by the user is invalid, show the alert.
     if (
-      teacher?.firstName.length < TEACHER_FIRSTNAME_MIN_LENGTH ||
-      teacher?.firstName.length > TEACHER_FIRSTNAME_MAX_LENGTH ||
-      teacher?.lastName.length < TEACHER_LASTNAME_MIN_LENGTH ||
-      teacher?.lastName.length > TEACHER_LASTNAME_MAX_LENGTH ||
-      teacher?.teacherId.length != TEACHER_ID_LENGTH ||
-      teacher?.password.length < TEACHER_PASSWORD_MIN_LENGTH ||
-      teacher?.qualification.length < TEACHER_QUALIFICATION_MIN_LENGTH
+      !teacher?.firstName ||
+      !teacher?.lastName ||
+      !teacher?.teacherId ||
+      !teacher?.password ||
+      !teacher?.qualification ||
+      teacher?.firstName?.length < TEACHER_FIRSTNAME_MIN_LENGTH ||
+      teacher?.firstName?.length > TEACHER_FIRSTNAME_MAX_LENGTH ||
+      teacher?.lastName?.length < TEACHER_LASTNAME_MIN_LENGTH ||
+      teacher?.lastName?.length > TEACHER_LASTNAME_MAX_LENGTH ||
+      teacher?.teacherId?.length != TEACHER_ID_LENGTH ||
+      teacher?.password?.length < TEACHER_PASSWORD_MIN_LENGTH ||
+      teacher?.qualification?.length < TEACHER_QUALIFICATION_MIN_LENGTH
     ) {
       dispatch(
         toggleAlert({
@@ -112,11 +121,15 @@ const AddEditTeacher = () => {
     // Removing extra spaces from input fields
     const trimmedTeacher = {};
     for (let key in teacher) {
-      trimmedTeacher[key] = teacher[key].replace(/\s+/g, " ").trim();
+      if (typeof teacher[key] === "string")
+        trimmedTeacher[key] = teacher[key].replace(/\s+/g, " ").trim();
     }
     // If extra spaces were found and removed, show alert to resubmit the form.
     for (let key in teacher) {
-      if (trimmedTeacher[key].localeCompare(teacher[key]) !== 0) {
+      if (
+        typeof trimmedTeacher[key] === "string" &&
+        trimmedTeacher[key].localeCompare(teacher[key]) !== 0
+      ) {
         dispatch(
           toggleAlert({
             type: "error",
@@ -129,13 +142,18 @@ const AddEditTeacher = () => {
     }
     // If data entered by the user is invalid, show the alert.
     if (
-      teacher?.firstName.length < TEACHER_FIRSTNAME_MIN_LENGTH ||
-      teacher?.firstName.length > TEACHER_FIRSTNAME_MAX_LENGTH ||
-      teacher?.lastName.length < TEACHER_LASTNAME_MIN_LENGTH ||
-      teacher?.lastName.length > TEACHER_LASTNAME_MAX_LENGTH ||
-      teacher?.teacherId.length != TEACHER_ID_LENGTH ||
-      teacher?.password.length < TEACHER_PASSWORD_MIN_LENGTH ||
-      teacher?.qualification.length < TEACHER_QUALIFICATION_MIN_LENGTH
+      !teacher?.firstName ||
+      !teacher?.lastName ||
+      !teacher?.teacherId ||
+      !teacher?.password ||
+      !teacher?.qualification ||
+      teacher?.firstName?.length < TEACHER_FIRSTNAME_MIN_LENGTH ||
+      teacher?.firstName?.length > TEACHER_FIRSTNAME_MAX_LENGTH ||
+      teacher?.lastName?.length < TEACHER_LASTNAME_MIN_LENGTH ||
+      teacher?.lastName?.length > TEACHER_LASTNAME_MAX_LENGTH ||
+      teacher?.teacherId?.length != TEACHER_ID_LENGTH ||
+      teacher?.password?.length < TEACHER_PASSWORD_MIN_LENGTH ||
+      teacher?.qualification?.length < TEACHER_QUALIFICATION_MIN_LENGTH
     ) {
       dispatch(
         toggleAlert({
@@ -188,8 +206,9 @@ const AddEditTeacher = () => {
               value={teacher?.firstName}
               onChange={handleInputChange}
               warning={
-                teacher?.firstName.length < TEACHER_FIRSTNAME_MIN_LENGTH ||
-                teacher?.firstName.length > TEACHER_FIRSTNAME_MAX_LENGTH
+                !teacher?.firstName ||
+                teacher?.firstName?.length < TEACHER_FIRSTNAME_MIN_LENGTH ||
+                teacher?.firstName?.length > TEACHER_FIRSTNAME_MAX_LENGTH
               }
               warningText={`Length should be ${TEACHER_FIRSTNAME_MIN_LENGTH}-${TEACHER_FIRSTNAME_MAX_LENGTH} characters`}
             />
@@ -200,8 +219,9 @@ const AddEditTeacher = () => {
               value={teacher?.lastName}
               placeholder="Enter last name"
               warning={
-                teacher?.lastName.length < TEACHER_LASTNAME_MIN_LENGTH ||
-                teacher?.lastName.length > TEACHER_LASTNAME_MAX_LENGTH
+                !teacher?.lastName ||
+                teacher?.lastName?.length < TEACHER_LASTNAME_MIN_LENGTH ||
+                teacher?.lastName?.length > TEACHER_LASTNAME_MAX_LENGTH
               }
               warningText={`Length should be ${TEACHER_LASTNAME_MIN_LENGTH}-${TEACHER_LASTNAME_MAX_LENGTH} characters`}
             />
@@ -211,7 +231,10 @@ const AddEditTeacher = () => {
               placeholder="Sample [ITF21001]"
               onChange={handleInputChange}
               value={teacher?.teacherId}
-              warning={teacher?.teacherId.length != TEACHER_ID_LENGTH}
+              warning={
+                !teacher?.teacherId ||
+                teacher?.teacherId?.length != TEACHER_ID_LENGTH
+              }
               warningText={`Length should be exactly ${TEACHER_ID_LENGTH} characters`}
             />
             <DataInput
@@ -220,7 +243,10 @@ const AddEditTeacher = () => {
               onChange={handleInputChange}
               value={teacher?.password}
               placeholder="Assign a password to the teacher"
-              warning={teacher?.password.length < TEACHER_PASSWORD_MIN_LENGTH}
+              warning={
+                !teacher?.password ||
+                teacher?.password?.length < TEACHER_PASSWORD_MIN_LENGTH
+              }
               warningText={`Length should be minimum ${TEACHER_PASSWORD_MIN_LENGTH} characters`}
             />
             <DataInput
@@ -230,7 +256,9 @@ const AddEditTeacher = () => {
               value={teacher?.qualification}
               placeholder="Sample [MS Information Technology]"
               warning={
-                teacher?.password.length < TEACHER_QUALIFICATION_MIN_LENGTH
+                !teacher?.qualification ||
+                teacher?.qualification?.length <
+                  TEACHER_QUALIFICATION_MIN_LENGTH
               }
               warningText={`Length should be minimum ${TEACHER_QUALIFICATION_MIN_LENGTH} characters`}
             />

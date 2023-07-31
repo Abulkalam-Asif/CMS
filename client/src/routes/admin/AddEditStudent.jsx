@@ -64,11 +64,15 @@ const AddEditStudent = () => {
     // Removing extra spaces from input fields
     const trimmedStudent = {};
     for (let key in student) {
-      trimmedStudent[key] = student[key].replace(/\s+/g, " ").trim();
+      if (typeof student[key] === "string")
+        trimmedStudent[key] = student[key].replace(/\s+/g, " ").trim();
     }
     // If extra spaces were found and removed, show alert to resubmit the form.
     for (let key in student) {
-      if (trimmedStudent[key].localeCompare(student[key]) !== 0) {
+      if (
+        typeof trimmedStudent[key] === "string" &&
+        trimmedStudent[key].localeCompare(student[key]) !== 0
+      ) {
         dispatch(
           toggleAlert({
             type: "error",
@@ -81,12 +85,16 @@ const AddEditStudent = () => {
     }
     // If data entered by the user is invalid, show the alert.
     if (
-      student?.firstName.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
-      student?.firstName.length > STUDENT_FIRSTNAME_MAX_LENGTH ||
-      student?.lastName.length < STUDENT_LASTNAME_MIN_LENGTH ||
-      student?.lastName.length > STUDENT_LASTNAME_MAX_LENGTH ||
-      student?.rollNo.length != STUDENT_ROLL_NO_LENGTH ||
-      student?.password.length < STUDENT_PASSWORD_MIN_LENGTH
+      !student?.firstName ||
+      !student?.lastName ||
+      !student?.rollNo ||
+      !student?.password ||
+      student?.firstName?.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
+      student?.firstName?.length > STUDENT_FIRSTNAME_MAX_LENGTH ||
+      student?.lastName?.length < STUDENT_LASTNAME_MIN_LENGTH ||
+      student?.lastName?.length > STUDENT_LASTNAME_MAX_LENGTH ||
+      student?.rollNo?.length != STUDENT_ROLL_NO_LENGTH ||
+      student?.password?.length < STUDENT_PASSWORD_MIN_LENGTH
     ) {
       dispatch(
         toggleAlert({
@@ -109,11 +117,15 @@ const AddEditStudent = () => {
     // Removing extra spaces from input fields
     const trimmedStudent = {};
     for (let key in student) {
-      trimmedStudent[key] = student[key].replace(/\s+/g, " ").trim();
+      if (typeof student[key] === "string")
+        trimmedStudent[key] = student[key].replace(/\s+/g, " ").trim();
     }
     // If extra spaces were found and removed, show alert to resubmit the form.
     for (let key in student) {
-      if (trimmedStudent[key].localeCompare(student[key]) !== 0) {
+      if (
+        typeof trimmedStudent[key] === "string" &&
+        trimmedStudent[key].localeCompare(student[key]) !== 0
+      ) {
         dispatch(
           toggleAlert({
             type: "error",
@@ -126,12 +138,16 @@ const AddEditStudent = () => {
     }
     // If data entered by the user is invalid, show the alert.
     if (
-      student?.firstName.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
-      student?.firstName.length > STUDENT_FIRSTNAME_MAX_LENGTH ||
-      student?.lastName.length < STUDENT_LASTNAME_MIN_LENGTH ||
-      student?.lastName.length > STUDENT_LASTNAME_MAX_LENGTH ||
-      student?.rollNo.length != STUDENT_ROLL_NO_LENGTH ||
-      student?.password.length < STUDENT_PASSWORD_MIN_LENGTH
+      !student?.firstName ||
+      !student?.lastName ||
+      !student?.rollNo ||
+      !student?.password ||
+      student?.firstName?.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
+      student?.firstName?.length > STUDENT_FIRSTNAME_MAX_LENGTH ||
+      student?.lastName?.length < STUDENT_LASTNAME_MIN_LENGTH ||
+      student?.lastName?.length > STUDENT_LASTNAME_MAX_LENGTH ||
+      student?.rollNo?.length != STUDENT_ROLL_NO_LENGTH ||
+      student?.password?.length < STUDENT_PASSWORD_MIN_LENGTH
     ) {
       dispatch(
         toggleAlert({
@@ -184,8 +200,9 @@ const AddEditStudent = () => {
               value={student?.firstName}
               onChange={handleInputChange}
               warning={
-                student?.firstName.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
-                student?.firstName.length > STUDENT_FIRSTNAME_MAX_LENGTH
+                !student?.firstName ||
+                student?.firstName?.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
+                student?.firstName?.length > STUDENT_FIRSTNAME_MAX_LENGTH
               }
               warningText={`Length should be ${STUDENT_FIRSTNAME_MIN_LENGTH}-${STUDENT_FIRSTNAME_MAX_LENGTH} characters`}
             />
@@ -196,8 +213,9 @@ const AddEditStudent = () => {
               value={student?.lastName}
               placeholder="Enter last name"
               warning={
-                student?.lastName.length < STUDENT_LASTNAME_MIN_LENGTH ||
-                student?.lastName.length > STUDENT_LASTNAME_MAX_LENGTH
+                !student?.lastName ||
+                student?.lastName?.length < STUDENT_LASTNAME_MIN_LENGTH ||
+                student?.lastName?.length > STUDENT_LASTNAME_MAX_LENGTH
               }
               warningText={`Length should be ${STUDENT_FIRSTNAME_MIN_LENGTH}-${STUDENT_FIRSTNAME_MAX_LENGTH} characters`}
             />
@@ -207,7 +225,10 @@ const AddEditStudent = () => {
               placeholder="Sample [BITF21M001]"
               onChange={handleInputChange}
               value={student?.rollNo}
-              warning={student?.rollNo.length != STUDENT_ROLL_NO_LENGTH}
+              warning={
+                !student?.rollNo ||
+                student?.rollNo?.length != STUDENT_ROLL_NO_LENGTH
+              }
               warningText={`Length should be exactly ${STUDENT_ROLL_NO_LENGTH} characters`}
             />
             <DataInput
@@ -216,7 +237,10 @@ const AddEditStudent = () => {
               onChange={handleInputChange}
               value={student?.password}
               placeholder="Assign a password to the student"
-              warning={student?.password.length < STUDENT_PASSWORD_MIN_LENGTH}
+              warning={
+                !student?.password ||
+                student?.password?.length < STUDENT_PASSWORD_MIN_LENGTH
+              }
               warningText={`Length should be minimum ${STUDENT_PASSWORD_MIN_LENGTH} characters`}
             />
             <Select

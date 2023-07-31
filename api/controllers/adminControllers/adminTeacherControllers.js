@@ -112,7 +112,7 @@ const admin_teacher_put = async (req, res) => {
     teacher = await Teacher.findOne({ teacherId: req.body["teacherId"] });
     if (teacher && req.body["teacherId"] !== req.params["teacherId"]) {
       // A user with the new teacherId already exists (If the admin doesn't want to change the teacherId, it means that the teacherId in the body will be equal to the teacherId in the params. In that case, the operation will be legal and this if will not be executed)
-      return res.status(409).json({ message: `A teacher with roll no. ${req.body["teacherId"]} already exists.` });
+      return res.status(409).json({ message: `A teacher with teacher ID ${req.body["teacherId"]} already exists.` });
     }
     const hashedPassword = await bcrypt.hash(req.body["password"], 10);
     req.body.password = hashedPassword;
