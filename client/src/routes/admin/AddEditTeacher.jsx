@@ -61,8 +61,7 @@ const AddEditTeacher = () => {
     setTeacher({ ...teacher, [e.target.name]: e.target.value });
   };
 
-  const addTeacherHandler = async (e) => {
-    e.preventDefault();
+  const addEditChecking = () => {
     // Removing extra spaces from input fields
     const trimmedTeacher = {};
     for (let key in teacher) {
@@ -82,7 +81,7 @@ const AddEditTeacher = () => {
           })
         );
         setTeacher(trimmedTeacher);
-        return;
+        return false;
       }
     }
     // If data entered by the user is invalid, show the alert.
@@ -106,7 +105,14 @@ const AddEditTeacher = () => {
           message: "Please fill the form with valid data.",
         })
       );
-    } else {
+      return false;
+    }
+    return true;
+  };
+
+  const addTeacherHandler = async (e) => {
+    e.preventDefault();
+    if (addEditChecking()) {
       const { error, data } = await addTeacher(teacher);
       if (error) {
         dispatch(toggleAlert({ type: "error", message: error.data.message }));
@@ -116,52 +122,10 @@ const AddEditTeacher = () => {
       }
     }
   };
+
   const updateTeacherHandler = async (e) => {
     e.preventDefault();
-    // Removing extra spaces from input fields
-    const trimmedTeacher = {};
-    for (let key in teacher) {
-      if (typeof teacher[key] === "string")
-        trimmedTeacher[key] = teacher[key].replace(/\s+/g, " ").trim();
-    }
-    // If extra spaces were found and removed, show alert to resubmit the form.
-    for (let key in teacher) {
-      if (
-        typeof trimmedTeacher[key] === "string" &&
-        trimmedTeacher[key].localeCompare(teacher[key]) !== 0
-      ) {
-        dispatch(
-          toggleAlert({
-            type: "error",
-            message: `Extra spaces found and removed from the fields. Please resubmit.`,
-          })
-        );
-        setTeacher(trimmedTeacher);
-        return;
-      }
-    }
-    // If data entered by the user is invalid, show the alert.
-    if (
-      !teacher?.firstName ||
-      !teacher?.lastName ||
-      !teacher?.teacherId ||
-      !teacher?.password ||
-      !teacher?.qualification ||
-      teacher?.firstName?.length < TEACHER_FIRSTNAME_MIN_LENGTH ||
-      teacher?.firstName?.length > TEACHER_FIRSTNAME_MAX_LENGTH ||
-      teacher?.lastName?.length < TEACHER_LASTNAME_MIN_LENGTH ||
-      teacher?.lastName?.length > TEACHER_LASTNAME_MAX_LENGTH ||
-      teacher?.teacherId?.length != TEACHER_ID_LENGTH ||
-      teacher?.password?.length < TEACHER_PASSWORD_MIN_LENGTH ||
-      teacher?.qualification?.length < TEACHER_QUALIFICATION_MIN_LENGTH
-    ) {
-      dispatch(
-        toggleAlert({
-          type: "error",
-          message: "Please fill the form with valid data.",
-        })
-      );
-    } else {
+    if (addEditChecking()) {
       const { error, data } = await updateTeacher({
         teacherId: e.target.name,
         body: teacher,
@@ -181,7 +145,6 @@ const AddEditTeacher = () => {
       <div>
         <div className="flex justify-between items-center">
           <H1
-            className="font-bold my-4 text-pink-700 text-3xl"
             content={`${
               addOrEditTeacher === "edit" ? "Edit Teacher" : "Add New Teacher"
             }`}

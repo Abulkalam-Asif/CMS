@@ -16,9 +16,9 @@ const Navbar = (props) => {
         <h1>CMS FCIT | University of the Punjab</h1>
         <div className="flex gap-4">
           <LinkButton to="/" content="Home" />
-          <LinkButton to="/admin" content="Admin" />
-          <LinkButton to="/teacher" content="Teacher" />
-          <LinkButton to="/student" content="Student" />
+          <LinkButton to="/admin" content="Admin Panel" />
+          <LinkButton to="/teacher" content="Teacher Panel" />
+          <LinkButton to="/student" content="Student Panel" />
         </div>
         <button
           onClick={() => {

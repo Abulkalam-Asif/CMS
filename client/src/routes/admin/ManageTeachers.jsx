@@ -17,6 +17,8 @@ import { TEACHER_ID_LENGTH } from "../../constants";
 import Table from "../../containers/Table";
 import { toggleAlert } from "../../store/slices/alertSlice";
 import { setUserData } from "../../store/slices/userDataSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const ManageTeachers = () => {
   const dispatch = useDispatch();
@@ -95,7 +97,18 @@ const ManageTeachers = () => {
   return (
     <>
       <div>
-        <H1 content="Manage Teachers" />
+        <div className="flex justify-between items-center">
+          <H1 content="Manage Teachers" />
+          <LinkButton
+            to="/admin"
+            content={
+              <>
+                <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
+                Back to Admin Panel
+              </>
+            }
+          />
+        </div>
         <HR />
         <div className="flex gap-x-8 py-4 px-4">
           <LinkButton

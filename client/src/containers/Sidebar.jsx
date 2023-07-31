@@ -64,8 +64,9 @@ const Sidebar = (props) => {
           isExpandable={false}
           onLinkClick={clickHandler}
         />
+        <div></div>
         <SidebarListHead
-          title="Admin"
+          title="Admin Panel"
           name="adminListHead"
           to="/admin"
           isExpandable={true}
@@ -91,7 +92,7 @@ const Sidebar = (props) => {
           ]}
         />
         <SidebarListHead
-          title="Student"
+          title="Student Panel"
           name="studentListHead"
           to="/student"
           isExpandable={true}

@@ -17,6 +17,8 @@ import Table from "../../containers/Table";
 import { setUserData } from "../../store/slices/userDataSlice";
 import { setAddOrEditStudent } from "../../store/slices/addOrEditStudentSlice";
 import { STUDENT_ROLL_NO_LENGTH } from "../../constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const ManageStudents = () => {
   const dispatch = useDispatch();
@@ -95,7 +97,18 @@ const ManageStudents = () => {
   return (
     <>
       <div>
-        <H1 content="Manage Students" />
+        <div className="flex justify-between items-center">
+          <H1 content="Manage Students" />
+          <LinkButton
+            to="/admin"
+            content={
+              <>
+                <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
+                Back to Admin Panel
+              </>
+            }
+          />
+        </div>
         <HR />
         <div className="flex gap-x-8 py-4 px-4">
           <LinkButton

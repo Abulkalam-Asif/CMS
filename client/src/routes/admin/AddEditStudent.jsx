@@ -59,8 +59,7 @@ const AddEditStudent = () => {
     setStudent({ ...student, [e.target.name]: e.target.value });
   };
 
-  const addStudentHandler = async (e) => {
-    e.preventDefault();
+  const addEditChecking = () => {
     // Removing extra spaces from input fields
     const trimmedStudent = {};
     for (let key in student) {
@@ -80,7 +79,7 @@ const AddEditStudent = () => {
           })
         );
         setStudent(trimmedStudent);
-        return;
+        return false;
       }
     }
     // If data entered by the user is invalid, show the alert.
@@ -102,7 +101,14 @@ const AddEditStudent = () => {
           message: "Please fill the form with valid data.",
         })
       );
-    } else {
+      return false;
+    }
+    return true;
+  };
+
+  const addStudentHandler = async (e) => {
+    e.preventDefault();
+    if (addEditChecking()) {
       const { error, data } = await addStudent(student);
       if (error) {
         dispatch(toggleAlert({ type: "error", message: error.data.message }));
@@ -114,48 +120,7 @@ const AddEditStudent = () => {
   };
   const updateStudentHandler = async (e) => {
     e.preventDefault();
-    // Removing extra spaces from input fields
-    const trimmedStudent = {};
-    for (let key in student) {
-      if (typeof student[key] === "string")
-        trimmedStudent[key] = student[key].replace(/\s+/g, " ").trim();
-    }
-    // If extra spaces were found and removed, show alert to resubmit the form.
-    for (let key in student) {
-      if (
-        typeof trimmedStudent[key] === "string" &&
-        trimmedStudent[key].localeCompare(student[key]) !== 0
-      ) {
-        dispatch(
-          toggleAlert({
-            type: "error",
-            message: `Extra spaces found and removed from the fields. Please resubmit.`,
-          })
-        );
-        setStudent(trimmedStudent);
-        return;
-      }
-    }
-    // If data entered by the user is invalid, show the alert.
-    if (
-      !student?.firstName ||
-      !student?.lastName ||
-      !student?.rollNo ||
-      !student?.password ||
-      student?.firstName?.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
-      student?.firstName?.length > STUDENT_FIRSTNAME_MAX_LENGTH ||
-      student?.lastName?.length < STUDENT_LASTNAME_MIN_LENGTH ||
-      student?.lastName?.length > STUDENT_LASTNAME_MAX_LENGTH ||
-      student?.rollNo?.length != STUDENT_ROLL_NO_LENGTH ||
-      student?.password?.length < STUDENT_PASSWORD_MIN_LENGTH
-    ) {
-      dispatch(
-        toggleAlert({
-          type: "error",
-          message: "Please fill the form with valid data.",
-        })
-      );
-    } else {
+    if (addEditChecking()) {
       const { error, data } = await updateStudent({
         rollNo: e.target.name,
         body: student,
@@ -175,7 +140,6 @@ const AddEditStudent = () => {
       <div>
         <div className="flex justify-between items-center">
           <H1
-            className="font-bold my-4 text-pink-700 text-3xl"
             content={`${
               addOrEditStudent === "edit" ? "Edit Student" : "Add New Student"
             }`}
