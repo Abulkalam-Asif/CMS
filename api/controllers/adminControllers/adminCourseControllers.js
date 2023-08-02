@@ -23,30 +23,30 @@ const admin_courses_get_all = async (req, res) => {
   }
 }
 
-// // Fetch a single course from database
-// const admin_course_get_single = async (req, res) => {
-//   const errors = validationResult(req);
-//   if (!errors.isEmpty()) {
-//     return res.status(402).json(errors.array());
-//   }
-//   const keysToKeep = ["courseId", "firstName", "lastName", "gender", "qualification", "department", "coursesAssigned"];
-//   try {
-//     req.params["courseId"] = req.params["courseId"].toUpperCase();
+// Fetch a single course from database
+const admin_course_get_single = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(402).json(errors.array());
+  }
+  const keysToKeep = ["courseId", "courseName", "creditHours"];
+  try {
+    req.params["courseId"] = req.params["courseId"].toUpperCase();
 
-//     let foundCourse = await Course.findOne({ courseId: req.params["courseId"] });
-//     if (!foundCourse) {
-//       return res.status(404).json({ message: "Course not found." });
-//     }
-//     const course = {};
-//     keysToKeep.forEach(key => {
-//       course[key] = foundCourse[key];
-//     });
-//     res.status(200).json({ course });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: "Internal server error." });
-//   }
-// }
+    let foundCourse = await Course.findOne({ courseId: req.params["courseId"] });
+    if (!foundCourse) {
+      return res.status(404).json({ message: "Course not found." });
+    }
+    const course = {};
+    keysToKeep.forEach(key => {
+      course[key] = foundCourse[key];
+    });
+    res.status(200).json({ course });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+}
 
 // Adds the course to database
 const admin_course_post = async (req, res) => {
@@ -125,4 +125,4 @@ const admin_course_post = async (req, res) => {
 
 
 
-module.exports = { admin_courses_get_all, admin_course_post };
+module.exports = { admin_courses_get_all, admin_course_get_single, admin_course_post };

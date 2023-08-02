@@ -1,12 +1,12 @@
 const { body, param } = require('express-validator');
 
 
-// const admin_course_get_single_validation = [
-//   param('courseId')
-//     .optional()
-//     .isString().withMessage('courseId should be a string.')
-//     .isLength({ min: 8, max: 8 }).withMessage('courseId should be exactly 8 characters long.'),
-// ]
+const admin_course_get_single_validation = [
+  param('courseId')
+    .optional()
+    .isString().withMessage('courseId should be a string.')
+    .isLength({ min: 6, max: 6 }).withMessage('courseId should be exactly 6 characters long.'),
+]
 
 const admin_course_post_validation = [
   body('courseId')
@@ -67,4 +67,4 @@ const admin_course_post_validation = [
 // ];
 
 
-module.exports = { admin_course_post_validation };
+module.exports = { admin_course_get_single_validation, admin_course_post_validation };

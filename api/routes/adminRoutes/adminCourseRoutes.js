@@ -8,7 +8,7 @@ const Course = require('../../models/Course');
 
 
 router.get('/', admin_courses_get_all);
-// router.get('/:courseId', admin_course_get_single_validation, admin_course_get_single);
+router.get('/:courseId', admin_course_get_single_validation, admin_course_get_single);
 router.post('/', admin_course_post_validation, admin_course_post);
 // router.delete('/:courseId', admin_course_delete);
 // router.put('/:courseId', admin_course_put_validation, admin_course_put);
