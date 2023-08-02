@@ -172,5 +172,77 @@
       "department": "Software Engineering",
       "qualification": "PhD Data Science"
     }
+  ],
+  [
+    {
+      "courseId": "GE-161",
+      "courseName": "Introduction to ICT",
+      "creditHours": "2"
+    },
+    {
+      "courseId": "GE-161-L",
+      "courseName": "Introduction to ICT Lab",
+      "creditHours": "1"
+    },
+    {
+      "courseId": "GE-162",
+      "courseName": "English Composition and Comprehension",
+      "creditHours": "3"
+    },
+    {
+      "courseId": "GE-163",
+      "courseName": "Islamic Studies",
+      "creditHours": "2"
+    },
+    {
+      "courseId": "GE-165",
+      "courseName": "Pakistan Studies",
+      "creditHours": "2"
+    },
+    {
+      "courseId": "MS-151",
+      "courseName": "Applied Physics",
+      "creditHours": "3"
+    },
+    {
+      "courseId": "MS-152",
+      "courseName": "Calculus and Analytical Geometry",
+      "creditHours": "3"
+    },
+    {
+      "courseId": "HQ-281",
+      "courseName": "Quran Translation",
+      "creditHours": "0.5"
+    },
+    {
+      "courseId": "CC-111",
+      "courseName": "Discrete Structures",
+      "creditHours": "3"
+    },
+    {
+      "courseId": "CC-112",
+      "courseName": "Programming Fundamentals",
+      "creditHours": "3"
+    },
+    {
+      "courseId": "CC-112-L",
+      "courseName": "Programming Fundamentals Lab",
+      "creditHours": "1"
+    },
+    {
+      "courseId": "GE-164",
+      "courseName": "Communication and Presentation Skills",
+      "creditHours": "3"
+    },
+    {
+      "courseId": "CC-211",
+      "courseName": "Object Oriented Programming",
+      "creditHours": "3"
+    },
+    {
+      "courseId": "CC-211-L",
+      "courseName": "Object Oriented Programming Lab",
+      "creditHours": "1"
+    }
   ]
 ]
