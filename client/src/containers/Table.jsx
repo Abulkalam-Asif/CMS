@@ -34,12 +34,28 @@ const Table = (props) => {
     const label = e.currentTarget?.name;
     const isAscending = sortDirection === "ascending";
     const sortedData = [...dataToDisplay].sort((a, b) => {
-      if (isAscending) {
-        return a[label]?.localeCompare(b[label]);
+      const aValue = a[label];
+      const bValue = b[label];
+
+      // Check if the values are numeric
+      const isNumeric =
+        !isNaN(parseFloat(aValue)) && !isNaN(parseFloat(bValue));
+
+      if (isNumeric) {
+        if (isAscending) {
+          return aValue - bValue; // Ascending numerical sort
+        } else {
+          return bValue - aValue; // Descending numerical sort
+        }
       } else {
-        return b[label]?.localeCompare(a[label]);
+        if (isAscending) {
+          return aValue?.toString().localeCompare(bValue);
+        } else {
+          return bValue?.toString().localeCompare(aValue);
+        }
       }
     });
+
     setDataToDisplay(sortedData);
     setSortDirection(isAscending ? "descending" : "ascending");
   };
@@ -49,7 +65,9 @@ const Table = (props) => {
     const { data: mutationData, error: mutationError } =
       await deleteDataMutation.caller(rollNo);
     if (mutationError) {
-      dispatch(toggleAlert({ type: "error", message: mutationError?.data?.message }));
+      dispatch(
+        toggleAlert({ type: "error", message: mutationError?.data?.message })
+      );
     } else {
       dispatch(
         toggleAlert({ type: "success", message: mutationData?.message })

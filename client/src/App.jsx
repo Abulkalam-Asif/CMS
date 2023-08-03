@@ -16,6 +16,7 @@ import { ManageStudents, ManageTeachers, ManageCourses } from "./routes";
 import { Alert } from "./components";
 import Sidebar from "./containers/Sidebar";
 import { useState } from "react";
+import DisplayAllCourses from "./routes/admin/DisplayAllCourses";
 
 function App() {
   const [sidebar, setSidebar] = useState("in");
@@ -59,6 +60,20 @@ function App() {
               element={<DisplayAllTeachers />}
             />
             {/* Manage Courses Routes */}
+            <Route path="/admin/manageCourses" element={<ManageCourses />} />
+            {/* <Route
+              path="/admin/manageCourses/addNewCourse"
+              element={<AddEditCourse />}
+            /> */}
+            {/* <Route
+              path="/admin/manageCourses/editCourse"
+              element={<AddEditCourse />}
+            /> */}
+            <Route
+              path="/admin/manageCourses/displayAllCourses"
+              element={<DisplayAllCourses />}
+            />
+
             <Route path="/admin/manageCourses" element={<ManageCourses />} />
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/student" element={<Student />} />
