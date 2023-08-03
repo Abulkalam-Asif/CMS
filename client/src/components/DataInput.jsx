@@ -1,4 +1,11 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faExclamation,
+  faExclamationCircle,
+  faExclamationTriangle,
+  faInfo,
+} from "@fortawesome/free-solid-svg-icons";
 
 const DataInput = (props) => {
   const {
@@ -22,7 +29,8 @@ const DataInput = (props) => {
             {labelText}
           </label>
           {warning && (
-            <p className="text-pink-700 italic font-semibold text-sm">
+            <p className="bg-pink-700 text-white italic font-semibold text-sm px-2 py-1 rounded-full">
+              <FontAwesomeIcon icon={faExclamationCircle} className="mr-2" />
               {warningText}
             </p>
           )}
