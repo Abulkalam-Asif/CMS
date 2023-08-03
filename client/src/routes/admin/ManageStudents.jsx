@@ -13,7 +13,7 @@ import {
   useDeleteStudentMutation,
   useLazyGetStudentSingleQuery,
 } from "../../store/api/adminApi/adminStudentApi";
-import Table from "../../containers/Table";
+import { Table } from "../../containers";
 import { setUserData } from "../../store/slices/userDataSlice";
 import { setAddOrEditStudent } from "../../store/slices/addOrEditStudentSlice";
 import { STUDENT_ROLL_NO_LENGTH } from "../../constants";

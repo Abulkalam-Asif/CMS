@@ -1,3 +1,4 @@
-export { defalut as Navbar } from "./Navbar";
-export { defalut as Table } from "./Table";
-export { defalut as SidebarList } from "./SidebarList";
+export { default as Navbar } from "./Navbar";
+export { default as Table } from "./Table";
+export { default as Sidebar } from "./Sidebar";
+export { default as SidebarList } from "./SidebarList";

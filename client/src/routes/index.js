@@ -12,6 +12,8 @@ export { default as AddEditTeacher } from "./admin/AddEditTeacher";
 export { default as DisplayAllTeachers } from "./admin/DisplayAllTeachers";
 
 export { default as ManageCourses } from "./admin/ManageCourses";
+export { default as AddEditCourse } from "./admin/AddEditCourse";
+export { default as DisplayAllCourses } from "./admin/DisplayAllCourses";
 
 
 export { default as Teacher } from "./teacher/Teacher";

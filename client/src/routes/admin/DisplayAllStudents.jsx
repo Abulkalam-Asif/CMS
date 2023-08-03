@@ -1,12 +1,12 @@
+import React from "react";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { H1, HR, LinkButton, Spinner } from "../../components";
 import {
   useGetStudentsAllQuery,
   useDeleteStudentMutation,
 } from "../../store/api/adminApi/adminStudentApi";
-import Table from "../../containers/Table";
+import { Table } from "../../containers";
 
 const DisplayAllStudents = () => {
   const {

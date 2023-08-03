@@ -1,8 +1,8 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef } from "react";
-import SidebarList from "./SidebarList";
-import SidebarListHead from "../components/SidebarListHead";
+import { SidebarListHead } from "../components";
+import { SidebarList } from "./";
 
 const Sidebar = (props) => {
   const { sidebar, setSidebar } = props.sidebarHandler;

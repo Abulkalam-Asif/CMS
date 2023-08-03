@@ -14,7 +14,7 @@ import {
   useLazyGetCourseSingleQuery,
 } from "../../store/api/adminApi/adminCourseApi";
 import { COURSE_ID_MIN_LENGTH, COURSE_ID_MAX_LENGTH } from "../../constants";
-import Table from "../../containers/Table";
+import { Table } from "../../containers";
 import { toggleAlert } from "../../store/slices/alertSlice";
 import { setUserData } from "../../store/slices/userDataSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

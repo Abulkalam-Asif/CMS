@@ -14,7 +14,7 @@ import {
   useLazyGetTeacherSingleQuery,
 } from "../../store/api/adminApi/adminTeacherApi";
 import { TEACHER_ID_LENGTH } from "../../constants";
-import Table from "../../containers/Table";
+import { Table } from "../../containers";
 import { toggleAlert } from "../../store/slices/alertSlice";
 import { setUserData } from "../../store/slices/userDataSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

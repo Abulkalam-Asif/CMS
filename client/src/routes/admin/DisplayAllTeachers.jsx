@@ -6,7 +6,7 @@ import {
   useDeleteTeacherMutation,
   useGetTeachersAllQuery,
 } from "../../store/api/adminApi/adminTeacherApi";
-import Table from "../../containers/Table";
+import { Table } from "../../containers";
 
 const DisplayAllTeachers = () => {
   const {

@@ -1,22 +1,24 @@
 import "./App.css";
-import Navbar from "./containers/Navbar";
 import {
+  AddEditCourse,
   AddEditStudent,
   AddEditTeacher,
   Admin,
+  DisplayAllCourses,
   DisplayAllStudents,
   DisplayAllTeachers,
   Home,
   Login,
+  ManageCourses,
+  ManageStudents,
+  ManageTeachers,
   Student,
   Teacher,
 } from "./routes";
 import { Routes, Route } from "react-router-dom";
-import { ManageStudents, ManageTeachers, ManageCourses } from "./routes";
 import { Alert } from "./components";
-import Sidebar from "./containers/Sidebar";
+import { Navbar, Sidebar } from "./containers";
 import { useState } from "react";
-import DisplayAllCourses from "./routes/admin/DisplayAllCourses";
 
 function App() {
   const [sidebar, setSidebar] = useState("in");
@@ -61,14 +63,14 @@ function App() {
             />
             {/* Manage Courses Routes */}
             <Route path="/admin/manageCourses" element={<ManageCourses />} />
-            {/* <Route
+            <Route
               path="/admin/manageCourses/addNewCourse"
               element={<AddEditCourse />}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path="/admin/manageCourses/editCourse"
               element={<AddEditCourse />}
-            /> */}
+            />
             <Route
               path="/admin/manageCourses/displayAllCourses"
               element={<DisplayAllCourses />}

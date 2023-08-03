@@ -6,7 +6,7 @@ import {
   useDeleteCourseMutation,
   useGetCoursesAllQuery,
 } from "../../store/api/adminApi/adminCourseApi";
-import Table from "../../containers/Table";
+import { Table } from "../../containers";
 
 const DisplayAllCourses = () => {
   const {
