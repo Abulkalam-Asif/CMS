@@ -22,8 +22,8 @@ const admin_course_post_validation = [
   body('creditHours')
     .notEmpty().withMessage('creditHours is required.')
     .isNumeric().withMessage('creditHours should be a number.')
-    .custom((value) => parseFloat(value) > 0 && parseFloat(value) <= 4)
-    .withMessage('creditHours should be greater than 0 and less than or equal to 4.')
+    .custom((value) => parseFloat(value) >= 0.5 && parseFloat(value) <= 4)
+    .withMessage('creditHours: minimum: 0.5, maximum: 4')
 ];
 
 const admin_course_put_validation = [
@@ -40,8 +40,8 @@ const admin_course_put_validation = [
   body('creditHours')
     .optional()
     .isNumeric().withMessage('creditHours should be a number.')
-    .custom((value) => parseFloat(value) > 0 && parseFloat(value) <= 4)
-    .withMessage('creditHours should be greater than 0 and less than or equal to 4.')
+    .custom((value) => parseFloat(value) >= 0.5 && parseFloat(value) <= 4)
+    .withMessage('creditHours: minimum: 0.5, maximum: 4')
 ];
 
 
