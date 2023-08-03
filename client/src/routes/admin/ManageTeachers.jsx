@@ -186,7 +186,7 @@ const ManageTeachers = () => {
                     size="medium"
                     content="Edit"
                     onClick={editHandler}
-                    to="/admin/manageTeachers/addNewTeacher"
+                    to="/admin/manageTeachers/editTeacher"
                   />
                 </div>
               </>

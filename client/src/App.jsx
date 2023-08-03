@@ -30,7 +30,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
-            // Manage Students Routes
+            {/* Manage Students Routes */}
             <Route path="/admin/manageStudents" element={<ManageStudents />} />
             <Route
               path="/admin/manageStudents/addNewStudent"
@@ -44,7 +44,7 @@ function App() {
               path="/admin/manageStudents/displayAllStudents"
               element={<DisplayAllStudents />}
             />
-            // Manage Teachers Routes
+            {/* Manage Teachers Routes */}
             <Route path="/admin/manageTeachers" element={<ManageTeachers />} />
             <Route
               path="/admin/manageTeachers/addNewTeacher"
@@ -58,7 +58,7 @@ function App() {
               path="/admin/manageTeachers/displayAllTeachers"
               element={<DisplayAllTeachers />}
             />
-            // Manage Courses Routes
+            {/* Manage Courses Routes */}
             <Route path="/admin/manageCourses" element={<ManageCourses />} />
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/student" element={<Student />} />
