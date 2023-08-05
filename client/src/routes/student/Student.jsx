@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toggleAlert } from "../../store/slices/alertSlice";
-import { useStudentLoginMutation } from "../../store/api/studentApi";
+import { useStudentLoginMutation } from "../../store/api/authApi/authStudentApi";
 import { setUserData } from "../../store/slices/userDataSlice";
 import { useState } from "react";
 import { H1, HR, Spinner } from "../../components";

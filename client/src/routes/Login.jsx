@@ -3,7 +3,7 @@ import { Button, DataInput, H1, HR, Spinner } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleAlert } from "../store/slices/alertSlice";
 import { setUserData } from "../store/slices/userDataSlice";
-import { useStudentLoginMutation } from "../store/api/studentApi";
+import { useStudentLoginMutation } from "../store/api/authApi/authStudentApi";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {

@@ -1,11 +1,11 @@
-import { baseApi } from "./baseApi";
+import { baseApi } from "../baseApi";
 
-export const studentApi = baseApi.injectEndpoints({
+export const authStudentApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     studentLogin: builder.mutation({
       query: ({ headers, body }) => ({
         headers,
-        url: "/student/login",
+        url: "/auth/student/login",
         method: "POST",
         body,
       })
@@ -14,4 +14,4 @@ export const studentApi = baseApi.injectEndpoints({
   overrideExisting: true
 });
 
-export const { useStudentLoginMutation } = studentApi;
+export const { useStudentLoginMutation } = authStudentApi;
