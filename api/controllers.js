@@ -1,6 +1,5 @@
+const authStudentControllers = require("./controllers/authControllers/authStudentControllers");
 const adminStudentControllers = require("./controllers/adminControllers/adminStudentControllers");
 
-const studentControllers = require("./controllers/studentControllers");
 
-
-module.exports = { ...adminStudentControllers, ...studentControllers };
+module.exports = { ...adminStudentControllers, ...authStudentControllers };
