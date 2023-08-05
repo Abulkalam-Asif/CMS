@@ -1,6 +1,6 @@
 const { body } = require("express-validator");
 
-const student_login_validation = [
+const auth_student_login_validation = [
   body('rollNo')
     .notEmpty().withMessage('rollNo is required.')
     .isString().withMessage('rollNo should be a string.')
@@ -12,4 +12,4 @@ const student_login_validation = [
     .isLength({ min: 4 }).withMessage('password should be minimum 4 characters long.'),
 ];
 
-module.exports = { student_login_validation };
+module.exports = { auth_student_login_validation };

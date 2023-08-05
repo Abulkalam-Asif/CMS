@@ -1,8 +1,8 @@
-const Student = require("../models/Student");
+const Student = require("../../models/Student");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const student_login = async (req, res) => {
+const auth_student_login = async (req, res) => {
   if (Object.keys(req.body).length === 0 && req.get("Authorization")) {
     try {
       const { rollNo } = jwt.verify(req.get("Authorization"), process.env.JWT_SECRET);
@@ -49,4 +49,4 @@ const student_login = async (req, res) => {
   }
 }
 
-module.exports = { student_login };
+module.exports = { auth_student_login };
