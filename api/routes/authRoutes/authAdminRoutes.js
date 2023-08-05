@@ -1,11 +1,8 @@
-const adminAuthRouter = require('express').Router();
+const authAdminRouter = require('express').Router();
 
-const bcrypt = require("bcrypt");
-const Teacher = require("../../models/Teacher")
+const { auth_admin_signup } = require('../../controllers');
 
-
-adminAuthRouter.get('/');
+authAdminRouter.post('/signup', auth_admin_signup);
 
 
-
-module.exports = adminAuthRouter;
+module.exports = authAdminRouter;
