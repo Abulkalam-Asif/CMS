@@ -1,10 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faExclamation,
   faExclamationCircle,
-  faExclamationTriangle,
-  faInfo,
 } from "@fortawesome/free-solid-svg-icons";
 
 const DataInput = (props) => {
