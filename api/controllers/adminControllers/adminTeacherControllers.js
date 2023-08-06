@@ -1,19 +1,16 @@
 const Teacher = require("../../models/Teacher");
 const bcrypt = require("bcrypt");
 const { validationResult } = require('express-validator');
-const { removeExtraSpaces } = require("../../utils");
+const { removeExtraSpaces, filterKeys } = require("../../utils");
 
 
 // Fetches all the teachers from database
 const admin_teachers_get_all = async (req, res) => {
-  const keysToKeep = ["teacherId", "firstName", "lastName", "gender", "qualification", "department", "coursesAssigned"];
+  const keepOnlyKeys = ["teacherId", "firstName", "lastName", "gender", "qualification", "department", "coursesAssigned"];
   try {
     let teachersList = await Teacher.find();
     teachersList = teachersList.map((teacher) => {
-      const newTeacher = {};
-      keysToKeep.forEach(key => {
-        newTeacher[key] = teacher[key];
-      });
+      const newTeacher = filterKeys(keepOnlyKeys, teacher);
       return newTeacher;
     });
     res.status(200).json({ teachersList });
@@ -29,19 +26,16 @@ const admin_teacher_get_single = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(402).json(errors.array());
   }
-  const keysToKeep = ["teacherId", "firstName", "lastName", "gender", "qualification", "department", "coursesAssigned"];
+  const keepOnlyKeys = ["teacherId", "firstName", "lastName", "gender", "qualification", "department", "coursesAssigned"];
   try {
     req.params["teacherId"] = req.params["teacherId"].toUpperCase();
 
-    let foundTeacher = await Teacher.findOne({ teacherId: req.params["teacherId"] });
-    if (!foundTeacher) {
+    let teacher = await Teacher.findOne({ teacherId: req.params["teacherId"] });
+    if (!teacher) {
       return res.status(404).json({ message: "Teacher not found." });
     }
-    const teacher = {};
-    keysToKeep.forEach(key => {
-      teacher[key] = foundTeacher[key];
-    });
-    res.status(200).json({ teacher });
+    const newTeacher = filterKeys(keepOnlyKeys, teacher);
+    res.status(200).json({ teacher: newTeacher });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal server error." });

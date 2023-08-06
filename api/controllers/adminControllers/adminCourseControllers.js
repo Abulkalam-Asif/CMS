@@ -1,19 +1,16 @@
 const Course = require("../../models/Course");
 const bcrypt = require("bcrypt");
 const { validationResult } = require('express-validator');
-const { removeExtraSpaces } = require("../../utils");
+const { removeExtraSpaces, filterKeys } = require("../../utils");
 
 
 // Fetches all the courses from database
 const admin_courses_get_all = async (req, res) => {
-  const keysToKeep = ["courseId", "courseName", "creditHours"];
+  const keepOnlyKeys = ["courseId", "courseName", "creditHours"];
   try {
     let coursesList = await Course.find();
     coursesList = coursesList.map((course) => {
-      const newCourse = {};
-      keysToKeep.forEach(key => {
-        newCourse[key] = course[key];
-      });
+      const newCourse = filterKeys(keepOnlyKeys, course);
       return newCourse;
     });
     res.status(200).json({ coursesList });
@@ -29,19 +26,16 @@ const admin_course_get_single = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(402).json(errors.array());
   }
-  const keysToKeep = ["courseId", "courseName", "creditHours"];
+  const keepOnlyKeys = ["courseId", "courseName", "creditHours"];
   try {
     req.params["courseId"] = req.params["courseId"].toUpperCase();
 
-    let foundCourse = await Course.findOne({ courseId: req.params["courseId"] });
-    if (!foundCourse) {
+    let course = await Course.findOne({ courseId: req.params["courseId"] });
+    if (!course) {
       return res.status(404).json({ message: "Course not found." });
     }
-    const course = {};
-    keysToKeep.forEach(key => {
-      course[key] = foundCourse[key];
-    });
-    res.status(200).json({ course });
+    const newCourse = filterKeys(keepOnlyKeys, course);
+    res.status(200).json({ course: newCourse });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal server error." });

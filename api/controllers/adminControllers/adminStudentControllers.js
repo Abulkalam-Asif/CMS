@@ -1,18 +1,15 @@
 const Student = require("../../models/Student");
 const bcrypt = require("bcrypt");
 const { validationResult } = require('express-validator');
-const { removeExtraSpaces } = require("../../utils");
+const { removeExtraSpaces, filterKeys } = require("../../utils");
 
 // Fetches all the students from database
 const admin_students_get_all = async (req, res) => {
-  const keysToKeep = ["rollNo", "firstName", "lastName", "gender", "program"];
+  const keepOnlyKeys = ["rollNo", "firstName", "lastName", "gender", "program"];
   try {
     let studentsList = await Student.find();
     studentsList = studentsList.map((student) => {
-      const newStudent = {};
-      keysToKeep.forEach(key => {
-        newStudent[key] = student[key];
-      });
+      const newStudent = filterKeys(keepOnlyKeys, student);
       return newStudent;
     });
     res.status(200).json({ studentsList });
@@ -28,19 +25,16 @@ const admin_student_get_single = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(402).json(errors.array());
   }
-  const keysToKeep = ["rollNo", "firstName", "lastName", "gender", "program"];
+  const keepOnlyKeys = ["rollNo", "firstName", "lastName", "gender", "program"];
   try {
     req.params["rollNo"] = req.params["rollNo"].toUpperCase();
 
-    let foundStudent = await Student.findOne({ rollNo: req.params["rollNo"] });
-    if (!foundStudent) {
+    let student = await Student.findOne({ rollNo: req.params["rollNo"] });
+    if (!student) {
       return res.status(404).json({ message: "Student not found." });
     }
-    const student = {};
-    keysToKeep.forEach(key => {
-      student[key] = foundStudent[key];
-    });
-    res.status(200).json({ student });
+    const newStudent = filterKeys(keepOnlyKeys, student);
+    res.status(200).json({ student: newStudent });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal server error." });
