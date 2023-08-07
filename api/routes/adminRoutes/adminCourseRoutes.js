@@ -1,11 +1,8 @@
 const adminCourseRouter = require('express').Router();
 const { admin_courses_get_all, admin_course_post, admin_course_get_single, admin_course_delete, admin_course_put } = require('../../controllers');
-const { admin_course_post_validation, admin_course_get_single_validation, admin_course_put_validation } = require('../../validations');
+const { admin_course_get_single_validation, admin_course_post_validation, admin_course_put_validation } = require('../../validations');
 
-
-const bcrypt = require('bcrypt');
 const Course = require('../../models/Course');
-
 
 adminCourseRouter.get('/', admin_courses_get_all);
 adminCourseRouter.get('/:courseId', admin_course_get_single_validation, admin_course_get_single);

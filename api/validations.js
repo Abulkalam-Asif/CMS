@@ -5,4 +5,4 @@ const adminStudentValidations = require("./validations/adminValidations/adminStu
 const adminTeacherValidations = require("./validations/adminValidations/adminTeacherValidations");
 const adminCourseValidations = require("./validations/adminValidations/adminCourseValidations");
 
-module.exports = { ...authAdminValidations, ...adminStudentValidations, ...authTeacherValidations, ...authStudentValidations, ...adminTeacherValidations, adminCourseValidations }
+module.exports = { ...authAdminValidations, ...authStudentValidations, ...authTeacherValidations, ...adminStudentValidations, ...adminTeacherValidations, ...adminCourseValidations }
