@@ -1,3 +1,7 @@
+// Admin constants
+export const ADMIN_USERNAME_MIN_LENGTH = 4;
+export const ADMIN_PASSWORD_MIN_LENGTH = 4;
+
 // Student constants
 export const STUDENT_FIRSTNAME_MIN_LENGTH = 2;
 export const STUDENT_FIRSTNAME_MAX_LENGTH = 50;
