@@ -1,7 +1,6 @@
 const adminTeacherRouter = require('express').Router();
-const { admin_teachers_get_all, admin_teacher_post, admin_teacher_get_single, admin_teacher_delete, admin_teacher_put } = require('../../controllers/adminControllers/adminTeacherControllers');
-const { admin_teacher_post_validation, admin_teacher_get_single_validation, admin_teacher_put_validation } = require('../../validations/adminValidations/adminTeacherValidations');
-
+const { admin_teachers_get_all, admin_teacher_get_single, admin_teacher_post, admin_teacher_delete, admin_teacher_put } = require("../../controllers");
+const { admin_teacher_get_single_validation, admin_teacher_post_validation, admin_teacher_put_validation } = require("../../validations");
 
 const bcrypt = require('bcrypt');
 const Teacher = require('../../models/Teacher');
