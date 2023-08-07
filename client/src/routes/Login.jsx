@@ -1,34 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, DataInput, H1, HR, Spinner } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleAlert } from "../store/slices/alertSlice";
 import { setUserData } from "../store/slices/userDataSlice";
 import { useStudentLoginMutation } from "../store/api/authApi/authStudentApi";
 import { useNavigate } from "react-router-dom";
+import { useAdminLoginMutation } from "../store/api/authApi/authAdminApi";
+import {
+  ADMIN_PASSWORD_MIN_LENGTH,
+  ADMIN_USERNAME_MIN_LENGTH,
+  STUDENT_PASSWORD_MIN_LENGTH,
+  STUDENT_ROLL_NO_LENGTH,
+} from "../constants";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const login = useSelector((state) => state.login);
   const navigate = useNavigate();
+  const loginUserType = useSelector((state) => state.loginUserType);
 
-  const loginFields = {
-    teacher: ["teacherId", "Teacher ID"],
+  // The keys of this object will be connected to loginUserType
+  const usernameType = {
+    admin: ["username", "Username"],
     student: ["rollNo", "Roll No."],
-    admin: ["useranme", "Username"],
+    teacher: ["teacherId", "Teacher ID"],
   };
 
-  let defaultUser = {
-    [loginFields[login][0]]: "",
+  const [user, setUser] = useState({
+    [usernameType[loginUserType][0]]: "",
     password: "",
+  });
+
+  // Warning map to set the warning in the useEffect() while updating dataInputProps
+  const warningStatesMap = {
+    admin: {
+      usernameWarningMap: user?.username?.length < ADMIN_USERNAME_MIN_LENGTH,
+      usernameWarningTextMap: `Length should be minimum ${ADMIN_USERNAME_MIN_LENGTH} characters`,
+      passwordWarningMap: user?.password?.length < ADMIN_PASSWORD_MIN_LENGTH,
+      passwordWarningTextMap: `Length should be minimum ${ADMIN_PASSWORD_MIN_LENGTH} characters`,
+    },
+    student: {
+      usernameWarningMap: user?.rollNo?.length != STUDENT_ROLL_NO_LENGTH,
+      usernameWarningTextMap: `Length should be exactly ${STUDENT_ROLL_NO_LENGTH} characters`,
+      passwordWarningMap: user?.password?.length < STUDENT_PASSWORD_MIN_LENGTH,
+      passwordWarningTextMap: `Length should be minimum ${STUDENT_PASSWORD_MIN_LENGTH} characters`,
+    },
   };
 
-  const [loginUser, { isLoading }] = useStudentLoginMutation();
+  // Dynamically defining props for <DataInput />'s based on the type of user
+  const [dataInputProps, setDataInputProps] = useState({
+    usernameValue: user?.username,
+    usernamePlaceholder: `Enter your ${usernameType[loginUserType][0]}`,
+    usernameWarning: warningStatesMap[loginUserType].usernameWarningMap,
+    usernameWarningText: warningStatesMap[loginUserType].usernameWarningTextMap,
+    passwordValue: user?.password,
+    passwordPlaceholder: `Enter your password`,
+    passwordWarning: warningStatesMap[loginUserType].passwordWarningMap,
+    passwordWarningText: warningStatesMap[loginUserType].passwordWarningTextMap,
+  });
 
-  const [user, setUser] = useState(defaultUser);
-
+  // Updating the user state on user input
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
+  // Updating the dataInputProps when the user state changes
+  useEffect(() => {
+    setDataInputProps((prevDataInputProps) => ({
+      ...prevDataInputProps,
+      usernameValue: user?.[usernameType[loginUserType][0]],
+      passwordValue: user?.password,
+      usernameWarning: warningStatesMap[loginUserType].usernameWarningMap,
+      passwordWarning: warningStatesMap[loginUserType].passwordWarningMap,
+    }));
+  }, [user, loginUserType]);
+
+  // Setting the login mutation based on the type of user
+  let loginUserCaller, isLoading;
+  if (loginUserType === "admin") {
+    [loginUserCaller, { isLoading }] = useAdminLoginMutation();
+  } else if (loginUserType === "student") {
+    [loginUserCaller, { isLoading }] = useStudentLoginMutation();
+  }
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -51,7 +103,10 @@ const Login = () => {
       }
     }
     // If data entered by the user is invalid, show the alert.
-    if (user?.rollNo?.length != 10 || user?.password?.length < 4) {
+    if (
+      warningStatesMap[loginUserType].usernameWarningMap ||
+      warningStatesMap[loginUserType].passwordWarningMap
+    ) {
       dispatch(
         toggleAlert({
           type: "error",
@@ -59,42 +114,42 @@ const Login = () => {
         })
       );
     } else {
-      const { error, data } = await loginUser({ body: user });
+      // Sending POST request to server with user data
+      const { error, data } = await loginUserCaller({ body: user });
       if (error) {
         dispatch(toggleAlert({ type: "error", message: error?.data?.message }));
       } else {
         dispatch(toggleAlert({ type: "success", message: data?.message }));
-        dispatch(setUserData({ userType: login, data }));
-        navigate("/student");
+        dispatch(setUserData({ userType: loginUserType, data }));
+        navigate(`/${loginUserType}`);
         localStorage.setItem("access_token", data?.access_token);
       }
     }
   };
-
   return (
     <>
       <div>
-        <H1 className="capitalize" content={`Login as ${login}`} />
+        <H1 className="capitalize" content={`Login as ${loginUserType}`} />
         <HR />
         <form className="px-12">
           <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-16">
             <DataInput
-              labelText={loginFields[login][1]}
-              nameIdHtmlFor="rollNo"
+              labelText={usernameType[loginUserType][1]}
+              nameIdHtmlFor={usernameType[loginUserType][0]}
               onChange={handleInputChange}
-              value={user?.rollNo}
-              placeholder={`Enter your ${loginFields[login][1]}`}
-              warning={user?.rollNo?.length != 10}
-              warningText={"Length should be exactly 10 characters"}
+              value={dataInputProps?.usernameValue}
+              placeholder={dataInputProps?.usernamePlaceholder}
+              warning={dataInputProps?.usernameWarning}
+              warningText={dataInputProps?.usernameWarningText}
             />
             <DataInput
               labelText="Password"
               nameIdHtmlFor="password"
               onChange={handleInputChange}
-              value={user?.password}
-              placeholder="Enter your Password"
-              warning={user?.password?.length < 4}
-              warningText={"Length should be minimum 4 characters"}
+              value={dataInputProps?.passwordValue}
+              placeholder={dataInputProps?.passwordPlaceholder}
+              warning={dataInputProps?.passwordWarning}
+              warningText={dataInputProps?.passwordWarningText}
             />
           </div>
           <div className="flex justify-center gap-4">
