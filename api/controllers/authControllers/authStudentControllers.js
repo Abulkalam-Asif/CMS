@@ -2,9 +2,14 @@ const Student = require("../../models/Student");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { filterKeys } = require("../../utils");
+const { validationResult } = require("express-validator");
 
 // Student login controller
 const auth_student_login = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(402).json(errors.array());
+  }
   const keepOnlyKeys = ["rollNo", "firstName", "lastName", "gender", "program"];
   if (Object.keys(req.body).length === 0 && req.get("Authorization")) {
     // If body is empty && Authorization token is provided, try loging in using it.
