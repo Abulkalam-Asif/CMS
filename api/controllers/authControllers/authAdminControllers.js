@@ -2,6 +2,7 @@ const Admin = require("../../models/Admin");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { filterKeys } = require("../../utils");
+const { validationResult } = require("express-validator");
 
 // This is basic admin signup and is not provided on the UI
 const auth_admin_signup = async (req, res) => {
@@ -19,6 +20,10 @@ const auth_admin_signup = async (req, res) => {
 
 // Admin login controller
 const auth_admin_login = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(402).json(errors.array());
+  }
   const keepOnlyKeys = ["name", "username"];
   if (Object.keys(req.body).length === 0 && req.get("Authorization")) {
     // If body is empty && Authorization token is provided, try loging in using it.
