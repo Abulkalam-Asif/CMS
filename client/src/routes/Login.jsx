@@ -11,7 +11,10 @@ import {
   ADMIN_USERNAME_MIN_LENGTH,
   STUDENT_PASSWORD_MIN_LENGTH,
   STUDENT_ROLL_NO_LENGTH,
+  TEACHER_ID_LENGTH,
+  TEACHER_PASSWORD_MIN_LENGTH,
 } from "../constants";
+import { useTeacherLoginMutation } from "../store/api/authApi/authTeacherApi";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -43,6 +46,12 @@ const Login = () => {
       usernameWarningTextMap: `Length should be exactly ${STUDENT_ROLL_NO_LENGTH} characters`,
       passwordWarningMap: user?.password?.length < STUDENT_PASSWORD_MIN_LENGTH,
       passwordWarningTextMap: `Length should be minimum ${STUDENT_PASSWORD_MIN_LENGTH} characters`,
+    },
+    teacher: {
+      usernameWarningMap: user?.teacherId?.length != TEACHER_ID_LENGTH,
+      usernameWarningTextMap: `Length should be exactly ${TEACHER_ID_LENGTH} characters`,
+      passwordWarningMap: user?.password?.length < TEACHER_PASSWORD_MIN_LENGTH,
+      passwordWarningTextMap: `Length should be minimum ${TEACHER_PASSWORD_MIN_LENGTH} characters`,
     },
   };
 
@@ -80,6 +89,8 @@ const Login = () => {
     [loginUserCaller, { isLoading }] = useAdminLoginMutation();
   } else if (loginUserType === "student") {
     [loginUserCaller, { isLoading }] = useStudentLoginMutation();
+  } else if (loginUserType === "teacher") {
+    [loginUserCaller, { isLoading }] = useTeacherLoginMutation();
   }
 
   const loginHandler = async (e) => {
