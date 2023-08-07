@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import alertSlice from "./slices/alertSlice";
-import loginSlice from "./slices/loginSlice";
+import loginUserTypeSlice from "./slices/loginUserTypeSlice";
 import userDataSlice from "./slices/userDataSlice";
 import addOrEditStudentSlice from "./slices/addOrEditStudentSlice";
 import { baseApi } from "./api/baseApi";
@@ -10,7 +10,7 @@ import addOrEditCourseSlice from "./slices/addOrEditCourseSlice";
 const store = configureStore({
   reducer: {
     alert: alertSlice,
-    login: loginSlice,
+    loginUserType: loginUserTypeSlice,
     userData: userDataSlice,
     addOrEditStudent: addOrEditStudentSlice,
     addOrEditTeacher: addOrEditTeacherSlice,

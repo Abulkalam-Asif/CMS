@@ -1,12 +1,12 @@
 import React from "react";
 import { H1, LinkButton } from "../components";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../store/slices/loginSlice";
+import { setLoginUserType } from "../store/slices/loginUserTypeSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
   const clickHandler = (e) => {
-    dispatch(setLogin(e.target.innerText.toLowerCase()));
+    dispatch(setLoginUserType(e.target.innerText.toLowerCase()));
   };
 
   return (
