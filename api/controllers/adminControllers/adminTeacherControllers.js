@@ -6,7 +6,7 @@ const { removeExtraSpaces, filterKeys } = require("../../utils");
 
 // Fetches all the teachers from database
 const admin_teachers_get_all = async (req, res) => {
-  const keepOnlyKeys = ["teacherId", "firstName", "lastName", "gender", "qualification", "department", "coursesAssigned"];
+  const keepOnlyKeys = ["teacherId", "firstName", "lastName", "gender", "qualification", "department"];
   try {
     let teachersList = await Teacher.find();
     teachersList = teachersList.map((teacher) => {
@@ -26,7 +26,7 @@ const admin_teacher_get_single = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(402).json(errors.array());
   }
-  const keepOnlyKeys = ["teacherId", "firstName", "lastName", "gender", "qualification", "department", "coursesAssigned"];
+  const keepOnlyKeys = ["teacherId", "firstName", "lastName", "gender", "qualification", "department"];
   try {
     req.params["teacherId"] = req.params["teacherId"].toUpperCase();
 
