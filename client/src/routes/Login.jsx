@@ -84,13 +84,13 @@ const Login = () => {
   }, [user, loginUserType]);
 
   // Setting the login mutation based on the type of user
-  let loginUserCaller, isLoading;
+  let loginUser, isLoggingUserIn;
   if (loginUserType === "admin") {
-    [loginUserCaller, { isLoading }] = useAdminLoginMutation();
+    [loginUser, { isLoading: isLoggingUserIn }] = useAdminLoginMutation();
   } else if (loginUserType === "student") {
-    [loginUserCaller, { isLoading }] = useStudentLoginMutation();
+    [loginUser, { isLoading: isLoggingUserIn }] = useStudentLoginMutation();
   } else if (loginUserType === "teacher") {
-    [loginUserCaller, { isLoading }] = useTeacherLoginMutation();
+    [loginUser, { isLoading: isLoggingUserIn }] = useTeacherLoginMutation();
   }
 
   const loginHandler = async (e) => {
@@ -126,7 +126,7 @@ const Login = () => {
       );
     } else {
       // Sending POST request to server with user data
-      const { error, data } = await loginUserCaller({ body: user });
+      const { error, data } = await loginUser({ body: user });
       if (error) {
         dispatch(toggleAlert({ type: "error", message: error?.data?.message }));
       } else {
@@ -142,35 +142,35 @@ const Login = () => {
       <div>
         <H1 className="capitalize" content={`Login as ${loginUserType}`} />
         <HR />
-        <form className="px-12">
-          <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-16">
-            <DataInput
-              labelText={usernameType[loginUserType][1]}
-              nameIdHtmlFor={usernameType[loginUserType][0]}
-              onChange={handleInputChange}
-              value={dataInputProps?.usernameValue}
-              placeholder={dataInputProps?.usernamePlaceholder}
-              warning={dataInputProps?.usernameWarning}
-              warningText={dataInputProps?.usernameWarningText}
-            />
-            <DataInput
-              labelText="Password"
-              nameIdHtmlFor="password"
-              onChange={handleInputChange}
-              value={dataInputProps?.passwordValue}
-              placeholder={dataInputProps?.passwordPlaceholder}
-              warning={dataInputProps?.passwordWarning}
-              warningText={dataInputProps?.passwordWarningText}
-            />
-          </div>
-          <div className="flex justify-center gap-4">
-            <Button
-              size="medium"
-              content={isLoading ? <Spinner size="w-8 h-6" /> : "Login"}
-              onClick={loginHandler}
-            />
-          </div>
-        </form>
+        {isLoggingUserIn ? (
+          <Spinner size="w-24 h-24" type="centralizedSpinner" />
+        ) : (
+          <form className="px-12">
+            <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-16">
+              <DataInput
+                labelText={usernameType[loginUserType][1]}
+                nameIdHtmlFor={usernameType[loginUserType][0]}
+                onChange={handleInputChange}
+                value={dataInputProps?.usernameValue}
+                placeholder={dataInputProps?.usernamePlaceholder}
+                warning={dataInputProps?.usernameWarning}
+                warningText={dataInputProps?.usernameWarningText}
+              />
+              <DataInput
+                labelText="Password"
+                nameIdHtmlFor="password"
+                onChange={handleInputChange}
+                value={dataInputProps?.passwordValue}
+                placeholder={dataInputProps?.passwordPlaceholder}
+                warning={dataInputProps?.passwordWarning}
+                warningText={dataInputProps?.passwordWarningText}
+              />
+            </div>
+            <div className="flex justify-center gap-4">
+              <Button size="medium" content="Login" onClick={loginHandler} />
+            </div>
+          </form>
+        )}
       </div>
     </>
   );
