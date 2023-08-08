@@ -1,11 +1,19 @@
 import React from "react";
 
 const Spinner = (props) => {
-  const { size, className } = props;
-  // size should be something like w-6 h-6
+  const { size, className, type } = props;
+  // size - should be something like w-6 h-6
+  // type - unset(default) || centralizedSpinner
+  let typeBasedClasses = "";
+  if (type === "unset") {
+    typeBasedClasses = "";
+  } else if (type === "centralizedSpinner") {
+    typeBasedClasses =
+      "absolute right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2";
+  }
   return (
     <>
-      <div role="status" className={className}>
+      <div role="status" className={`${className} ${typeBasedClasses}`}>
         <svg
           aria-hidden="true"
           className={`${size} text-white animate-spin fill-pink-700`}
@@ -25,6 +33,10 @@ const Spinner = (props) => {
       </div>
     </>
   );
+};
+
+Spinner.defaultProps = {
+  type: "unset",
 };
 
 export default Spinner;

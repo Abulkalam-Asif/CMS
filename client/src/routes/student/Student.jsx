@@ -47,10 +47,7 @@ const Student = () => {
   return (
     <>
       {isLoading ? (
-        <Spinner
-          size="w-24 h-24"
-          className="absolute right-1/2 translate-x-1/2 bottom-1/2 translate-y-1/2"
-        />
+        <Spinner size="w-24 h-24" type="centralizedSpinner" />
       ) : (
         <div>
           <H1

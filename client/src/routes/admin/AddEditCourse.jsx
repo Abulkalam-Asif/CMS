@@ -29,8 +29,9 @@ import {
 const AddEditCourse = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [addCourse, { isLoading: isAddCourseLoading }] = useAddCourseMutation();
-  const [updateCourse] = useUpdateCourseMutation();
+  const [addCourse, { isLoading: isAddingCourse }] = useAddCourseMutation();
+  const [updateCourse, { isLoading: isUpdatingCourse }] =
+    useUpdateCourseMutation();
   const courseData = useSelector((state) => state.userData?.data?.course);
   const addOrEditCourse = useSelector((state) => state.addOrEditCourse);
 
@@ -151,76 +152,67 @@ const AddEditCourse = () => {
           />
         </div>
         <HR />
-        <form className="px-12 pt-8">
-          <div className="grid grid-cols-2 gap-x-16 gap-y-4">
-            <DataInput
-              labelText="Course ID"
-              nameIdHtmlFor="courseId"
-              placeholder="Sample [CC-111]"
-              onChange={handleInputChange}
-              value={course?.courseId}
-              warning={
-                !course?.courseId ||
-                course?.courseId?.length < COURSE_ID_MIN_LENGTH ||
-                course?.courseId?.length > COURSE_ID_MAX_LENGTH
-              }
-              warningText={`Length should be ${COURSE_ID_MIN_LENGTH}-${COURSE_ID_MAX_LENGTH} characters`}
-            />
-            <DataInput
-              labelText="Course Name"
-              nameIdHtmlFor="courseName"
-              placeholder="Enter course name"
-              value={course?.courseName}
-              onChange={handleInputChange}
-              warning={
-                !course?.courseName ||
-                course?.courseName?.length < COURSE_NAME_MIN_LENGTH ||
-                course?.courseName?.length > COURSE_NAME_MAX_LENGTH
-              }
-              warningText={`Length should be ${COURSE_NAME_MIN_LENGTH}-${COURSE_NAME_MAX_LENGTH} characters`}
-            />
-            <DataInput
-              labelText="Credit Hours"
-              type="number"
-              nameIdHtmlFor="creditHours"
-              onChange={handleInputChange}
-              value={course?.creditHours}
-              placeholder="Sample [MS Information Technology]"
-              warning={
-                !course?.creditHours ||
-                course?.creditHours < COURSE_CREDIT_HOURS_MIN_VAL ||
-                course?.creditHours > COURSE_CREDIT_HOURS_MAX_VAL
-              }
-              warningText={`Value should be ${COURSE_CREDIT_HOURS_MIN_VAL} to ${COURSE_CREDIT_HOURS_MAX_VAL} (inclusive)`}
-            />
-          </div>
-          <div className="flex mt-8 justify-center gap-4">
-            {addOrEditCourse === "edit" ? (
-              <Button
-                content={
-                  <>{false ? <Spinner size="w-6 h-6" /> : "Update Course"}</>
+        {isAddingCourse || isUpdatingCourse ? (
+          <Spinner size="w-24 h-24" type="centralizedSpinner" />
+        ) : (
+          <form className="px-12 pt-8">
+            <div className="grid grid-cols-2 gap-x-16 gap-y-4">
+              <DataInput
+                labelText="Course ID"
+                nameIdHtmlFor="courseId"
+                placeholder="Sample [CC-111]"
+                onChange={handleInputChange}
+                value={course?.courseId}
+                warning={
+                  !course?.courseId ||
+                  course?.courseId?.length < COURSE_ID_MIN_LENGTH ||
+                  course?.courseId?.length > COURSE_ID_MAX_LENGTH
                 }
-                onClick={updateCourseHandler}
-                customAttributes={{
-                  name: updateButtonName,
-                }}
+                warningText={`Length should be ${COURSE_ID_MIN_LENGTH}-${COURSE_ID_MAX_LENGTH} characters`}
               />
-            ) : (
-              <Button
-                content={
-                  <>
-                    {isAddCourseLoading ? (
-                      <Spinner size="w-6 h-6" />
-                    ) : (
-                      "Add Course"
-                    )}
-                  </>
+              <DataInput
+                labelText="Course Name"
+                nameIdHtmlFor="courseName"
+                placeholder="Enter course name"
+                value={course?.courseName}
+                onChange={handleInputChange}
+                warning={
+                  !course?.courseName ||
+                  course?.courseName?.length < COURSE_NAME_MIN_LENGTH ||
+                  course?.courseName?.length > COURSE_NAME_MAX_LENGTH
                 }
-                onClick={addCourseHandler}
+                warningText={`Length should be ${COURSE_NAME_MIN_LENGTH}-${COURSE_NAME_MAX_LENGTH} characters`}
               />
-            )}
-          </div>
-        </form>
+              <DataInput
+                labelText="Credit Hours"
+                type="number"
+                nameIdHtmlFor="creditHours"
+                onChange={handleInputChange}
+                value={course?.creditHours}
+                placeholder="Sample [MS Information Technology]"
+                warning={
+                  !course?.creditHours ||
+                  course?.creditHours < COURSE_CREDIT_HOURS_MIN_VAL ||
+                  course?.creditHours > COURSE_CREDIT_HOURS_MAX_VAL
+                }
+                warningText={`Value should be ${COURSE_CREDIT_HOURS_MIN_VAL} to ${COURSE_CREDIT_HOURS_MAX_VAL} (inclusive)`}
+              />
+            </div>
+            <div className="flex mt-8 justify-center gap-4">
+              {addOrEditCourse === "edit" ? (
+                <Button
+                  content="Update Course"
+                  onClick={updateCourseHandler}
+                  customAttributes={{
+                    name: updateButtonName,
+                  }}
+                />
+              ) : (
+                <Button content="Add Course" onClick={addCourseHandler} />
+              )}
+            </div>
+          </form>
+        )}
       </div>
     </>
   );

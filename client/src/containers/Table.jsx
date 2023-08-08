@@ -79,12 +79,7 @@ const Table = (props) => {
 
   return deleteDataMutation?.isLoading ? (
     <>
-      <div className="relative">
-        <Spinner
-          size="w-24 h-24"
-          className="absolute right-1/2 translate-x-1/2 bottom-1/2 translate-y-1/2"
-        />
-      </div>
+      <Spinner size="w-24 h-24" type="centralizedSpinner" />
     </>
   ) : (
     <>

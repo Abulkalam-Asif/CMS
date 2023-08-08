@@ -30,9 +30,9 @@ import {
 const AddEditTeacher = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [addTeacher, { isLoading: isAddTeacherLoading }] =
-    useAddTeacherMutation();
-  const [updateTeacher] = useUpdateTeacherMutation();
+  const [addTeacher, { isLoading: isAddingTeacher }] = useAddTeacherMutation();
+  const [updateTeacher, { isLoading: isUpdatingTeacher }] =
+    useUpdateTeacherMutation();
   const teacherData = useSelector((state) => state.userData?.data?.teacher);
   const addOrEditTeacher = useSelector((state) => state.addOrEditTeacher);
 
@@ -160,118 +160,109 @@ const AddEditTeacher = () => {
           />
         </div>
         <HR />
-        <form className="px-12 pt-8">
-          <div className="grid grid-cols-2 gap-x-16 gap-y-4">
-            <DataInput
-              labelText="First Name"
-              nameIdHtmlFor="firstName"
-              placeholder="Enter first name"
-              value={teacher?.firstName}
-              onChange={handleInputChange}
-              warning={
-                !teacher?.firstName ||
-                teacher?.firstName?.length < TEACHER_FIRSTNAME_MIN_LENGTH ||
-                teacher?.firstName?.length > TEACHER_FIRSTNAME_MAX_LENGTH
-              }
-              warningText={`Length should be ${TEACHER_FIRSTNAME_MIN_LENGTH}-${TEACHER_FIRSTNAME_MAX_LENGTH} characters`}
-            />
-            <DataInput
-              labelText="Last Name"
-              nameIdHtmlFor="lastName"
-              onChange={handleInputChange}
-              value={teacher?.lastName}
-              placeholder="Enter last name"
-              warning={
-                !teacher?.lastName ||
-                teacher?.lastName?.length < TEACHER_LASTNAME_MIN_LENGTH ||
-                teacher?.lastName?.length > TEACHER_LASTNAME_MAX_LENGTH
-              }
-              warningText={`Length should be ${TEACHER_LASTNAME_MIN_LENGTH}-${TEACHER_LASTNAME_MAX_LENGTH} characters`}
-            />
-            <DataInput
-              labelText="Teacher ID"
-              nameIdHtmlFor="teacherId"
-              placeholder="Sample [ITF21001]"
-              onChange={handleInputChange}
-              value={teacher?.teacherId}
-              warning={
-                !teacher?.teacherId ||
-                teacher?.teacherId?.length != TEACHER_ID_LENGTH
-              }
-              warningText={`Length should be exactly ${TEACHER_ID_LENGTH} characters`}
-            />
-            <DataInput
-              labelText="Assign a Password"
-              nameIdHtmlFor="password"
-              onChange={handleInputChange}
-              value={teacher?.password}
-              placeholder="Assign a password to the teacher"
-              warning={
-                !teacher?.password ||
-                teacher?.password?.length < TEACHER_PASSWORD_MIN_LENGTH
-              }
-              warningText={`Length should be minimum ${TEACHER_PASSWORD_MIN_LENGTH} characters`}
-            />
-            <DataInput
-              labelText="Qualification"
-              nameIdHtmlFor="qualification"
-              onChange={handleInputChange}
-              value={teacher?.qualification}
-              placeholder="Sample [MS Information Technology]"
-              warning={
-                !teacher?.qualification ||
-                teacher?.qualification?.length <
-                  TEACHER_QUALIFICATION_MIN_LENGTH
-              }
-              warningText={`Length should be minimum ${TEACHER_QUALIFICATION_MIN_LENGTH} characters`}
-            />
-            <Select
-              nameIdHtmlFor="gender"
-              labelText="Gender"
-              onChange={handleInputChange}
-              initialValue={teacher?.gender}
-              options={["Male", "Female"]}
-            />
-            <Select
-              nameIdHtmlFor="department"
-              labelText="Department"
-              onChange={handleInputChange}
-              initialValue={teacher?.department}
-              options={[
-                "Computer Science",
-                "Information Technology",
-                "Software Engineering",
-                "Data Science",
-              ]}
-            />
-          </div>
-          <div className="flex mt-8 justify-center gap-4">
-            {addOrEditTeacher === "edit" ? (
-              <Button
-                content={
-                  <>{false ? <Spinner size="w-6 h-6" /> : "Update Teacher"}</>
+        {isAddingTeacher || isUpdatingTeacher ? (
+          <Spinner size="w-24 h-24" type="centralizedSpinner" />
+        ) : (
+          <form className="px-12 pt-8">
+            <div className="grid grid-cols-2 gap-x-16 gap-y-4">
+              <DataInput
+                labelText="First Name"
+                nameIdHtmlFor="firstName"
+                placeholder="Enter first name"
+                value={teacher?.firstName}
+                onChange={handleInputChange}
+                warning={
+                  !teacher?.firstName ||
+                  teacher?.firstName?.length < TEACHER_FIRSTNAME_MIN_LENGTH ||
+                  teacher?.firstName?.length > TEACHER_FIRSTNAME_MAX_LENGTH
                 }
-                onClick={updateTeacherHandler}
-                customAttributes={{
-                  name: updateButtonName,
-                }}
+                warningText={`Length should be ${TEACHER_FIRSTNAME_MIN_LENGTH}-${TEACHER_FIRSTNAME_MAX_LENGTH} characters`}
               />
-            ) : (
-              <Button
-                content={
-                  <>
-                    {isAddTeacherLoading ? (
-                      <Spinner size="w-6 h-6" />
-                    ) : (
-                      "Add Teacher"
-                    )}
-                  </>
+              <DataInput
+                labelText="Last Name"
+                nameIdHtmlFor="lastName"
+                onChange={handleInputChange}
+                value={teacher?.lastName}
+                placeholder="Enter last name"
+                warning={
+                  !teacher?.lastName ||
+                  teacher?.lastName?.length < TEACHER_LASTNAME_MIN_LENGTH ||
+                  teacher?.lastName?.length > TEACHER_LASTNAME_MAX_LENGTH
                 }
-                onClick={addTeacherHandler}
+                warningText={`Length should be ${TEACHER_LASTNAME_MIN_LENGTH}-${TEACHER_LASTNAME_MAX_LENGTH} characters`}
               />
-            )}
-          </div>
-        </form>
+              <DataInput
+                labelText="Teacher ID"
+                nameIdHtmlFor="teacherId"
+                placeholder="Sample [ITF21001]"
+                onChange={handleInputChange}
+                value={teacher?.teacherId}
+                warning={
+                  !teacher?.teacherId ||
+                  teacher?.teacherId?.length != TEACHER_ID_LENGTH
+                }
+                warningText={`Length should be exactly ${TEACHER_ID_LENGTH} characters`}
+              />
+              <DataInput
+                labelText="Assign a Password"
+                nameIdHtmlFor="password"
+                onChange={handleInputChange}
+                value={teacher?.password}
+                placeholder="Assign a password to the teacher"
+                warning={
+                  !teacher?.password ||
+                  teacher?.password?.length < TEACHER_PASSWORD_MIN_LENGTH
+                }
+                warningText={`Length should be minimum ${TEACHER_PASSWORD_MIN_LENGTH} characters`}
+              />
+              <DataInput
+                labelText="Qualification"
+                nameIdHtmlFor="qualification"
+                onChange={handleInputChange}
+                value={teacher?.qualification}
+                placeholder="Sample [MS Information Technology]"
+                warning={
+                  !teacher?.qualification ||
+                  teacher?.qualification?.length <
+                    TEACHER_QUALIFICATION_MIN_LENGTH
+                }
+                warningText={`Length should be minimum ${TEACHER_QUALIFICATION_MIN_LENGTH} characters`}
+              />
+              <Select
+                nameIdHtmlFor="gender"
+                labelText="Gender"
+                onChange={handleInputChange}
+                initialValue={teacher?.gender}
+                options={["Male", "Female"]}
+              />
+              <Select
+                nameIdHtmlFor="department"
+                labelText="Department"
+                onChange={handleInputChange}
+                initialValue={teacher?.department}
+                options={[
+                  "Computer Science",
+                  "Information Technology",
+                  "Software Engineering",
+                  "Data Science",
+                ]}
+              />
+            </div>
+            <div className="flex mt-8 justify-center gap-4">
+              {addOrEditTeacher === "edit" ? (
+                <Button
+                  content="Update Teacher"
+                  onClick={updateTeacherHandler}
+                  customAttributes={{
+                    name: updateButtonName,
+                  }}
+                />
+              ) : (
+                <Button content="Add Teacher" onClick={addTeacherHandler} />
+              )}
+            </div>
+          </form>
+        )}
       </div>
     </>
   );

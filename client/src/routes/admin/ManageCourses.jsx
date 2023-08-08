@@ -146,17 +146,14 @@ const ManageCourses = () => {
           />
           <Button content="Search" onClick={searchHandler} />
         </form>
-        <div className="relative mt-8">
-          {isFetchingCourseData || isDeletingCourse ? (
+        {isFetchingCourseData || isDeletingCourse ? (
+          <>
+            <Spinner size="w-24 h-24" type="centralizedSpinner" />
+          </>
+        ) : (
+          showCourseData && (
             <>
-              <Spinner
-                size="w-24 h-24"
-                className="absolute right-1/2 translate-x-1/2 top-1/2 translate-y-1/2"
-              />
-            </>
-          ) : (
-            showCourseData && (
-              <>
+              <div className="mt-8">
                 <HR className="mb-4" />
                 <Table
                   data={[courseData?.course]}
@@ -185,10 +182,10 @@ const ManageCourses = () => {
                     to="/admin/manageCourses/editCourse"
                   />
                 </div>
-              </>
-            )
-          )}
-        </div>
+              </div>
+            </>
+          )
+        )}
       </div>
     </>
   );

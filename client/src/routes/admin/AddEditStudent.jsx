@@ -29,9 +29,9 @@ import {
 const AddEditStudent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [addStudent, { isLoading: isAddStudentLoading }] =
-    useAddStudentMutation();
-  const [updateStudent] = useUpdateStudentMutation();
+  const [addStudent, { isLoading: isAddingStudent }] = useAddStudentMutation();
+  const [updateStudent, { isLoading: isUpdatingStudent }] =
+    useUpdateStudentMutation();
   const studentData = useSelector((state) => state.userData?.data?.student);
   const addOrEditStudent = useSelector((state) => state.addOrEditStudent);
 
@@ -155,105 +155,96 @@ const AddEditStudent = () => {
           />
         </div>
         <HR />
-        <form className="px-12 pt-8">
-          <div className="grid grid-cols-2 gap-x-16 gap-y-4">
-            <DataInput
-              labelText="First Name"
-              nameIdHtmlFor="firstName"
-              placeholder="Enter first name"
-              value={student?.firstName}
-              onChange={handleInputChange}
-              warning={
-                !student?.firstName ||
-                student?.firstName?.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
-                student?.firstName?.length > STUDENT_FIRSTNAME_MAX_LENGTH
-              }
-              warningText={`Length should be ${STUDENT_FIRSTNAME_MIN_LENGTH}-${STUDENT_FIRSTNAME_MAX_LENGTH} characters`}
-            />
-            <DataInput
-              labelText="Last Name"
-              nameIdHtmlFor="lastName"
-              onChange={handleInputChange}
-              value={student?.lastName}
-              placeholder="Enter last name"
-              warning={
-                !student?.lastName ||
-                student?.lastName?.length < STUDENT_LASTNAME_MIN_LENGTH ||
-                student?.lastName?.length > STUDENT_LASTNAME_MAX_LENGTH
-              }
-              warningText={`Length should be ${STUDENT_FIRSTNAME_MIN_LENGTH}-${STUDENT_FIRSTNAME_MAX_LENGTH} characters`}
-            />
-            <DataInput
-              labelText="Roll No."
-              nameIdHtmlFor="rollNo"
-              placeholder="Sample [BITF21M001]"
-              onChange={handleInputChange}
-              value={student?.rollNo}
-              warning={
-                !student?.rollNo ||
-                student?.rollNo?.length != STUDENT_ROLL_NO_LENGTH
-              }
-              warningText={`Length should be exactly ${STUDENT_ROLL_NO_LENGTH} characters`}
-            />
-            <DataInput
-              labelText="Assign a Password"
-              nameIdHtmlFor="password"
-              onChange={handleInputChange}
-              value={student?.password}
-              placeholder="Assign a password to the student"
-              warning={
-                !student?.password ||
-                student?.password?.length < STUDENT_PASSWORD_MIN_LENGTH
-              }
-              warningText={`Length should be minimum ${STUDENT_PASSWORD_MIN_LENGTH} characters`}
-            />
-            <Select
-              nameIdHtmlFor="gender"
-              labelText="Gender"
-              onChange={handleInputChange}
-              initialValue={student?.gender}
-              options={["Male", "Female"]}
-            />
-            <Select
-              nameIdHtmlFor="program"
-              labelText="Program"
-              onChange={handleInputChange}
-              initialValue={student?.program}
-              options={[
-                "Computer Science",
-                "Information Technology",
-                "Software Engineering",
-                "Data Science",
-              ]}
-            />
-          </div>
-          <div className="flex mt-8 justify-center gap-4">
-            {addOrEditStudent === "edit" ? (
-              <Button
-                content={
-                  <>{false ? <Spinner size="w-6 h-6" /> : "Update Student"}</>
+        {isAddingStudent || isUpdatingStudent ? (
+          <Spinner size="w-24 h-24" type="centralizedSpinner" />
+        ) : (
+          <form className="px-12 pt-8">
+            <div className="grid grid-cols-2 gap-x-16 gap-y-4">
+              <DataInput
+                labelText="First Name"
+                nameIdHtmlFor="firstName"
+                placeholder="Enter first name"
+                value={student?.firstName}
+                onChange={handleInputChange}
+                warning={
+                  !student?.firstName ||
+                  student?.firstName?.length < STUDENT_FIRSTNAME_MIN_LENGTH ||
+                  student?.firstName?.length > STUDENT_FIRSTNAME_MAX_LENGTH
                 }
-                onClick={updateStudentHandler}
-                customAttributes={{
-                  name: updateButtonName,
-                }}
+                warningText={`Length should be ${STUDENT_FIRSTNAME_MIN_LENGTH}-${STUDENT_FIRSTNAME_MAX_LENGTH} characters`}
               />
-            ) : (
-              <Button
-                content={
-                  <>
-                    {isAddStudentLoading ? (
-                      <Spinner size="w-6 h-6" />
-                    ) : (
-                      "Add Student"
-                    )}
-                  </>
+              <DataInput
+                labelText="Last Name"
+                nameIdHtmlFor="lastName"
+                onChange={handleInputChange}
+                value={student?.lastName}
+                placeholder="Enter last name"
+                warning={
+                  !student?.lastName ||
+                  student?.lastName?.length < STUDENT_LASTNAME_MIN_LENGTH ||
+                  student?.lastName?.length > STUDENT_LASTNAME_MAX_LENGTH
                 }
-                onClick={addStudentHandler}
+                warningText={`Length should be ${STUDENT_FIRSTNAME_MIN_LENGTH}-${STUDENT_FIRSTNAME_MAX_LENGTH} characters`}
               />
-            )}
-          </div>
-        </form>
+              <DataInput
+                labelText="Roll No."
+                nameIdHtmlFor="rollNo"
+                placeholder="Sample [BITF21M001]"
+                onChange={handleInputChange}
+                value={student?.rollNo}
+                warning={
+                  !student?.rollNo ||
+                  student?.rollNo?.length != STUDENT_ROLL_NO_LENGTH
+                }
+                warningText={`Length should be exactly ${STUDENT_ROLL_NO_LENGTH} characters`}
+              />
+              <DataInput
+                labelText="Assign a Password"
+                nameIdHtmlFor="password"
+                onChange={handleInputChange}
+                value={student?.password}
+                placeholder="Assign a password to the student"
+                warning={
+                  !student?.password ||
+                  student?.password?.length < STUDENT_PASSWORD_MIN_LENGTH
+                }
+                warningText={`Length should be minimum ${STUDENT_PASSWORD_MIN_LENGTH} characters`}
+              />
+              <Select
+                nameIdHtmlFor="gender"
+                labelText="Gender"
+                onChange={handleInputChange}
+                initialValue={student?.gender}
+                options={["Male", "Female"]}
+              />
+              <Select
+                nameIdHtmlFor="program"
+                labelText="Program"
+                onChange={handleInputChange}
+                initialValue={student?.program}
+                options={[
+                  "Computer Science",
+                  "Information Technology",
+                  "Software Engineering",
+                  "Data Science",
+                ]}
+              />
+            </div>
+            <div className="flex mt-8 justify-center gap-4">
+              {addOrEditStudent === "edit" ? (
+                <Button
+                  content="Update Student"
+                  onClick={updateStudentHandler}
+                  customAttributes={{
+                    name: updateButtonName,
+                  }}
+                />
+              ) : (
+                <Button content="Add Student" onClick={addStudentHandler} />
+              )}
+            </div>
+          </form>
+        )}
       </div>
     </>
   );

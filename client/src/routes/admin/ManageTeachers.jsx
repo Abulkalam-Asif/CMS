@@ -140,17 +140,14 @@ const ManageTeachers = () => {
           />
           <Button content="Search" onClick={searchHandler} />
         </form>
-        <div className="relative mt-8">
-          {isFetchingTeacherData || isDeletingTeacher ? (
+        {isFetchingTeacherData || isDeletingTeacher ? (
+          <>
+            <Spinner size="w-24 h-24" type="centralizedSpinner" />
+          </>
+        ) : (
+          showTeacherData && (
             <>
-              <Spinner
-                size="w-24 h-24"
-                className="absolute right-1/2 translate-x-1/2 top-1/2 translate-y-1/2"
-              />
-            </>
-          ) : (
-            showTeacherData && (
-              <>
+              <div className="mt-8">
                 <HR className="mb-4" />
                 <Table
                   data={[teacherData?.teacher]}
@@ -189,10 +186,10 @@ const ManageTeachers = () => {
                     to="/admin/manageTeachers/editTeacher"
                   />
                 </div>
-              </>
-            )
-          )}
-        </div>
+              </div>
+            </>
+          )
+        )}
       </div>
     </>
   );
