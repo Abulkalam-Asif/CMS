@@ -13,6 +13,9 @@ export default {
       },
       listStyleType: {
         square: 'square'
+      },
+      borderWidth: {
+        "6": "6px"
       }
     }
   },
