@@ -33,7 +33,7 @@ const auth_admin_login = async (req, res) => {
         // Checking if the admin exists based on username
         const admin = await Admin.findOne({ username });
         if (!admin) {
-          res.status(404).json({ message: "Admin not found with the given Username." });
+          res.status(404).json({ message: "Please login again." });
         } else {
           // Send only seleted key-value pairs
           const newAdmin = filterKeys(keepOnlyKeys, admin);

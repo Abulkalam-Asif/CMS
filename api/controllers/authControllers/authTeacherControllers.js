@@ -19,7 +19,7 @@ const auth_teacher_login = async (req, res) => {
         // Checking if the teacher exists based on teacherId
         const teacher = await Teacher.findOne({ teacherId });
         if (!teacher) {
-          return res.status(404).json({ message: "Teacher not found with given Teacher ID" });
+          return res.status(404).json({ message: "Please login again." });
         } else {
           // Send only seleted key-value pairs
           const newTeacher = filterKeys(keepOnlyKeys, teacher);

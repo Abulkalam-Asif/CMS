@@ -19,7 +19,7 @@ const auth_student_login = async (req, res) => {
         // Checking if the student exists based on rollNo
         const student = await Student.findOne({ rollNo });
         if (!student) {
-          return res.status(404).json({ message: "Student not found with given Roll No." });
+          return res.status(404).json({ message: "Please login again." });
         } else {
           // Send only seleted key-value pairs
           const newStudent = filterKeys(keepOnlyKeys, student);
