@@ -6,6 +6,7 @@ import { useStudentLoginMutation } from "../../store/api/authApi/authStudentApi"
 import { setUserData } from "../../store/slices/userDataSlice";
 import { useState } from "react";
 import { H1, HR, Spinner } from "../../components";
+import { setLoginUserType } from "../../store/slices/loginUserTypeSlice";
 
 const Student = () => {
   const [studentData, setStudentData] = useState(null);
@@ -17,11 +18,13 @@ const Student = () => {
 
   useEffect(() => {
     setStudentData(userData);
-    // If user relaods the page, retrieve his data on basis of JWT
+    // If Student reloads the page, userData state would be empty. So he is logged in with JWT
     if (!userData) {
-      const access_token = localStorage.getItem("access_token");
+      const access_token = sessionStorage.getItem("access_token");
       if (!access_token) {
         dispatch(toggleAlert({ type: "error", message: "Please login first" }));
+        // To let user login as student
+        dispatch(setLoginUserType("student"));
         navigate("/login");
       } else {
         const getStudentData = async () => {
@@ -35,6 +38,8 @@ const Student = () => {
             dispatch(
               toggleAlert({ type: "error", message: error.data.message })
             );
+            // To let user login as student
+            dispatch(setLoginUserType("student"));
             navigate("/login");
           }
         };
@@ -51,14 +56,12 @@ const Student = () => {
       ) : (
         <div>
           <H1
-            size="text-2xl"
             content={
               <>
-                Welcome{" "}
-                <span className="text-3xl">
-                  {studentData &&
-                    `${studentData?.firstName} ${studentData?.lastName}`}
-                </span>
+                <span className="text-2xl text-gray-700">Welcome</span>{" "}
+                {studentData &&
+                  `${studentData?.firstName} ${studentData?.lastName}`}{" "}
+                - Student Panel
               </>
             }
           />

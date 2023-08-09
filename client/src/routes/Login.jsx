@@ -131,9 +131,10 @@ const Login = () => {
         dispatch(toggleAlert({ type: "error", message: error?.data?.message }));
       } else {
         dispatch(toggleAlert({ type: "success", message: data?.message }));
+        // Setting user data to be displayed on the next page
         dispatch(setUserData({ userType: loginUserType, data }));
         navigate(`/${loginUserType}`);
-        localStorage.setItem("access_token", data?.access_token);
+        sessionStorage.setItem("access_token", data?.access_token);
       }
     }
   };
