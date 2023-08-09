@@ -42,7 +42,7 @@ const DisplayAllTeachers = () => {
               noData={
                 <>
                   <span className="mr-4 text-lg font-semibold">
-                    No Teachers found!
+                    No Teachers found! Please refresh the page OR
                   </span>
                   <LinkButton
                     to="/admin/manageTeachers/addNewTeacher"

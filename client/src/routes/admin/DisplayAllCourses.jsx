@@ -42,7 +42,7 @@ const DisplayAllCourses = () => {
               noData={
                 <>
                   <span className="mr-4 text-lg font-semibold">
-                    No Courses found!
+                    No Courses found! Please refresh the page OR
                   </span>
                   <LinkButton
                     to="/admin/manageCourses/addNewCourse"

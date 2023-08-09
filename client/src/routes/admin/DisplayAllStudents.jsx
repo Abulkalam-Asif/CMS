@@ -42,7 +42,7 @@ const DisplayAllStudents = () => {
               noData={
                 <>
                   <span className="mr-4 text-lg font-semibold">
-                    No Students found!
+                    No Students found! Please refresh the page OR
                   </span>
                   <LinkButton
                     to="/admin/manageStudents/addNewStudent"
