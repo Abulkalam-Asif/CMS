@@ -23,7 +23,7 @@ const auth_teacher_login = async (req, res) => {
         } else {
           // Send only seleted key-value pairs
           const newTeacher = filterKeys(keepOnlyKeys, teacher);
-          return res.status(200).json({ message: "Automatically Logged In Successfully.", teacher: newTeacher });
+          return res.status(200).json({ teacher: newTeacher });
         }
       } catch (error) {
         console.log(error)

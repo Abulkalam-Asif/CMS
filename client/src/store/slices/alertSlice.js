@@ -9,23 +9,22 @@ const alertSlice = createSlice({
     seconds: 2500
   },
   reducers: {
-    toggleAlert: (state, action) => {
-      if (state.show) {
-        return {
-          ...state,
-          show: false
-        };
-      } else {
-        return {
-          ...state,
-          ...action.payload,
-          show: true,
-        };
-      }
+    showAlert: (state, action) => {
+      return {
+        ...state,
+        ...action.payload,
+        show: true,
+      };
+    },
+    hideAlert: (state) => {
+      return {
+        ...state,
+        show: false
+      };
     }
   }
 });
 
 
-export const { toggleAlert } = alertSlice.actions;
+export const { showAlert, hideAlert } = alertSlice.actions;
 export default alertSlice.reducer;

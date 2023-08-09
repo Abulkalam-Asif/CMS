@@ -7,7 +7,7 @@ import {
   LinkButton,
   Spinner,
 } from "../../components";
-import { toggleAlert } from "../../store/slices/alertSlice";
+import { showAlert } from "../../store/slices/alertSlice";
 import { useDispatch } from "react-redux";
 import {
   useDeleteStudentMutation,
@@ -42,7 +42,7 @@ const ManageStudents = () => {
     // If extra spaces were found and removed, show alert to resubmit the form.
     if (trimmedRollNo.localeCompare(rollNo) !== 0) {
       dispatch(
-        toggleAlert({
+        showAlert({
           type: "error",
           message: `Extra spaces found and removed from the field. Please press the search button again.`,
           seconds: 4000,
@@ -54,7 +54,7 @@ const ManageStudents = () => {
     // If data entered by the user is invalid, show the alert.
     if (rollNo.length != STUDENT_ROLL_NO_LENGTH) {
       dispatch(
-        toggleAlert({
+        showAlert({
           type: "error",
           message: "Please enter valid roll no.",
         })
@@ -64,7 +64,7 @@ const ManageStudents = () => {
       if (error) {
         setShowStudentData(false);
         dispatch(
-          toggleAlert({
+          showAlert({
             type: "error",
             message: error?.data?.message,
           })
@@ -80,10 +80,10 @@ const ManageStudents = () => {
     const { data: mutationData, error: mutationError } =
       await deleteStudentMutation(rollNo);
     if (mutationError) {
-      dispatch(toggleAlert({ type: "error", message: error?.data?.message }));
+      dispatch(showAlert({ type: "error", message: error?.data?.message }));
     } else {
       dispatch(
-        toggleAlert({ type: "success", message: mutationData?.message })
+        showAlert({ type: "success", message: mutationData?.message })
       );
       setShowStudentData(false);
     }

@@ -15,7 +15,7 @@ import {
 } from "../../store/api/adminApi/adminCourseApi";
 import { COURSE_ID_MIN_LENGTH, COURSE_ID_MAX_LENGTH } from "../../constants";
 import { Table } from "../../containers";
-import { toggleAlert } from "../../store/slices/alertSlice";
+import { showAlert } from "../../store/slices/alertSlice";
 import { setUserData } from "../../store/slices/userDataSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +42,7 @@ const ManageCourses = () => {
     // If extra spaces were found and removed, show alert to resubmit the form.
     if (trimmedCourseId.localeCompare(courseId) !== 0) {
       dispatch(
-        toggleAlert({
+        showAlert({
           type: "error",
           message: `Extra spaces found and removed from the field. Please press the search button again.`,
           seconds: 4000,
@@ -57,7 +57,7 @@ const ManageCourses = () => {
       courseId.length > COURSE_ID_MAX_LENGTH
     ) {
       dispatch(
-        toggleAlert({
+        showAlert({
           type: "error",
           message: "Please enter valid course ID.",
         })
@@ -67,7 +67,7 @@ const ManageCourses = () => {
       if (error) {
         setShowCourseData(false);
         dispatch(
-          toggleAlert({
+          showAlert({
             type: "error",
             message: error?.data?.message,
           })
@@ -83,10 +83,10 @@ const ManageCourses = () => {
     const { data: mutationData, error: mutationError } =
       await deleteCourseMutation(courseId);
     if (mutationError) {
-      dispatch(toggleAlert({ type: "error", message: error?.data?.message }));
+      dispatch(showAlert({ type: "error", message: error?.data?.message }));
     } else {
       dispatch(
-        toggleAlert({ type: "success", message: mutationData?.message })
+        showAlert({ type: "success", message: mutationData?.message })
       );
       setShowCourseData(false);
     }

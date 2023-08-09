@@ -37,7 +37,7 @@ const auth_admin_login = async (req, res) => {
         } else {
           // Send only seleted key-value pairs
           const newAdmin = filterKeys(keepOnlyKeys, admin);
-          res.status(200).json({ message: "Automatically Logged In Successfully.", admin: newAdmin });
+          res.status(200).json({ admin: newAdmin });
         }
       } catch (error) {
         console.log(error)

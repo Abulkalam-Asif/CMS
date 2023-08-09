@@ -15,7 +15,7 @@ import {
 } from "../../store/api/adminApi/adminTeacherApi";
 import { TEACHER_ID_LENGTH } from "../../constants";
 import { Table } from "../../containers";
-import { toggleAlert } from "../../store/slices/alertSlice";
+import { showAlert } from "../../store/slices/alertSlice";
 import { setUserData } from "../../store/slices/userDataSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +42,7 @@ const ManageTeachers = () => {
     // If extra spaces were found and removed, show alert to resubmit the form.
     if (trimmedTeacherId.localeCompare(teacherId) !== 0) {
       dispatch(
-        toggleAlert({
+        showAlert({
           type: "error",
           message: `Extra spaces found and removed from the field. Please press the search button again.`,
           seconds: 4000,
@@ -54,7 +54,7 @@ const ManageTeachers = () => {
     // If data entered by the user is invalid, show the alert.
     if (teacherId.length != TEACHER_ID_LENGTH) {
       dispatch(
-        toggleAlert({
+        showAlert({
           type: "error",
           message: "Please enter valid teacher ID.",
         })
@@ -64,7 +64,7 @@ const ManageTeachers = () => {
       if (error) {
         setShowTeacherData(false);
         dispatch(
-          toggleAlert({
+          showAlert({
             type: "error",
             message: error?.data?.message,
           })
@@ -80,10 +80,10 @@ const ManageTeachers = () => {
     const { data: mutationData, error: mutationError } =
       await deleteTeacherMutation(teacherId);
     if (mutationError) {
-      dispatch(toggleAlert({ type: "error", message: error?.data?.message }));
+      dispatch(showAlert({ type: "error", message: error?.data?.message }));
     } else {
       dispatch(
-        toggleAlert({ type: "success", message: mutationData?.message })
+        showAlert({ type: "success", message: mutationData?.message })
       );
       setShowTeacherData(false);
     }

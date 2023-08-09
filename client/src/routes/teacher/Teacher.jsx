@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toggleAlert } from "../../store/slices/alertSlice";
+import { showAlert } from "../../store/slices/alertSlice";
 import { useTeacherLoginMutation } from "../../store/api/authApi/authTeacherApi";
 import { useState } from "react";
 import { H1, HR, Spinner } from "../../components";
@@ -21,7 +21,7 @@ const Teacher = () => {
     if (!userData) {
       const access_token = localStorage.getItem("access_token");
       if (!access_token) {
-        dispatch(toggleAlert({ type: "error", message: "Please login first" }));
+        dispatch(showAlert({ type: "error", message: "Please login first" }));
         // To let user login as teacher
         dispatch(setLoginUserType("teacher"));
         navigate("/login");
@@ -32,10 +32,9 @@ const Teacher = () => {
           });
           if (!error) {
             setTeacherData(data.teacher);
-            dispatch(toggleAlert({ type: "success", message: data.message }));
           } else {
             dispatch(
-              toggleAlert({ type: "error", message: error.data.message })
+              showAlert({ type: "error", message: error.data.message })
             );
             // To let user login as teacher
             dispatch(setLoginUserType("teacher"));

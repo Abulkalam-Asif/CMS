@@ -14,7 +14,7 @@ import {
   useAddCourseMutation,
   useUpdateCourseMutation,
 } from "../../store/api/adminApi/adminCourseApi";
-import { toggleAlert } from "../../store/slices/alertSlice";
+import { showAlert } from "../../store/slices/alertSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -70,7 +70,7 @@ const AddEditCourse = () => {
         trimmedCourse[key].localeCompare(course[key]) !== 0
       ) {
         dispatch(
-          toggleAlert({
+          showAlert({
             type: "error",
             message: `Extra spaces found and removed from the fields. Please resubmit.`,
           })
@@ -92,7 +92,7 @@ const AddEditCourse = () => {
       course?.creditHours > COURSE_CREDIT_HOURS_MAX_VAL
     ) {
       dispatch(
-        toggleAlert({
+        showAlert({
           type: "error",
           message: "Please fill the form with valid data.",
         })
@@ -107,9 +107,9 @@ const AddEditCourse = () => {
     if (addEditChecking()) {
       const { error, data } = await addCourse(course);
       if (error) {
-        dispatch(toggleAlert({ type: "error", message: error.data.message }));
+        dispatch(showAlert({ type: "error", message: error.data.message }));
       } else {
-        dispatch(toggleAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data?.message }));
         setCourse(defaultCourse);
       }
     }
@@ -123,9 +123,9 @@ const AddEditCourse = () => {
         body: course,
       });
       if (error) {
-        dispatch(toggleAlert({ type: "error", message: error.data.message }));
+        dispatch(showAlert({ type: "error", message: error.data.message }));
       } else {
-        dispatch(toggleAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data?.message }));
         setCourse(defaultCourse);
         navigate("/admin/manageCourses");
       }

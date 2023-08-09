@@ -3,7 +3,7 @@ import { H1, HR, LinkButton, Spinner } from "../../components";
 import { useAdminLoginMutation } from "../../store/api/authApi/authAdminApi";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toggleAlert } from "../../store/slices/alertSlice";
+import { showAlert } from "../../store/slices/alertSlice";
 import { setLoginUserType } from "../../store/slices/loginUserTypeSlice";
 
 const Admin = () => {
@@ -20,7 +20,7 @@ const Admin = () => {
     if (!userData) {
       const access_token = localStorage.getItem("access_token");
       if (!access_token) {
-        dispatch(toggleAlert({ type: "error", message: "Please login first" }));
+        dispatch(showAlert({ type: "error", message: "Please login first" }));
         // To let user login as admin
         dispatch(setLoginUserType("admin"));
         navigate("/login");
@@ -31,10 +31,9 @@ const Admin = () => {
           });
           if (!error) {
             setAdminData(data?.admin);
-            dispatch(toggleAlert({ type: "success", message: data.message }));
           } else {
             dispatch(
-              toggleAlert({ type: "error", message: error.data.message })
+              showAlert({ type: "error", message: error.data.message })
             );
             // To let user login as admin
             dispatch(setLoginUserType("admin"));

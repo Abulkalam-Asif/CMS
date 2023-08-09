@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Button, Spinner } from "../components";
 import { useDispatch } from "react-redux";
-import { toggleAlert } from "../store/slices/alertSlice";
+import { showAlert } from "../store/slices/alertSlice";
 
 // props
 // data - an array of objects to be displayed in the table
@@ -66,11 +66,11 @@ const Table = (props) => {
       await deleteDataMutation.caller(rollNo);
     if (mutationError) {
       dispatch(
-        toggleAlert({ type: "error", message: mutationError?.data?.message })
+        showAlert({ type: "error", message: mutationError?.data?.message })
       );
     } else {
       dispatch(
-        toggleAlert({ type: "success", message: mutationData?.message })
+        showAlert({ type: "success", message: mutationData?.message })
       );
       // When an item has been deleted, refetch the update data
       await refetchData();

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleAlert } from "../store/slices/alertSlice";
+import { hideAlert } from "../store/slices/alertSlice";
 
 const Alert = () => {
   const { show, type, message, seconds } = useSelector((state) => state.alert);
@@ -9,7 +9,7 @@ const Alert = () => {
   useEffect(() => {
     if (show) {
       const timer = setTimeout(() => {
-        dispatch(toggleAlert());
+        dispatch(hideAlert());
       }, seconds);
 
       return () => {

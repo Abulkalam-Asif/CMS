@@ -14,7 +14,7 @@ import {
   useAddTeacherMutation,
   useUpdateTeacherMutation,
 } from "../../store/api/adminApi/adminTeacherApi";
-import { toggleAlert } from "../../store/slices/alertSlice";
+import { showAlert } from "../../store/slices/alertSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -75,7 +75,7 @@ const AddEditTeacher = () => {
         trimmedTeacher[key].localeCompare(teacher[key]) !== 0
       ) {
         dispatch(
-          toggleAlert({
+          showAlert({
             type: "error",
             message: `Extra spaces found and removed from the fields. Please resubmit.`,
           })
@@ -100,7 +100,7 @@ const AddEditTeacher = () => {
       teacher?.qualification?.length < TEACHER_QUALIFICATION_MIN_LENGTH
     ) {
       dispatch(
-        toggleAlert({
+        showAlert({
           type: "error",
           message: "Please fill the form with valid data.",
         })
@@ -115,9 +115,9 @@ const AddEditTeacher = () => {
     if (addEditChecking()) {
       const { error, data } = await addTeacher(teacher);
       if (error) {
-        dispatch(toggleAlert({ type: "error", message: error.data.message }));
+        dispatch(showAlert({ type: "error", message: error.data.message }));
       } else {
-        dispatch(toggleAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data?.message }));
         setTeacher(defaultTeacher);
       }
     }
@@ -131,9 +131,9 @@ const AddEditTeacher = () => {
         body: teacher,
       });
       if (error) {
-        dispatch(toggleAlert({ type: "error", message: error.data.message }));
+        dispatch(showAlert({ type: "error", message: error.data.message }));
       } else {
-        dispatch(toggleAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data?.message }));
         setTeacher(defaultTeacher);
         navigate("/admin/manageTeachers");
       }

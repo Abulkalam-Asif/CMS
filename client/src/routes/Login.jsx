@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, DataInput, H1, HR, Spinner } from "../components";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleAlert } from "../store/slices/alertSlice";
+import { showAlert } from "../store/slices/alertSlice";
 import { setUserData } from "../store/slices/userDataSlice";
 import { useStudentLoginMutation } from "../store/api/authApi/authStudentApi";
 import { useNavigate } from "react-router-dom";
@@ -104,7 +104,7 @@ const Login = () => {
     for (let key in user) {
       if (trimmedUser[key].localeCompare(user[key]) !== 0) {
         dispatch(
-          toggleAlert({
+          showAlert({
             type: "error",
             message: `Extra spaces found and removed from the fields. Please login again.`,
           })
@@ -119,7 +119,7 @@ const Login = () => {
       warningStatesMap[loginUserType].passwordWarningMap
     ) {
       dispatch(
-        toggleAlert({
+        showAlert({
           type: "error",
           message: "Please fill the form with valid data.",
         })
@@ -128,9 +128,9 @@ const Login = () => {
       // Sending POST request to server with user data
       const { error, data } = await loginUser({ body: user });
       if (error) {
-        dispatch(toggleAlert({ type: "error", message: error?.data?.message }));
+        dispatch(showAlert({ type: "error", message: error?.data?.message }));
       } else {
-        dispatch(toggleAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data?.message }));
         // Setting user data to be displayed on the next page
         dispatch(setUserData({ userType: loginUserType, data }));
         navigate(`/${loginUserType}`);
