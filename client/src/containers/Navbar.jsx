@@ -17,8 +17,8 @@ const Navbar = (props) => {
         <div className="flex gap-4">
           <LinkButton to="/" content="Home" />
           <LinkButton to="/admin" content="Admin Panel" />
-          <LinkButton to="/teacher" content="Teacher Panel" />
           <LinkButton to="/student" content="Student Panel" />
+          <LinkButton to="/teacher" content="Teacher Panel" />
         </div>
         <button
           onClick={() => {

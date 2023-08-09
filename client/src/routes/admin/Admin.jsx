@@ -18,7 +18,7 @@ const Admin = () => {
     setAdminData(userData);
     // If Admin realoads the page, userData state would be empty. So he is logged in with JWT
     if (!userData) {
-      const access_token = sessionStorage.getItem("access_token");
+      const access_token = localStorage.getItem("access_token");
       if (!access_token) {
         dispatch(toggleAlert({ type: "error", message: "Please login first" }));
         // To let user login as admin

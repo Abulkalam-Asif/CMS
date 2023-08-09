@@ -93,29 +93,19 @@ const Sidebar = (props) => {
         />
         <SidebarListHead
           title="Student Panel"
-          name="studentListHead"
           to="/student"
-          isExpandable={true}
-          onButtonClick={expandHandler}
-          onClick={clickHandler}
-        />
-        <SidebarList
-          listRef={studentListRef}
+          isExpandable={false}
           onLinkClick={clickHandler}
-          listItems={[
-            {
-              title: "List Item 1",
-              to: "/student",
-            },
-            {
-              title: "List Item 2",
-              to: "/student",
-            },
-            {
-              title: "List Item 3",
-              to: "/student",
-            },
-          ]}
+          // name="studentListHead"
+          // onButtonClick={expandHandler}
+        />
+        <SidebarListHead
+          title="Teacher Panel"
+          to="/teacher"
+          isExpandable={false}
+          onLinkClick={clickHandler}
+          // name="teacherListHead"
+          // onButtonClick={expandHandler}
         />
       </div>
     </>

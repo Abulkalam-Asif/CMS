@@ -134,7 +134,7 @@ const Login = () => {
         // Setting user data to be displayed on the next page
         dispatch(setUserData({ userType: loginUserType, data }));
         navigate(`/${loginUserType}`);
-        sessionStorage.setItem("access_token", data?.access_token);
+        localStorage.setItem("access_token", data?.access_token);
       }
     }
   };
