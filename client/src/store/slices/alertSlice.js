@@ -4,7 +4,7 @@ const alertSlice = createSlice({
   name: 'alert',
   initialState: {
     show: false,
-    type: "",
+    type: "success",
     message: "",
     seconds: 2500
   },

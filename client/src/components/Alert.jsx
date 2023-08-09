@@ -22,14 +22,13 @@ const Alert = () => {
     <>
       {show && (
         <div
-          className={`
-            p-3 border-t-4 border-b-4 absolute translate-x-1/2 right-1/2 top-4 ${
-              type === "success"
-                ? "text-green-800 border-green-600  bg-green-50"
-                : "text-pink-800 border-pink-600 bg-red-50"
-            }`}
+          className={`rounded-md p-3 border-y-6 absolute translate-x-1/2 right-1/2 top-4 shadow-[0_10px_30px_0px] ${
+            type === "success"
+              ? "text-green-800 border-green-600  bg-green-50"
+              : "text-pink-800 border-pink-600 bg-red-50"
+          }`}
           role="alert">
-          <div className="ml-3 font-medium text-center">{message}</div>
+          <div className="ml-3 font-medium text-center">{message}</div>{" "}
         </div>
       )}
     </>
