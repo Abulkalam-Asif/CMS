@@ -49,22 +49,6 @@
       "program": "Information Technology"
     },
     {
-      "rollNo": "BITF21M015",
-      "password": "harirah",
-      "firstName": "Hajirah",
-      "lastName": "Sheikh",
-      "gender": "Female",
-      "program": "Information Technology"
-    },
-    {
-      "rollNo": "BITF21M008",
-      "password": "laiba",
-      "firstName": "Laiba",
-      "lastName": "Shaikh",
-      "gender": "Female",
-      "program": "Information Technology"
-    },
-    {
       "rollNo": "BSEF21M001",
       "password": "inzamam",
       "firstName": "Inzamam",
@@ -135,24 +119,6 @@
       "gender": "Male",
       "department": "Information Technology",
       "qualification": "MS Computer Science"
-    },
-    {
-      "teacherId": "ITF21015",
-      "password": "harirah",
-      "firstName": "Hajirah",
-      "lastName": "Sheikh",
-      "gender": "Female",
-      "department": "Information Technology",
-      "qualification": "PhD Artificial Intelligence"
-    },
-    {
-      "teacherId": "ITF21008",
-      "password": "laiba",
-      "firstName": "Laiba",
-      "lastName": "Shaikh",
-      "gender": "Female",
-      "department": "Information Technology",
-      "qualification": "MS Software Engineering"
     },
     {
       "teacherId": "SEF21001",
