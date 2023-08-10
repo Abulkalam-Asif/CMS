@@ -30,10 +30,13 @@ function App() {
         <Sidebar sidebarHandler={{ sidebar, setSidebar }} />
         <div className="max-w-screen-xl mx-auto">
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+
+            {/* Private Routes */}
             <Route path="/admin" element={<Admin />} />
-            {/* Manage Students Routes */}
+
             <Route path="/admin/manageStudents" element={<ManageStudents />} />
             <Route
               path="/admin/manageStudents/addNewStudent"
@@ -47,7 +50,7 @@ function App() {
               path="/admin/manageStudents/displayAllStudents"
               element={<DisplayAllStudents />}
             />
-            {/* Manage Teachers Routes */}
+
             <Route path="/admin/manageTeachers" element={<ManageTeachers />} />
             <Route
               path="/admin/manageTeachers/addNewTeacher"
@@ -61,7 +64,7 @@ function App() {
               path="/admin/manageTeachers/displayAllTeachers"
               element={<DisplayAllTeachers />}
             />
-            {/* Manage Courses Routes */}
+
             <Route path="/admin/manageCourses" element={<ManageCourses />} />
             <Route
               path="/admin/manageCourses/addNewCourse"
@@ -76,8 +79,8 @@ function App() {
               element={<DisplayAllCourses />}
             />
 
-            <Route path="/admin/manageCourses" element={<ManageCourses />} />
             <Route path="/teacher" element={<Teacher />} />
+
             <Route path="/student" element={<Student />} />
           </Routes>
         </div>
