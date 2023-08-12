@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 import {
   AddEditCourse,
@@ -15,10 +16,9 @@ import {
   Student,
   Teacher,
 } from "./routes";
-import { Routes, Route } from "react-router-dom";
 import { Alert } from "./components";
-import { Navbar, Sidebar } from "./containers";
-import { useState } from "react";
+import { Navbar, PrivateRoutes, Sidebar } from "./containers";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [sidebar, setSidebar] = useState("in");
@@ -35,53 +35,63 @@ function App() {
             <Route path="/login" element={<Login />} />
 
             {/* Private Routes */}
-            <Route path="/admin" element={<Admin />} />
+            <Route element={<PrivateRoutes userType="admin" />}>
+              <Route path="/admin" element={<Admin />} />
 
-            <Route path="/admin/manageStudents" element={<ManageStudents />} />
-            <Route
-              path="/admin/manageStudents/addNewStudent"
-              element={<AddEditStudent />}
-            />
-            <Route
-              path="/admin/manageStudents/editStudent"
-              element={<AddEditStudent />}
-            />
-            <Route
-              path="/admin/manageStudents/displayAllStudents"
-              element={<DisplayAllStudents />}
-            />
+              <Route
+                path="/admin/manageStudents"
+                element={<ManageStudents />}
+              />
+              <Route
+                path="/admin/manageStudents/addNewStudent"
+                element={<AddEditStudent />}
+              />
+              <Route
+                path="/admin/manageStudents/editStudent"
+                element={<AddEditStudent />}
+              />
+              <Route
+                path="/admin/manageStudents/displayAllStudents"
+                element={<DisplayAllStudents />}
+              />
 
-            <Route path="/admin/manageTeachers" element={<ManageTeachers />} />
-            <Route
-              path="/admin/manageTeachers/addNewTeacher"
-              element={<AddEditTeacher />}
-            />
-            <Route
-              path="/admin/manageTeachers/editTeacher"
-              element={<AddEditTeacher />}
-            />
-            <Route
-              path="/admin/manageTeachers/displayAllTeachers"
-              element={<DisplayAllTeachers />}
-            />
+              <Route
+                path="/admin/manageTeachers"
+                element={<ManageTeachers />}
+              />
+              <Route
+                path="/admin/manageTeachers/addNewTeacher"
+                element={<AddEditTeacher />}
+              />
+              <Route
+                path="/admin/manageTeachers/editTeacher"
+                element={<AddEditTeacher />}
+              />
+              <Route
+                path="/admin/manageTeachers/displayAllTeachers"
+                element={<DisplayAllTeachers />}
+              />
 
-            <Route path="/admin/manageCourses" element={<ManageCourses />} />
-            <Route
-              path="/admin/manageCourses/addNewCourse"
-              element={<AddEditCourse />}
-            />
-            <Route
-              path="/admin/manageCourses/editCourse"
-              element={<AddEditCourse />}
-            />
-            <Route
-              path="/admin/manageCourses/displayAllCourses"
-              element={<DisplayAllCourses />}
-            />
-
-            <Route path="/teacher" element={<Teacher />} />
-
-            <Route path="/student" element={<Student />} />
+              <Route path="/admin/manageCourses" element={<ManageCourses />} />
+              <Route
+                path="/admin/manageCourses/addNewCourse"
+                element={<AddEditCourse />}
+              />
+              <Route
+                path="/admin/manageCourses/editCourse"
+                element={<AddEditCourse />}
+              />
+              <Route
+                path="/admin/manageCourses/displayAllCourses"
+                element={<DisplayAllCourses />}
+              />
+            </Route>
+            <Route element={<PrivateRoutes userType="student" />}>
+              <Route path="/student" element={<Student />} />
+            </Route>
+            <Route element={<PrivateRoutes userType="teacher" />}>
+              <Route path="/teacher" element={<Teacher />} />
+            </Route>
           </Routes>
         </div>
       </div>

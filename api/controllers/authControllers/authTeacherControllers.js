@@ -19,7 +19,7 @@ const auth_teacher_login = async (req, res) => {
         // Checking if the teacher exists based on teacherId
         const teacher = await Teacher.findOne({ teacherId });
         if (!teacher) {
-          return res.status(404).json({ message: "Please login again." });
+          return res.status(404).json({ message: "Please login." });
         } else {
           // Send only seleted key-value pairs
           const newTeacher = filterKeys(keepOnlyKeys, teacher);
@@ -30,8 +30,9 @@ const auth_teacher_login = async (req, res) => {
         return res.status(500).json({ message: "Internal server error." });
       }
     } catch (error) {
+      // JWT token not verified
       console.log(error);
-      return res.status(401).json({ message: "Please login again." });
+      return res.status(401).json({ message: "Please login." });
     }
   } else {
     // If Authorization token is not provided try to login using username and password
@@ -40,7 +41,7 @@ const auth_teacher_login = async (req, res) => {
       // Checking if the teacher exists
       const teacher = await Teacher.findOne({ teacherId: req.body["teacherId"] });
       if (!teacher) {
-        return res.status(404).json({ message: "Teacher not found." });
+        return res.status(404).json({ message: "No TEACHER found with the given Teacher ID." });
       } else {
         // Matching the password with hashed password
         const passwordCheck = await bcrypt.compare(req.body["password"], teacher.password);

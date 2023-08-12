@@ -23,7 +23,6 @@ const Sidebar = (props) => {
     } else if (triggerer === "studentListHead") {
       target = studentListRef.current;
     }
-    console.log(target.style);
     if (target.style.gridTemplateRows === "0fr") {
       target.style.gridTemplateRows = "1fr";
     } else {

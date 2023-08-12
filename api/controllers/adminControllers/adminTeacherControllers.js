@@ -13,10 +13,10 @@ const admin_teachers_get_all = async (req, res) => {
       const newTeacher = filterKeys(keepOnlyKeys, teacher);
       return newTeacher;
     });
-    res.status(200).json({ teachersList });
+    return res.status(200).json({ teachersList });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 
@@ -35,10 +35,10 @@ const admin_teacher_get_single = async (req, res) => {
       return res.status(404).json({ message: "Teacher not found." });
     }
     const newTeacher = filterKeys(keepOnlyKeys, teacher);
-    res.status(200).json({ teacher: newTeacher });
+    return res.status(200).json({ teacher: newTeacher });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 
@@ -64,10 +64,10 @@ const admin_teacher_post = async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body["password"], 10);
     teacher = new Teacher({ ...req.body, password: hashedPassword });
     await teacher.save();
-    res.status(200).json({ message: "Teacher added successfully." });
+    return res.status(200).json({ message: "Teacher added successfully." });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 
@@ -78,13 +78,13 @@ const admin_teacher_delete = async (req, res) => {
 
     const { deletedCount } = await Teacher.deleteOne({ teacherId: req.params["teacherId"] });
     if (deletedCount === 0) {
-      res.status(404).json({ message: "Teacher not found for deletion. Please try again." });
+      return res.status(404).json({ message: "Teacher not found for deletion. Please try again." });
     } else {
-      res.status(200).json({ message: "Teacher deleted successfully." });
+      return res.status(200).json({ message: "Teacher deleted successfully." });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 
@@ -111,10 +111,10 @@ const admin_teacher_put = async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body["password"], 10);
     req.body.password = hashedPassword;
     await Teacher.findOneAndUpdate({ teacherId: req.params["teacherId"] }, req.body);
-    res.status(200).json({ message: "Teacher updated successfully." });
+    return res.status(200).json({ message: "Teacher updated successfully." });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 

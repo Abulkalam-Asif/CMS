@@ -13,10 +13,10 @@ const admin_courses_get_all = async (req, res) => {
       const newCourse = filterKeys(keepOnlyKeys, course);
       return newCourse;
     });
-    res.status(200).json({ coursesList });
+    return res.status(200).json({ coursesList });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 
@@ -35,10 +35,10 @@ const admin_course_get_single = async (req, res) => {
       return res.status(404).json({ message: "Course not found." });
     }
     const newCourse = filterKeys(keepOnlyKeys, course);
-    res.status(200).json({ course: newCourse });
+    return res.status(200).json({ course: newCourse });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 
@@ -63,10 +63,10 @@ const admin_course_post = async (req, res) => {
     // Adding a new course
     course = new Course({ ...req.body });
     await course.save();
-    res.status(200).json({ message: "Course added successfully." });
+    return res.status(200).json({ message: "Course added successfully." });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 
@@ -77,13 +77,13 @@ const admin_course_delete = async (req, res) => {
 
     const { deletedCount } = await Course.deleteOne({ courseId: req.params["courseId"] });
     if (deletedCount === 0) {
-      res.status(404).json({ message: "Course not found for deletion. Please try again." });
+      return res.status(404).json({ message: "Course not found for deletion. Please try again." });
     } else {
-      res.status(200).json({ message: "Course deleted successfully." });
+      return res.status(200).json({ message: "Course deleted successfully." });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 
@@ -108,10 +108,10 @@ const admin_course_put = async (req, res) => {
       return res.status(409).json({ message: `A course with course ID ${req.body["courseId"]} already exists.` });
     }
     await Course.findOneAndUpdate({ courseId: req.params["courseId"] }, req.body);
-    res.status(200).json({ message: "Course updated successfully." });
+    return res.status(200).json({ message: "Course updated successfully." });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 

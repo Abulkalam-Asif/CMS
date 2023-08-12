@@ -25,7 +25,7 @@ adminStudentRouter.post("/temp", (req, res) => {
   req.body.forEach(student => {
     addStudent(student);
   });
-  res.status(200).json({ message: "Students added successfully." });
+  return res.status(200).json({ message: "Students added successfully." });
 })
 // This is a temporary route to add multiple students to the database
 

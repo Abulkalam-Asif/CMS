@@ -19,7 +19,7 @@ const auth_student_login = async (req, res) => {
         // Checking if the student exists based on rollNo
         const student = await Student.findOne({ rollNo });
         if (!student) {
-          return res.status(404).json({ message: "Please login again." });
+          return res.status(404).json({ message: "Please login." });
         } else {
           // Send only seleted key-value pairs
           const newStudent = filterKeys(keepOnlyKeys, student);
@@ -30,8 +30,9 @@ const auth_student_login = async (req, res) => {
         return res.status(500).json({ message: "Internal server error." });
       }
     } catch (error) {
+      // JWT token not verified
       console.log(error);
-      return res.status(401).json({ message: "Please login again." });
+      return res.status(401).json({ message: "Please login." });
     }
   } else {
     // If Authorization token is not provided try to login using username and password
@@ -40,7 +41,7 @@ const auth_student_login = async (req, res) => {
       // Checking if the student exists
       const student = await Student.findOne({ rollNo: req.body["rollNo"] });
       if (!student) {
-        return res.status(404).json({ message: "Student not found." });
+        return res.status(404).json({ message: "No STUDENT found with the given Roll No." });
       } else {
         // Matching the password with hashed password
         const passwordCheck = await bcrypt.compare(req.body["password"], student.password);

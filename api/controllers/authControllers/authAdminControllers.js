@@ -11,10 +11,10 @@ const auth_admin_signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body["password"], 10);
     const admin = new Admin({ ...req.body, password: hashedPassword });
     await admin.save();
-    res.status(200).json({ message: "Admin added successfully." });
+    return res.status(200).json({ message: "Admin added successfully." });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 
@@ -33,19 +33,20 @@ const auth_admin_login = async (req, res) => {
         // Checking if the admin exists based on username
         const admin = await Admin.findOne({ username });
         if (!admin) {
-          res.status(404).json({ message: "Please login again." });
+          return res.status(404).json({ message: "Please login." });
         } else {
           // Send only seleted key-value pairs
           const newAdmin = filterKeys(keepOnlyKeys, admin);
-          res.status(200).json({ admin: newAdmin });
+          return res.status(200).json({ admin: newAdmin });
         }
       } catch (error) {
         console.log(error)
-        res.status(500).json({ message: "Internal server error." });
+        return res.status(500).json({ message: "Internal server error." });
       }
     } catch (error) {
+      // JWT token not verified
       console.log(error);
-      res.status(401).json({ message: "Please login again." });
+      return res.status(401).json({ message: "Please login." });
     }
   } else {
     // If Authorization token is not provided try to login using username and password
@@ -53,7 +54,7 @@ const auth_admin_login = async (req, res) => {
       // Checking if the admin exists
       const admin = await Admin.findOne({ username: req.body["username"] });
       if (!admin) {
-        res.status(404).json({ message: "Admin not found." });
+        return res.status(404).json({ message: "No ADMIN found with the given Username." });
       } else {
         // Matching the password with hashed password
         const passwordCheck = await bcrypt.compare(req.body["password"], admin.password);
@@ -63,14 +64,14 @@ const auth_admin_login = async (req, res) => {
           const access_token = jwt.sign(jwtData, process.env.JWT_SECRET, { expiresIn: "10m" })
           // Send only seleted key-value pairs
           const newAdmin = filterKeys(keepOnlyKeys, admin);
-          res.status(200).json({ message: "Logged In Successfully.", admin: newAdmin, access_token });
+          return res.status(200).json({ message: "Logged In Successfully.", admin: newAdmin, access_token });
         } else {
-          res.status(401).json({ message: "Password is incorrect." });
+          return res.status(401).json({ message: "Password is incorrect." });
         }
       }
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Internal server error." });
+      return res.status(500).json({ message: "Internal server error." });
     }
   }
 }

@@ -21,7 +21,7 @@ adminCourseRouter.post("/temp", (req, res) => {
   req.body.forEach(course => {
     addCourse(course);
   });
-  res.status(200).json({ message: "Courses added successfully." });
+  return res.status(200).json({ message: "Courses added successfully." });
 })
 // This is a temporary route to add multiple courses to the database
 

@@ -24,7 +24,7 @@ adminTeacherRouter.post("/temp", (req, res) => {
   req.body.forEach(teacher => {
     addTeacher(teacher);
   });
-  res.status(200).json({ message: "Teachers added successfully." });
+  return res.status(200).json({ message: "Teachers added successfully." });
 })
 // This is a temporary route to add multiple teachers to the database
 
