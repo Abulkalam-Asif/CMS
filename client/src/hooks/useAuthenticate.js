@@ -21,31 +21,25 @@ export const useAuthenticate = (userType) => {
     [loginUser, { data, error, isLoading }] = useTeacherLoginMutation();
   }
 
-  const access_token = localStorage.getItem("access_token");
   useEffect(() => {
-    if (!access_token) {
-      dispatch(showAlert({ type: "error", message: `Please login.` }));
-      dispatch(setLoginUserType(userType));
-      setIsAuthenticated(false);
-      navigate("/login");
-    } else {
-      loginUser({
-        headers: { Authorization: access_token },
-      });
-    }
-  }, [userType]);
+    loginUser({ sendSessionCookie: true });
+  }, []);
 
   useEffect(() => {
-    if (data) {
-      setIsAuthenticated(true);
-      dispatch(setUserData({ userType, data }));
-    }
-    if (error) {
-      dispatch(showAlert({ type: "error", message: error.data.message }));
-      dispatch(setLoginUserType(userType));
-      setIsAuthenticated(false);
-      navigate("/login");
-    }
+    console.log("useAuthenticate");
+    console.log("data", data);
+    console.log("error", error);
+    // UNDO
+    // if (data) {
+    //   setIsAuthenticated(true);
+    //   dispatch(setUserData({ userType, data }));
+    // }
+    // if (error) {
+    //   dispatch(showAlert({ type: "error", message: error.data.message }));
+    //   dispatch(setLoginUserType(userType));
+    //   setIsAuthenticated(false);
+    //   navigate("/login");
+    // }
   }, [data, error, userType]);
 
   return { isAuthenticated, isLoading };

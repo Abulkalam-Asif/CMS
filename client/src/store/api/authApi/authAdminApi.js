@@ -3,11 +3,10 @@ import { baseApi } from "../baseApi";
 export const authAdminApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     adminLogin: builder.mutation({
-      query: ({ headers, body }) => ({
-        headers,
+      query: ({ sendSessionCookie, body }) => ({
         url: "/auth/admin/login",
         method: "POST",
-        body,
+        body: sendSessionCookie ? undefined : body,
       })
     }),
   }),

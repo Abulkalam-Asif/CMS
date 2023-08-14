@@ -19,39 +19,33 @@ const auth_admin_signup = async (req, res) => {
 }
 
 // Admin login controller
+
 const auth_admin_login = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(402).json(errors.array());
   }
+  // Getting session info to get session cookie
+  const session = req.session;
+  console.log("body", req.body);
+  console.log("session", session);
   const keepOnlyKeys = ["name", "username"];
-  if (Object.keys(req.body).length === 0 && req.get("Authorization")) {
-    // If body is empty && Authorization token is provided, try loging in using it.
-    try {
-      const { username } = jwt.verify(req.get("Authorization"), process.env.JWT_SECRET);
-      try {
-        // Checking if the admin exists based on username
-        const admin = await Admin.findOne({ username });
-        if (!admin) {
-          return res.status(404).json({ message: "Please login." });
-        } else {
-          // Send only seleted key-value pairs
-          const newAdmin = filterKeys(keepOnlyKeys, admin);
-          return res.status(200).json({ admin: newAdmin });
-        }
-      } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "Internal server error." });
+  try {
+    if (session.userId) {
+      // If the session cookie contains a userId, authenticate the user
+      const userId = session.userId;
+      // Checking if the admin with the given userId = _id exists
+      const admin = await Admin.findById(userId);
+      if (!admin) {
+        return res.status(404).json({ message: "Please login." });
+      } else {
+        // Send only seleted key-value pairs
+        const newAdmin = filterKeys(keepOnlyKeys, admin);
+        return res.status(200).json({ admin: newAdmin });
       }
-    } catch (error) {
-      // JWT token not verified
-      console.log(error);
-      return res.status(401).json({ message: "Please login." });
-    }
-  } else {
-    // If Authorization token is not provided try to login using username and password
-    try {
-      // Checking if the admin exists
+    } else {
+      // If the session cookie doesn't contain a username, initiate authentication based on the provided username and password in the request body
+      // Checking if the admin with the given username exists
       const admin = await Admin.findOne({ username: req.body["username"] });
       if (!admin) {
         return res.status(404).json({ message: "No ADMIN found with the given Username." });
@@ -59,20 +53,20 @@ const auth_admin_login = async (req, res) => {
         // Matching the password with hashed password
         const passwordCheck = await bcrypt.compare(req.body["password"], admin.password);
         if (passwordCheck) {
-          // sending response with JWT token
-          const jwtData = { username: admin.username };
-          const access_token = jwt.sign(jwtData, process.env.JWT_SECRET, { expiresIn: "10m" })
+          // setting MongoDB's _id in session
+          session.userId = admin._id;
           // Send only seleted key-value pairs
           const newAdmin = filterKeys(keepOnlyKeys, admin);
-          return res.status(200).json({ message: "Logged In Successfully.", admin: newAdmin, access_token });
+          res.setHeader('Set-Cookie', `userId=${session.userId}; path=/login`);
+          return res.status(200).json({ message: "Logged In Successfully.", admin: newAdmin });
         } else {
           return res.status(401).json({ message: "Password is incorrect." });
         }
       }
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: "Internal server error." });
     }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error." });
   }
 }
 

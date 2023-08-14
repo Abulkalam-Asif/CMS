@@ -126,16 +126,24 @@ const Login = () => {
       );
     } else {
       // Sending POST request to server with user data
-      const { error, data } = await loginUser({ body: user });
-      if (error) {
-        dispatch(showAlert({ type: "error", message: error?.data?.message }));
-      } else {
-        dispatch(showAlert({ type: "success", message: data?.message }));
-        // Setting user data to be displayed on the next page
-        dispatch(setUserData({ userType: loginUserType, data }));
-        navigate(`/${loginUserType}`);
-        localStorage.setItem("access_token", data?.access_token);
-      }
+      const { error, data } = await loginUser({
+        sendSessionCookie: false,
+        body: user,
+      });
+      console.log("Login.jsx ");
+      console.log("data", data);
+      console.log("error", error);
+      // UNDO
+      // if (error) {
+      //   dispatch(showAlert({ type: "error", message: error?.data?.message }));
+      //   console.error(error);
+      // } else {
+      //   console.log(data);
+      //   dispatch(showAlert({ type: "success", message: data?.message }));
+      //   // Setting user data to be displayed on the next page
+      //   dispatch(setUserData({ userType: loginUserType, data }));
+        // navigate(`/${loginUserType}`);
+      // }
     }
   };
   return (
