@@ -11,22 +11,25 @@ const Home = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-2 mt-40">
-        <H1 className="my-8" content="Login As" size="text-6xl" />
-        <div className="flex gap-8 items-center">
+      <div className="flex flex-col flex-1 self-center items-center justify-center gap-2 w-full mb-14 sm:mb-28">
+        <H1 className="mb-8" content="Login As" size="text-6xl md:text-5xl" />
+        <div className="flex gap-8 items-center md:flex-col md:gap-4 md:w-full">
           <LinkButton
+            className="md:w-1/4 sm:w-1/2"
             to="/login"
             content="Admin"
             size="large"
             onClick={clickHandler}
           />
           <LinkButton
+            className="md:w-1/4 sm:w-1/2"
             to="/login"
             content="Student"
             size="large"
             onClick={clickHandler}
           />
           <LinkButton
+            className="md:w-1/4 sm:w-1/2"
             to="/login"
             content="Teacher"
             size="large"

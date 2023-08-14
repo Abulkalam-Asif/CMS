@@ -48,7 +48,7 @@ const Sidebar = (props) => {
         onClick={clickHandler}></div>
       <div
         ref={sidebarRef}
-        className="bg-gray-100 h-screen fixed top-0 -right-full pt-12 pb-4 pl-16 pr-12 overflow-y-auto z-20 transition-right duration-300">
+        className="bg-gray-100 h-screen fixed top-0 -right-full pt-12 pb-4 pl-16 pr-12 overflow-y-auto z-20 transition-right duration-300 md:w-full">
         <button className="absolute top-2 left-2" onClick={clickHandler}>
           <FontAwesomeIcon
             icon={faXmark}

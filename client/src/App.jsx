@@ -24,11 +24,11 @@ function App() {
   const [sidebar, setSidebar] = useState("in");
   return (
     <>
-      <div className="min-h-screen bg-gray-200 relative">
+      <div className="min-h-screen bg-gray-200 relative flex flex-col items-stretch">
         <Alert />
         <Navbar sidebarHandler={{ sidebar, setSidebar }} />
         <Sidebar sidebarHandler={{ sidebar, setSidebar }} />
-        <div className="max-w-screen-xl mx-auto">
+        <div className="max-w-7xl w-full mx-auto flex flex-col flex-1">
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
