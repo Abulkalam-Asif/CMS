@@ -5,7 +5,6 @@ import { hideAlert } from "../store/slices/alertSlice";
 const Alert = () => {
   const { show, type, message, seconds } = useSelector((state) => state.alert);
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (show) {
       const timer = setTimeout(() => {
@@ -22,7 +21,7 @@ const Alert = () => {
     <>
       {show && (
         <div
-          className={`rounded-md p-3 border-y-6 absolute translate-x-1/2 right-1/2 top-2 shadow-[0_10px_30px_0px] ${
+          className={`rounded-md p-3 border-y-6 absolute z-50 translate-x-1/2 right-1/2 top-2 shadow-[0_10px_30px_0px] ${
             type === "success"
               ? "text-green-800 border-green-600  bg-green-50"
               : "text-pink-800 border-pink-600 bg-red-50"
