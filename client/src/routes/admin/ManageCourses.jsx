@@ -66,12 +66,9 @@ const ManageCourses = () => {
       const { error } = await getCourseData(courseId);
       if (error) {
         setShowCourseData(false);
-        dispatch(
-          showAlert({
-            type: "error",
-            message: error?.data?.message,
-          })
-        );
+        const errorMessage =
+          error.data?.message || "An error occurred! Please retry.";
+        dispatch(showAlert({ type: "error", message: errorMessage }));
       } else {
         setShowCourseData(true);
       }
@@ -85,9 +82,7 @@ const ManageCourses = () => {
     if (mutationError) {
       dispatch(showAlert({ type: "error", message: error?.data?.message }));
     } else {
-      dispatch(
-        showAlert({ type: "success", message: mutationData?.message })
-      );
+      dispatch(showAlert({ type: "success", message: mutationData?.message }));
       setShowCourseData(false);
     }
   };

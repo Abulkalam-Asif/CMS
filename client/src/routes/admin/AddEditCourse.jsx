@@ -107,9 +107,11 @@ const AddEditCourse = () => {
     if (addEditChecking()) {
       const { error, data } = await addCourse(course);
       if (error) {
-        dispatch(showAlert({ type: "error", message: error.data.message }));
+        const errorMessage =
+          error.data?.message || "An error occurred! Please retry.";
+        dispatch(showAlert({ type: "error", message: errorMessage }));
       } else {
-        dispatch(showAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data.message }));
         setCourse(defaultCourse);
       }
     }
@@ -123,9 +125,11 @@ const AddEditCourse = () => {
         body: course,
       });
       if (error) {
-        dispatch(showAlert({ type: "error", message: error.data.message }));
+        const errorMessage =
+          error.data?.message || "An error occurred! Please retry.";
+        dispatch(showAlert({ type: "error", message: errorMessage }));
       } else {
-        dispatch(showAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data.message }));
         setCourse(defaultCourse);
         navigate("/admin/manageCourses");
       }

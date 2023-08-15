@@ -44,7 +44,9 @@ export const useAuthenticate = (userType) => {
     }
     if (error) {
       dispatch(clearUserData());
-      dispatch(showAlert({ type: "error", message: error.data.message }));
+      const errorMessage =
+        error.data?.message || "An error occurred! Please retry.";
+      dispatch(showAlert({ type: "error", message: errorMessage }));
       dispatch(setLoginUserType(userType));
       setIsAuthenticated(false);
       navigate("/login");

@@ -63,12 +63,9 @@ const ManageTeachers = () => {
       const { error } = await getTeacherData(teacherId);
       if (error) {
         setShowTeacherData(false);
-        dispatch(
-          showAlert({
-            type: "error",
-            message: error?.data?.message,
-          })
-        );
+        const errorMessage =
+          error.data?.message || "An error occurred! Please retry.";
+        dispatch(showAlert({ type: "error", message: errorMessage }));
       } else {
         setShowTeacherData(true);
       }
@@ -82,9 +79,7 @@ const ManageTeachers = () => {
     if (mutationError) {
       dispatch(showAlert({ type: "error", message: error?.data?.message }));
     } else {
-      dispatch(
-        showAlert({ type: "success", message: mutationData?.message })
-      );
+      dispatch(showAlert({ type: "success", message: mutationData?.message }));
       setShowTeacherData(false);
     }
   };

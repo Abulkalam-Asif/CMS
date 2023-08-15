@@ -111,9 +111,11 @@ const AddEditStudent = () => {
     if (addEditChecking()) {
       const { error, data } = await addStudent(student);
       if (error) {
-        dispatch(showAlert({ type: "error", message: error.data.message }));
+        const errorMessage =
+          error.data?.message || "An error occurred! Please retry.";
+        dispatch(showAlert({ type: "error", message: errorMessage }));
       } else {
-        dispatch(showAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data.message }));
         setStudent(defaultStudent);
       }
     }
@@ -126,9 +128,11 @@ const AddEditStudent = () => {
         body: student,
       });
       if (error) {
-        dispatch(showAlert({ type: "error", message: error.data.message }));
+        const errorMessage =
+          error.data?.message || "An error occurred! Please retry.";
+        dispatch(showAlert({ type: "error", message: errorMessage }));
       } else {
-        dispatch(showAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data.message }));
         setStudent(defaultStudent);
         navigate("/admin/manageStudents");
       }

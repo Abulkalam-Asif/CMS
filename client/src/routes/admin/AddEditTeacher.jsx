@@ -115,9 +115,11 @@ const AddEditTeacher = () => {
     if (addEditChecking()) {
       const { error, data } = await addTeacher(teacher);
       if (error) {
-        dispatch(showAlert({ type: "error", message: error.data.message }));
+        const errorMessage =
+          error.data?.message || "An error occurred! Please retry.";
+        dispatch(showAlert({ type: "error", message: errorMessage }));
       } else {
-        dispatch(showAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data.message }));
         setTeacher(defaultTeacher);
       }
     }
@@ -131,9 +133,11 @@ const AddEditTeacher = () => {
         body: teacher,
       });
       if (error) {
-        dispatch(showAlert({ type: "error", message: error.data.message }));
+        const errorMessage =
+          error.data?.message || "An error occurred! Please retry.";
+        dispatch(showAlert({ type: "error", message: errorMessage }));
       } else {
-        dispatch(showAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data.message }));
         setTeacher(defaultTeacher);
         navigate("/admin/manageTeachers");
       }
