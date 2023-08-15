@@ -11,7 +11,7 @@ const H1 = ({ content, size, className }) => {
 };
 
 H1.defaultProps = {
-  size: "text-3xl",
+  size: "text-3xl md:text-2xl",
 };
 
 export default H1;

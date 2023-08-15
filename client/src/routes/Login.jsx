@@ -140,14 +140,14 @@ const Login = () => {
   };
   return (
     <>
-      <div>
+      <div className="flex-1 p-4">
         <H1 className="capitalize" content={`Login as ${loginUserType}`} />
         <HR />
         {isLoggingUserIn ? (
           <Spinner size="w-24 h-24" type="centralizedSpinner" />
         ) : (
-          <form className="px-12">
-            <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-16">
+          <form className="px-12 sm:px-4">
+            <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-16 lg:my-8 md:grid-cols-1">
               <DataInput
                 labelText={usernameType[loginUserType][1]}
                 nameIdHtmlFor={usernameType[loginUserType][0]}
