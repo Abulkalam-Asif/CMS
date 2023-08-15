@@ -61,7 +61,7 @@ const auth_admin_login = async (req, res) => {
         if (passwordCheck) {
           // sending response with JWT token
           const jwtData = { username: admin.username };
-          const access_token = jwt.sign(jwtData, process.env.JWT_SECRET, { expiresIn: "10m" })
+          const access_token = jwt.sign(jwtData, process.env.JWT_SECRET, { expiresIn: "24h" })
           // Send only seleted key-value pairs
           const newAdmin = filterKeys(keepOnlyKeys, admin);
           return res.status(200).json({ message: "Logged In Successfully.", admin: newAdmin, access_token });

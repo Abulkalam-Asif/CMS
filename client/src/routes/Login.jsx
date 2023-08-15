@@ -15,12 +15,12 @@ import {
   TEACHER_PASSWORD_MIN_LENGTH,
 } from "../constants";
 import { useTeacherLoginMutation } from "../store/api/authApi/authTeacherApi";
-import { useAuthenticate } from "../hooks/useAuthenticate";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginUserType = useSelector((state) => state.loginUserType);
+  const [showPassword, setShowPassword] = useState(false);
 
   // The keys of this object will be connected to loginUserType
   const usernameType = {
@@ -147,13 +147,15 @@ const Login = () => {
       // Sending POST request to server with user data
       const { error, data } = await loginUser({ body: user });
       if (error) {
-        dispatch(showAlert({ type: "error", message: error?.data?.message }));
+        const errorMessage =
+          error.data?.message || "An error occurred! Please retry.";
+        dispatch(showAlert({ type: "error", message: errorMessage }));
       } else {
-        dispatch(showAlert({ type: "success", message: data?.message }));
+        dispatch(showAlert({ type: "success", message: data.message }));
         // Setting user data to be displayed on the next page
         dispatch(setUserData({ userType: loginUserType, data }));
         navigate(`/${loginUserType}`);
-        localStorage.setItem("access_token", data?.access_token);
+        localStorage.setItem("access_token", data.access_token);
       }
     }
   };
@@ -180,6 +182,8 @@ const Login = () => {
                 labelText="Password"
                 nameIdHtmlFor="password"
                 type="password"
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
                 onChange={handleInputChange}
                 value={dataInputProps?.passwordValue}
                 placeholder={dataInputProps?.passwordPlaceholder}

@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExclamationCircle,
+  faEye,
+  faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 
 const DataInput = (props) => {
   const {
     onChange,
-    type,
+    showPassword,
+    setShowPassword,
     nameIdHtmlFor,
     labelText,
     value,
@@ -15,7 +18,23 @@ const DataInput = (props) => {
     placeholder,
     warning,
     warningText,
+    type,
   } = props;
+
+  const showPasswordHandler = (e) => {
+    e.preventDefault();
+    setShowPassword((prevState) => !prevState);
+  };
+  const [inputType, setInputType] = useState("password");
+
+  useEffect(() => {
+    if (showPassword !== undefined) {
+      setInputType(showPassword ? "text" : "password");
+    } else {
+      setInputType(type);
+    }
+  }, [showPassword]);
+
   return (
     <>
       <div className={`${className}`}>
@@ -32,15 +51,25 @@ const DataInput = (props) => {
             </p>
           )}
         </div>
-        <input
-          className="border-2 w-full border-gray-300 rounded-lg p-2 placeholder:text-gray-400 focus:border-black"
-          type={type}
-          name={nameIdHtmlFor}
-          id={nameIdHtmlFor}
-          value={value || ""}
-          onChange={onChange}
-          placeholder={placeholder}
-        />
+        <div className="relative">
+          <input
+            className="border-2 w-full border-gray-300 rounded-lg p-2 placeholder:text-gray-400 focus:border-black"
+            type={inputType}
+            name={nameIdHtmlFor}
+            id={nameIdHtmlFor}
+            value={value || ""}
+            onChange={onChange}
+            placeholder={placeholder}
+          />
+          {showPassword !== undefined && (
+            <button
+              type="button"
+              onClick={showPasswordHandler}
+              className="absolute top-0 right-3 translate-y-1/2 px-1 rounded transition-colors duration-100 hover:text-pink-700">
+              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+            </button>
+          )}
+        </div>
       </div>
     </>
   );
@@ -48,6 +77,7 @@ const DataInput = (props) => {
 
 DataInput.defaultProps = {
   type: "text",
+  showPassword: undefined,
 };
 
 export default DataInput;

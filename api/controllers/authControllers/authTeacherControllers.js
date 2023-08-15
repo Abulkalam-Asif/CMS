@@ -48,7 +48,7 @@ const auth_teacher_login = async (req, res) => {
         if (passwordCheck) {
           // sending response with JWT token
           const jwtData = { teacherId: teacher.teacherId };
-          const access_token = jwt.sign(jwtData, process.env.JWT_SECRET, { expiresIn: "10m" });
+          const access_token = jwt.sign(jwtData, process.env.JWT_SECRET, { expiresIn: "24h" });
           // Send only seleted key-value pairs
           const newTeacher = filterKeys(keepOnlyKeys, teacher);
           return res.status(200).json({ message: "Logged In Successfully.", teacher: newTeacher, access_token });
