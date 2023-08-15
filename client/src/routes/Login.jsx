@@ -59,7 +59,7 @@ const Login = () => {
   // Dynamically defining props for <DataInput />'s based on the type of user
   const [dataInputProps, setDataInputProps] = useState({
     usernameValue: user?.username,
-    usernamePlaceholder: `Enter your ${usernameType[loginUserType][0]}`,
+    usernamePlaceholder: `Enter your ${usernameType[loginUserType][1]}`,
     usernameWarning: warningStatesMap[loginUserType].usernameWarningMap,
     usernameWarningText: warningStatesMap[loginUserType].usernameWarningTextMap,
     passwordValue: user?.password,
@@ -179,6 +179,7 @@ const Login = () => {
               <DataInput
                 labelText="Password"
                 nameIdHtmlFor="password"
+                type="password"
                 onChange={handleInputChange}
                 value={dataInputProps?.passwordValue}
                 placeholder={dataInputProps?.passwordPlaceholder}

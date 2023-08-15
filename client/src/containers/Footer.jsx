@@ -5,7 +5,7 @@ import { HR, LogoItem } from "../components";
 const Footer = () => {
   return (
     <>
-      <footer className="bg-white px-10 pt-3 pb-5">
+      <footer className="bg-white px-10 pt-3 pb-5 lg:px-2 md:px-10 xs:px-3">
         <div className="flex justify-between items-center sm:flex-col sm:items-start sm:gap-y-2">
           <LogoItem />
           <ul className="flex flex-wrap gap-x-6 items-stretch text-base font-medium text-gray-500 md:gap-x-4 xs:gap-x-0 xs:gap-y-1 xs:w-full">

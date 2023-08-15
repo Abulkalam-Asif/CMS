@@ -3,10 +3,11 @@ import { useDispatch } from "react-redux";
 import { setLoginUserType } from "../store/slices/loginUserTypeSlice";
 import { useNavigate } from "react-router-dom";
 import { showAlert } from "../store/slices/alertSlice";
-import { setUserData } from "../store/slices/userDataSlice";
+import { clearUserData, setUserData } from "../store/slices/userDataSlice";
 import { useAdminLoginMutation } from "../store/api/authApi/authAdminApi";
 import { useStudentLoginMutation } from "../store/api/authApi/authStudentApi";
 import { useTeacherLoginMutation } from "../store/api/authApi/authTeacherApi";
+import { showLogoutButton } from "../store/slices/logoutButtonSlice";
 
 export const useAuthenticate = (userType) => {
   const dispatch = useDispatch();
@@ -39,8 +40,10 @@ export const useAuthenticate = (userType) => {
     if (data) {
       setIsAuthenticated(true);
       dispatch(setUserData({ userType, data }));
+      dispatch(showLogoutButton());
     }
     if (error) {
+      dispatch(clearUserData());
       dispatch(showAlert({ type: "error", message: error.data.message }));
       dispatch(setLoginUserType(userType));
       setIsAuthenticated(false);
