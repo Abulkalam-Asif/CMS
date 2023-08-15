@@ -17,7 +17,7 @@ import {
   Teacher,
 } from "./routes";
 import { Alert } from "./components";
-import { Navbar, PrivateRoutes, Sidebar } from "./containers";
+import { Footer, Navbar, PrivateRoutes, Sidebar } from "./containers";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -94,6 +94,7 @@ function App() {
             </Route>
           </Routes>
         </div>
+        <Footer />
       </div>
     </>
   );

@@ -16,6 +16,8 @@ export default {
       // => @media (max-width: 768px) { ... }
       'sm': { 'max': '640px' },
       // => @media (max-width: 640px) { ... }
+      'xs': { 'max': '480px' },
+      // => @media (max-width: 640px) { ... }
     },
     extend: {
       transitionProperty: {

@@ -3,7 +3,7 @@ import React from "react";
 const H1 = ({ content, size, className }) => {
   return (
     <>
-      <h1 className={`font-bold my-4 text-pink-700 ${size} ${className}`}>
+      <h1 className={`font-bold mb-4 text-pink-700 ${size} ${className}`}>
         {content}
       </h1>
     </>

@@ -46,9 +46,9 @@ const Sidebar = (props) => {
         ref={bgRef}
         className="w-screen h-screen bg-black opacity-75 fixed z-10 top-0 right-0 hidden"
         onClick={clickHandler}></div>
-      <div
+      <aside
         ref={sidebarRef}
-        className="bg-gray-100 h-screen fixed top-0 -right-full pt-12 pb-4 pl-16 pr-12 overflow-y-auto z-20 transition-right duration-300 md:w-full">
+        className="bg-gray-100 h-screen fixed top-0 -right-full pt-12 pb-4 pl-16 pr-12 overflow-y-auto z-20 transition-right duration-200 md:w-full">
         <button className="absolute top-2 left-2" onClick={clickHandler}>
           <FontAwesomeIcon
             icon={faXmark}
@@ -106,7 +106,7 @@ const Sidebar = (props) => {
           // name="teacherListHead"
           // onButtonClick={expandHandler}
         />
-      </div>
+      </aside>
     </>
   );
 };

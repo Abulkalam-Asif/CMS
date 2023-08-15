@@ -1,11 +1,15 @@
 import React from "react";
 
-const HR = ({ className }) => {
+const HR = ({ className, borderThickness }) => {
   return (
     <>
-      <hr className={`border-2 border-pink-700 ${className}`} />
+      <hr className={`${borderThickness} border-pink-700 ${className}`} />
     </>
   );
+};
+
+HR.defaultProps = {
+  borderThickness: "border-2",
 };
 
 export default HR;

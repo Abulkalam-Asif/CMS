@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../assets/logo.png";
 
 const Spinner = (props) => {
   const { size, className, type } = props;
@@ -13,7 +14,12 @@ const Spinner = (props) => {
   }
   return (
     <>
-      <div role="status" className={`${className} ${typeBasedClasses}`}>
+      <div className={`${className} ${typeBasedClasses}`}>
+        <img
+          src={Logo}
+          alt="logo"
+          className="w-5/12 absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2"
+        />
         <svg
           aria-hidden="true"
           className={`${size} text-white animate-spin fill-pink-700`}
