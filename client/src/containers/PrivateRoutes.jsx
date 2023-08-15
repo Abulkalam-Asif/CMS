@@ -9,7 +9,7 @@ const PrivateRoutes = ({ userType }) => {
     return <Spinner size="w-24 h-24" type="centralizedSpinner" />;
   }
   if (isAuthenticated) {
-    return isAuthenticated && <Outlet />;
+    return <Outlet />;
   }
 };
 

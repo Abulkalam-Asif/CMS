@@ -15,6 +15,7 @@ import {
   TEACHER_PASSWORD_MIN_LENGTH,
 } from "../constants";
 import { useTeacherLoginMutation } from "../store/api/authApi/authTeacherApi";
+import { useAuthenticate } from "../hooks/useAuthenticate";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -93,6 +94,24 @@ const Login = () => {
     [loginUser, { isLoading: isLoggingUserIn }] = useTeacherLoginMutation();
   }
 
+  // If the access_token is found, the user will not have to provide the username and the password and he will be authhenticated automatically
+  const access_token = localStorage.getItem("access_token");
+  useEffect(() => {
+    const asyncLoginUser = async () => {
+      if (access_token) {
+        const { data } = await loginUser({
+          headers: { Authorization: access_token },
+        });
+        if (data) {
+          // Setting user data to be displayed on the next page
+          dispatch(setUserData({ userType: loginUserType, data }));
+          navigate(`/${loginUserType}`);
+        }
+      }
+    };
+    asyncLoginUser();
+  }, []);
+
   const loginHandler = async (e) => {
     e.preventDefault();
     // Removing extra spaces from input fields
@@ -140,12 +159,12 @@ const Login = () => {
   };
   return (
     <>
-      <div className="flex-1 p-8">
-        <H1 className="capitalize" content={`Login as ${loginUserType}`} />
-        <HR />
-        {isLoggingUserIn ? (
-          <Spinner size="w-24 h-24" type="centralizedSpinner" />
-        ) : (
+      {isLoggingUserIn ? (
+        <Spinner size="w-24 h-24" type="centralizedSpinner" />
+      ) : (
+        <div className="flex-1 p-8">
+          <H1 className="capitalize" content={`Login as ${loginUserType}`} />
+          <HR />
           <form className="px-12 lg:px-4">
             <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-16 lg:my-6 md:grid-cols-1">
               <DataInput
@@ -171,8 +190,8 @@ const Login = () => {
               <Button size="medium" content="Login" onClick={loginHandler} />
             </div>
           </form>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 };
