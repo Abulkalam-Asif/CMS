@@ -208,11 +208,11 @@ const AddEditTeacher = () => {
                 warningText={`Length should be exactly ${TEACHER_ID_LENGTH} characters`}
               />
               <DataInput
-                labelText="Assign a Password"
+                labelText="Set a Password"
                 nameIdHtmlFor="password"
                 onChange={handleInputChange}
                 value={teacher?.password}
-                placeholder="Assign a password to the teacher"
+                placeholder="Set a password to the teacher"
                 warning={
                   !teacher?.password ||
                   teacher?.password?.length < TEACHER_PASSWORD_MIN_LENGTH

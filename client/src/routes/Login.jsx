@@ -170,8 +170,8 @@ const Login = () => {
         <div className="flex-1 p-6">
           <H1 className="capitalize" content={`Login as ${loginUserType}`} />
           <HR />
-          <form className="px-12 lg:px-4">
-            <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-16 lg:my-6 md:grid-cols-1">
+          <form className="px-12 lg:px-2">
+            <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-12 lg:my-6 md:grid-cols-1">
               <DataInput
                 labelText={usernameType[loginUserType][1]}
                 nameIdHtmlFor={usernameType[loginUserType][0]}
@@ -194,9 +194,12 @@ const Login = () => {
                 warningText={dataInputProps?.passwordWarningText}
               />
             </div>
-            <div className="flex justify-center gap-4">
-              <Button size="medium" content="Login" onClick={loginHandler} />
-            </div>
+            <Button
+              className="block mx-auto"
+              size="medium"
+              content="Login"
+              onClick={loginHandler}
+            />
           </form>
         </div>
       )}

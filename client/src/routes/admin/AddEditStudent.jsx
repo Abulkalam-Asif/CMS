@@ -141,7 +141,7 @@ const AddEditStudent = () => {
 
   return (
     <>
-      <div>
+      <div className="flex-1 p-6">
         <div className="flex justify-between items-center">
           <H1
             content={`${
@@ -152,8 +152,10 @@ const AddEditStudent = () => {
             to="/admin/manageStudents"
             content={
               <>
-                <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
-                Back to Manage Students
+                <FontAwesomeIcon className="mr-2 xs:mx-1" icon={faArrowLeft} />
+                <span className="inline xs:hidden">
+                  Back to Manage Students
+                </span>
               </>
             }
           />
@@ -162,8 +164,8 @@ const AddEditStudent = () => {
         {isAddingStudent || isUpdatingStudent ? (
           <Spinner size="w-24 h-24" type="centralizedSpinner" />
         ) : (
-          <form className="px-12 pt-8">
-            <div className="grid grid-cols-2 gap-x-16 gap-y-4">
+          <form className="px-8 lg:px-2">
+            <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-6 md:grid-cols-1">
               <DataInput
                 labelText="First Name"
                 nameIdHtmlFor="firstName"
@@ -203,11 +205,11 @@ const AddEditStudent = () => {
                 warningText={`Length should be exactly ${STUDENT_ROLL_NO_LENGTH} characters`}
               />
               <DataInput
-                labelText="Assign a Password"
+                labelText="Set a Password"
                 nameIdHtmlFor="password"
                 onChange={handleInputChange}
                 value={student?.password}
-                placeholder="Assign a password to the student"
+                placeholder="Set a password to the student"
                 warning={
                   !student?.password ||
                   student?.password?.length < STUDENT_PASSWORD_MIN_LENGTH
@@ -234,19 +236,22 @@ const AddEditStudent = () => {
                 ]}
               />
             </div>
-            <div className="flex mt-8 justify-center gap-4">
-              {addOrEditStudent === "edit" ? (
-                <Button
-                  content="Update Student"
-                  onClick={updateStudentHandler}
-                  customAttributes={{
-                    name: updateButtonName,
-                  }}
-                />
-              ) : (
-                <Button content="Add Student" onClick={addStudentHandler} />
-              )}
-            </div>
+            {addOrEditStudent === "edit" ? (
+              <Button
+                className="block mx-auto"
+                content="Update Student"
+                onClick={updateStudentHandler}
+                customAttributes={{
+                  name: updateButtonName,
+                }}
+              />
+            ) : (
+              <Button
+                className="block mx-auto"
+                content="Add Student"
+                onClick={addStudentHandler}
+              />
+            )}
           </form>
         )}
       </div>

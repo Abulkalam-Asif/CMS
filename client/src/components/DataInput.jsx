@@ -38,14 +38,14 @@ const DataInput = (props) => {
   return (
     <>
       <div className={`${className}`}>
-        <div className="flex items-center justify-between mb-2 lg:flex-col lg:items-start">
+        <div className="flex items-center justify-between mb-2 lg:flex-col lg:items-start md:flex-row md:items-center xs:flex-col xs:items-start">
           <label
             className="block mb-2 font-medium text-gray-900"
             htmlFor={nameIdHtmlFor}>
             {labelText}
           </label>
           {warning && (
-            <p className="bg-pink-700 text-white italic font-semibold text-sm px-2 py-1 rounded-full lg:p-1 md:text-xs">
+            <p className="bg-pink-700 text-white italic font-semibold text-sm px-2 py-1 rounded-full xs:text-xs">
               <FontAwesomeIcon icon={faExclamationCircle} className="mr-2" />
               {warningText}
             </p>
