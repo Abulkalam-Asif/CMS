@@ -17,7 +17,7 @@ const Admin = () => {
 
   return (
     <>
-      <div className="flex-1 p-6 pt-4">
+      <div className="flex-1 px-6 py-8 pt-4">
         <HSpecial content="Admin Panel" />
         <H1
           content={
@@ -28,7 +28,7 @@ const Admin = () => {
           }
         />
         <HR />
-        <div className="flex gap-x-8 py-8 px-4 md:flex-col md:gap-y-4 md:items-center">
+        <div className="flex gap-x-8 pt-4 px-4 md:flex-col md:gap-y-4 md:items-center">
           <LinkButton
             className="md:w-1/2 sm:w-full"
             to="/admin/manageStudents"

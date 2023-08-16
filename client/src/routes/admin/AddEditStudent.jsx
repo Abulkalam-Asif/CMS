@@ -141,7 +141,7 @@ const AddEditStudent = () => {
 
   return (
     <>
-      <div className="flex-1 p-6">
+      <div className="flex-1 px-6 py-8">
         <div className="flex justify-between items-center">
           <H1
             content={`${

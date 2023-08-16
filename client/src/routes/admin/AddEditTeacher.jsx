@@ -146,7 +146,7 @@ const AddEditTeacher = () => {
 
   return (
     <>
-      <div className="flex-1 p-6">
+      <div className="flex-1 px-6 py-8">
         <div className="flex justify-between items-center">
           <H1
             content={`${
@@ -226,7 +226,7 @@ const AddEditTeacher = () => {
                 nameIdHtmlFor="qualification"
                 onChange={handleInputChange}
                 value={teacher?.qualification}
-                placeholder="Sample [MS Information Technology]"
+                placeholder="Sample [MS Data Science]"
                 warning={
                   !teacher?.qualification ||
                   teacher?.qualification?.length <

@@ -138,7 +138,7 @@ const AddEditCourse = () => {
 
   return (
     <>
-      <div>
+      <div className="flex-1 px-6 py-8">
         <div className="flex justify-between items-center">
           <H1
             content={`${
@@ -149,8 +149,8 @@ const AddEditCourse = () => {
             to="/admin/manageCourses"
             content={
               <>
-                <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
-                Back to Manage Courses
+                <FontAwesomeIcon className="mr-2 xs:mx-1" icon={faArrowLeft} />
+                <span className="inline xs:hidden">Back to Manage Courses</span>
               </>
             }
           />
@@ -159,8 +159,8 @@ const AddEditCourse = () => {
         {isAddingCourse || isUpdatingCourse ? (
           <Spinner size="w-24 h-24" type="centralizedSpinner" />
         ) : (
-          <form className="px-12 pt-8">
-            <div className="grid grid-cols-2 gap-x-16 gap-y-4">
+          <form className="px-8 lg:px-2">
+            <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-6 md:grid-cols-1">
               <DataInput
                 labelText="Course ID"
                 nameIdHtmlFor="courseId"
@@ -193,7 +193,7 @@ const AddEditCourse = () => {
                 nameIdHtmlFor="creditHours"
                 onChange={handleInputChange}
                 value={course?.creditHours}
-                placeholder="Sample [MS Information Technology]"
+                placeholder="Enter Credit Hours"
                 warning={
                   !course?.creditHours ||
                   course?.creditHours < COURSE_CREDIT_HOURS_MIN_VAL ||
@@ -202,19 +202,22 @@ const AddEditCourse = () => {
                 warningText={`Value should be ${COURSE_CREDIT_HOURS_MIN_VAL} to ${COURSE_CREDIT_HOURS_MAX_VAL} (inclusive)`}
               />
             </div>
-            <div className="flex mt-8 justify-center gap-4">
-              {addOrEditCourse === "edit" ? (
-                <Button
-                  content="Update Course"
-                  onClick={updateCourseHandler}
-                  customAttributes={{
-                    name: updateButtonName,
-                  }}
-                />
-              ) : (
-                <Button content="Add Course" onClick={addCourseHandler} />
-              )}
-            </div>
+            {addOrEditCourse === "edit" ? (
+              <Button
+                className="block mx-auto"
+                content="Update Course"
+                onClick={updateCourseHandler}
+                customAttributes={{
+                  name: updateButtonName,
+                }}
+              />
+            ) : (
+              <Button
+                className="block mx-auto"
+                content="Add Course"
+                onClick={addCourseHandler}
+              />
+            )}
           </form>
         )}
       </div>
