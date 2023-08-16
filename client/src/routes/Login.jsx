@@ -15,6 +15,7 @@ import {
   TEACHER_PASSWORD_MIN_LENGTH,
 } from "../constants";
 import { useTeacherLoginMutation } from "../store/api/authApi/authTeacherApi";
+import { setLoggedInUserType } from "../store/slices/loggedInUserTypeSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -105,6 +106,7 @@ const Login = () => {
         if (data) {
           // Setting user data to be displayed on the next page
           dispatch(setUserData({ userType: loginUserType, data }));
+          dispatch(setLoggedInUserType(loginUserType));
           navigate(`/${loginUserType}`);
         }
       }
@@ -154,6 +156,7 @@ const Login = () => {
         dispatch(showAlert({ type: "success", message: data.message }));
         // Setting user data to be displayed on the next page
         dispatch(setUserData({ userType: loginUserType, data }));
+        dispatch(setLoggedInUserType(loginUserType));
         navigate(`/${loginUserType}`);
         localStorage.setItem("access_token", data.access_token);
       }

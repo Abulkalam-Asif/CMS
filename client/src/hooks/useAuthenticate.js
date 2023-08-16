@@ -8,6 +8,7 @@ import { useAdminLoginMutation } from "../store/api/authApi/authAdminApi";
 import { useStudentLoginMutation } from "../store/api/authApi/authStudentApi";
 import { useTeacherLoginMutation } from "../store/api/authApi/authTeacherApi";
 import { showLogoutButton } from "../store/slices/logoutButtonSlice";
+import { setLoggedInUserType } from "../store/slices/loggedInUserTypeSlice"
 
 export const useAuthenticate = (userType) => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ export const useAuthenticate = (userType) => {
     if (data) {
       setIsAuthenticated(true);
       dispatch(setUserData({ userType, data }));
+      dispatch(setLoggedInUserType(userType));
       dispatch(showLogoutButton());
     }
     if (error) {

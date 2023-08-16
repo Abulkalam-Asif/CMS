@@ -7,11 +7,13 @@ import { baseApi } from "./api/baseApi";
 import addOrEditTeacherSlice from "./slices/addOrEditTeacherSlice";
 import addOrEditCourseSlice from "./slices/addOrEditCourseSlice";
 import logoutButtonSlice from "./slices/logoutButtonSlice";
+import loggedInUserTypeSlice from "./slices/loggedInUserTypeSlice";
 
 const store = configureStore({
   reducer: {
     alert: alertSlice,
     loginUserType: loginUserTypeSlice,
+    loggedInUserType: loggedInUserTypeSlice,
     logoutButton: logoutButtonSlice,
     userData: userDataSlice,
     addOrEditStudent: addOrEditStudentSlice,

@@ -17,14 +17,14 @@ const Navbar = (props) => {
   const dispatch = useDispatch();
   const { sidebar, setSidebar } = props.sidebarHandler;
   const isUserLoggedIn = useSelector((state) => state.logoutButton);
-  const loginUserType = useSelector((state) => state.loginUserType);
+  const loggedInUserType = useSelector((state) => state.loggedInUserType);
 
   const logoutHandler = () => {
     navigate("/");
     dispatch(
       showAlert({
         type: "success",
-        message: `Logged out as ${loginUserType.toUpperCase()} Successfully.`,
+        message: `Logged out as ${loggedInUserType.toUpperCase()} Successfully.`,
       })
     );
     dispatch(hideLogoutButton());
