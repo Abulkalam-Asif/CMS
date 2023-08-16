@@ -146,7 +146,7 @@ const AddEditTeacher = () => {
 
   return (
     <>
-      <div>
+      <div className="flex-1 p-6">
         <div className="flex justify-between items-center">
           <H1
             content={`${
@@ -157,8 +157,10 @@ const AddEditTeacher = () => {
             to="/admin/manageTeachers"
             content={
               <>
-                <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
-                Back to Manage Teachers
+                <FontAwesomeIcon className="mr-2 xs:mx-1" icon={faArrowLeft} />
+                <span className="inline xs:hidden">
+                  Back to Manage Teachers
+                </span>
               </>
             }
           />
@@ -167,8 +169,8 @@ const AddEditTeacher = () => {
         {isAddingTeacher || isUpdatingTeacher ? (
           <Spinner size="w-24 h-24" type="centralizedSpinner" />
         ) : (
-          <form className="px-12 pt-8">
-            <div className="grid grid-cols-2 gap-x-16 gap-y-4">
+          <form className="px-8 lg:px-2">
+            <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-6 md:grid-cols-1">
               <DataInput
                 labelText="First Name"
                 nameIdHtmlFor="firstName"
@@ -252,19 +254,22 @@ const AddEditTeacher = () => {
                 ]}
               />
             </div>
-            <div className="flex mt-8 justify-center gap-4">
-              {addOrEditTeacher === "edit" ? (
-                <Button
-                  content="Update Teacher"
-                  onClick={updateTeacherHandler}
-                  customAttributes={{
-                    name: updateButtonName,
-                  }}
-                />
-              ) : (
-                <Button content="Add Teacher" onClick={addTeacherHandler} />
-              )}
-            </div>
+            {addOrEditTeacher === "edit" ? (
+              <Button
+                className="block mx-auto"
+                content="Update Teacher"
+                onClick={updateTeacherHandler}
+                customAttributes={{
+                  name: updateButtonName,
+                }}
+              />
+            ) : (
+              <Button
+                className="block mx-auto"
+                content="Add Teacher"
+                onClick={addTeacherHandler}
+              />
+            )}
           </form>
         )}
       </div>
