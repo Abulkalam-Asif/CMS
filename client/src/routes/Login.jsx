@@ -164,7 +164,7 @@ const Login = () => {
       {isLoggingUserIn ? (
         <Spinner size="w-24 h-24" type="centralizedSpinner" />
       ) : (
-        <div className="flex-1 p-8">
+        <div className="flex-1 p-6">
           <H1 className="capitalize" content={`Login as ${loginUserType}`} />
           <HR />
           <form className="px-12 lg:px-4">

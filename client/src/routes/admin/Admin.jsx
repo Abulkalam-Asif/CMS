@@ -17,7 +17,7 @@ const Admin = () => {
 
   return (
     <>
-      <div className="flex-1 p-8 pt-4">
+      <div className="flex-1 p-6 pt-4">
         <HSpecial content="Admin Panel" />
         <H1
           content={
@@ -27,14 +27,6 @@ const Admin = () => {
             </>
           }
         />
-        {/* <H1
-          content={
-            <>
-              <span className="text-2xl text-gray-700 md:text-xl">Welcome</span>{" "}
-              {adminData && `${adminData?.name}`} - Admin Panel
-            </>
-          }
-        /> */}
         <HR />
         <div className="flex gap-x-8 py-8 px-4 md:flex-col md:gap-y-4 md:items-center">
           <LinkButton

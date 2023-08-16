@@ -3,6 +3,7 @@ import {
   Button,
   DataInput,
   H1,
+  H2,
   HR,
   LinkButton,
   Spinner,
@@ -91,21 +92,21 @@ const ManageStudents = () => {
 
   return (
     <>
-      <div>
+      <div className="flex-1 p-6">
         <div className="flex justify-between items-center">
           <H1 content="Manage Students" />
           <LinkButton
             to="/admin"
             content={
               <>
-                <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
-                Back to Admin Panel
+                <FontAwesomeIcon className="mr-2 xs:mx-1" icon={faArrowLeft} />
+                <span className="inline xs:hidden">Back to Admin Panel</span>
               </>
             }
           />
         </div>
         <HR />
-        <div className="flex gap-x-8 py-4 px-4">
+        <div className="flex gap-x-8 gap-y-4 p-4 md:justify-center sm:flex-col">
           <LinkButton
             size="medium"
             to="/admin/manageStudents/addNewStudent"
@@ -118,14 +119,11 @@ const ManageStudents = () => {
             content="Display All Students"
           />
         </div>
-        <form className="grid grid-cols-2 items-end gap-x-16 gap-y-4 mt-8">
+        <HR thickness="thin" className="my-2" />
+        <H2 content="Edit or Delete a Student" />
+        <form className="grid grid-cols-2 items-end gap-x-16 gap-y-4 mt-4 md:grid-cols-1">
           <DataInput
-            labelText={
-              <>
-                Search a Student to <span className="text-pink-700">Edit</span>{" "}
-                or <span className="text-pink-700">Delete</span>
-              </>
-            }
+            labelText="Search"
             nameIdHtmlFor="searchStudent"
             placeholder="Enter roll no."
             onChange={handleInputChange}

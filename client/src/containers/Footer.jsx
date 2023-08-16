@@ -35,7 +35,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <HR className="my-3" borderThickness="border-1" />
+        <HR thickness="thin" />
         <p className="text-sm text-gray-700 sm:text-center">
           © 2023 CMS™. All Rights Reserved.
         </p>

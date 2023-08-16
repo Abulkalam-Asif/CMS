@@ -7,5 +7,6 @@ export { default as DataInput } from "./DataInput";
 export { default as SidebarListHead } from "./SidebarListHead";
 export { default as H1 } from "./H1";
 export { default as HR } from "./HR";
+export { default as H2 } from "./H2";
 export { default as HSpecial } from "./HSpecial";
 export { default as LogoItem } from "./LogoItem";
