@@ -32,9 +32,6 @@ const Button = (props) => {
 
 Button.defaultProps = {
   type: "outlined",
-};
-
-Button.defaultProps = {
   size: "small",
 };
 

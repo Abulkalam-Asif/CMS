@@ -172,6 +172,7 @@ const ManageStudents = () => {
                   <LinkButton
                     className="px-8"
                     size="medium"
+                    type="filled"
                     content="Edit"
                     onClick={editHandler}
                     to="/admin/manageStudents/editStudent"

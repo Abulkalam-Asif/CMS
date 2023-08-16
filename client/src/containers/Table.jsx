@@ -69,9 +69,7 @@ const Table = (props) => {
         showAlert({ type: "error", message: mutationError?.data?.message })
       );
     } else {
-      dispatch(
-        showAlert({ type: "success", message: mutationData?.message })
-      );
+      dispatch(showAlert({ type: "success", message: mutationData?.message }));
       // When an item has been deleted, refetch the update data
       await refetchData();
     }
@@ -84,7 +82,7 @@ const Table = (props) => {
   ) : (
     <>
       {dataToDisplay?.length > 0 ? (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-xl">
+        <div className="relative overflow-x-auto shadow-md">
           <table className="w-full text-left text-gray-500">
             <thead className="text-sm text-white uppercase bg-pink-700">
               <tr>
