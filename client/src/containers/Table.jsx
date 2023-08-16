@@ -99,7 +99,7 @@ const Table = (props) => {
                         <button
                           name={key}
                           onClick={sortHandler}
-                          className="px-2 ml-1 rounded transition-colors duration-200 hover:bg-white hover:text-pink-700">
+                          className="px-2 ml-1 rounded transition-colors duration-200 hocus:bg-white hocus:text-pink-700">
                           <FontAwesomeIcon icon={faSort} />
                         </button>
                       )}

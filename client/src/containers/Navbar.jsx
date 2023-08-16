@@ -56,7 +56,7 @@ const Navbar = (props) => {
           onClick={() => {
             sidebar === "in" ? setSidebar("out") : setSidebar("in");
           }}
-          className="fa-layers text-pink-700 hover:text-pink-900 transition-colors duration-200 mr-5">
+          className="fa-layers text-pink-700 hocus:text-pink-900 transition-colors duration-200 mr-5">
           <FontAwesomeIcon
             icon={faSquare}
             transform={"grow-3 left-7"}

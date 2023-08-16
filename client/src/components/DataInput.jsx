@@ -65,7 +65,7 @@ const DataInput = (props) => {
             <button
               type="button"
               onClick={showPasswordHandler}
-              className="absolute top-0 right-3 translate-y-1/2 px-1 rounded transition-colors duration-100 hover:text-pink-700">
+              className="absolute top-0 right-3 translate-y-1/2 px-1 rounded transition-colors duration-100 hocus:text-pink-700">
               <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
             </button>
           )}

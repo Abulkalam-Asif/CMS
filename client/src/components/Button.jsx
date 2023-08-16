@@ -13,10 +13,10 @@ const Button = (props) => {
   }
   let typeStyles;
   if (type === "outlined") {
-    typeStyles = "text-pink-700 hover:bg-pink-700 hover:text-white";
+    typeStyles = "text-pink-700 hocus:bg-pink-700 hocus:text-white";
   } else if (type === "filled") {
     typeStyles =
-      "text-white bg-pink-700 hover:bg-pink-900 hover:border-pink-900";
+      "text-white bg-pink-700 hocus:bg-pink-900 hocus:border-pink-900";
   }
   return (
     <>

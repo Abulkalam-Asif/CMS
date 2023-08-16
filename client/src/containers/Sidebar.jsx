@@ -49,11 +49,13 @@ const Sidebar = (props) => {
       <aside
         ref={sidebarRef}
         className="bg-gray-100 h-screen fixed top-0 -right-full pt-12 pb-4 pl-16 pr-12 overflow-y-auto z-20 transition-right duration-200 md:w-full">
-        <button className="absolute top-2 left-2" onClick={clickHandler}>
+        <button
+          className="absolute top-2 left-2 rounded-lg border-2 border-pink-700 bg-pink-700 text-white hocus:bg-white hocus:text-pink-700 transition-colors duration-200"
+          onClick={clickHandler}>
           <FontAwesomeIcon
             icon={faXmark}
             border
-            className="rounded-lg border-pink-700 bg-pink-700 text-white hover:bg-white hover:text-pink-700 transition-colors duration-200"
+            className="border-none"
             size="2xl"
           />
         </button>

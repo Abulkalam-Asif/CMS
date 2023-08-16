@@ -9,19 +9,22 @@ const SidebarListHead = (props) => {
     <>
       <div className="flex items-center my-2">
         {isExpandable && (
-          <button name={name} className="mr-2" onClick={onButtonClick}>
+          <button
+            name={name}
+            className="mr-2 rounded-lg border-2 border-pink-700 bg-pink-700 text-white hocus:bg-white hocus:text-pink-700 transition-colors duration-200"
+            onClick={onButtonClick}>
             <FontAwesomeIcon
               icon={faAngleDown}
               border
-              size="xl"
-              className="rounded-lg border-pink-700 bg-pink-700 text-white hover:bg-white hover:text-pink-700 transition-colors duration-200"
+              className="border-none"
+              size="2xl"
             />
           </button>
         )}
         <Link
           to={to}
           onClick={onLinkClick}
-          className="font-bold text-lg rounded-lg w-full px-4 py-1 bg-pink-700 text-white border-2 border-pink-700 hover:bg-white hover:text-pink-700 transition-colors duration-200">
+          className="font-bold text-lg rounded-lg w-full px-4 py-2 bg-pink-700 text-white border-2 border-pink-700 hocus:bg-white hocus:text-pink-700 transition-colors duration-200">
           {title}
         </Link>
       </div>

@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwindcss/plugin')
+
 export default {
   content: [
     "./index.html",
@@ -32,4 +35,9 @@ export default {
       }
     }
   },
+  plugins: [
+    plugin(function ({ addVariant }) {
+      addVariant('hocus', ['&:hover', '&:focus'])
+    })
+  ],
 }

@@ -16,7 +16,7 @@ const LinkButton = (props) => {
     <>
       <Link
         to={to}
-        className={`${className} text-center border-pink-700 text-pink-700 rounded-lg hover:bg-pink-700 hover:text-white transition-colors duration-200 ${sizeStyles}`}
+        className={`${className} text-center border-pink-700 text-pink-700 rounded-lg hocus:bg-pink-700 hocus:text-white transition-colors duration-200 ${sizeStyles}`}
         onClick={onClick}>
         {content}
       </Link>
