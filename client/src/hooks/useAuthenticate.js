@@ -31,6 +31,7 @@ export const useAuthenticate = (userType) => {
       setIsAuthenticated(false);
       navigate("/login");
     } else {
+      data = null;
       loginUser({
         headers: { Authorization: access_token },
       });
