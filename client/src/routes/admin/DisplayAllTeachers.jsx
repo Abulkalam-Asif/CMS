@@ -1,7 +1,7 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { H1, HR, LinkButton, Spinner } from "../../components";
+import { Button, H1, HR, LinkButton, Spinner } from "../../components";
 import {
   useDeleteTeacherMutation,
   useGetTeachersAllQuery,
@@ -19,15 +19,17 @@ const DisplayAllTeachers = () => {
 
   return (
     <>
-      <div>
+      <div className="flex-1 px-6 py-8">
         <div className="flex justify-between items-center">
           <H1 content="Teachers List" />
           <LinkButton
             to="/admin/manageTeachers"
             content={
               <>
-                <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
-                Back to Manage Teachers
+                <FontAwesomeIcon className="mr-2 xs:mx-1" icon={faArrowLeft} />
+                <span className="inline xs:hidden">
+                  Back to Manage Teachers
+                </span>
               </>
             }
           />
@@ -41,8 +43,15 @@ const DisplayAllTeachers = () => {
               data={teachersData?.teachersList}
               noData={
                 <>
-                  <span className="mr-4 text-lg font-semibold">
-                    No Teachers found! Please refresh the page OR
+                  <span className="text-lg font-semibold sm:text-base">
+                    No Teachers found! Please{" "}
+                  </span>
+                  <Button
+                    onClick={() => window.location.reload()}
+                    content="Refresh the page"
+                  />
+                  <span className="mx-4 text-2xl font-bold text-pink-700">
+                    OR
                   </span>
                   <LinkButton
                     to="/admin/manageTeachers/addNewTeacher"
