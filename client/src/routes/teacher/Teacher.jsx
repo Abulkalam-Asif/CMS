@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { H1, HR, HSpecial } from "../../components";
+import { Button, H1, HR, HSpecial } from "../../components";
+import List from "../../containers/List";
 
 const Teacher = () => {
   const [teacherData, setTeacherData] = useState(null);
@@ -18,7 +19,7 @@ const Teacher = () => {
 
   return (
     <>
-      <div className="flex-1 px-6 py-8 pt-4">
+      <div className="flex-1 px-6 py-4">
         <HSpecial content="Teacher Panel" />
         <H1
           content={
@@ -34,6 +35,30 @@ const Teacher = () => {
           }
         />
         <HR />
+        {userData ? (
+          <List
+            heading="Your Teacher Details"
+            titles={[
+              "Teacher ID",
+              "First Name",
+              "Last Name",
+              "Gender",
+              "Qualification",
+              "Department",
+            ]}
+            descriptions={Object.values(userData)}
+          />
+        ) : (
+          <div className="my-12 text-center xs:flex xs:flex-col xs:gap-y-2">
+            <span className="text-lg font-semibold sm:text-base">
+              No Data found! Please{" "}
+            </span>
+            <Button
+              onClick={() => window.location.reload()}
+              content="Refresh the page"
+            />
+          </div>
+        )}
       </div>
     </>
   );

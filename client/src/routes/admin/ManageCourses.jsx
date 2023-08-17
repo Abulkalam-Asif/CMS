@@ -126,9 +126,10 @@ const ManageCourses = () => {
         <H2 content="Edit or Delete a Course" />
         <form className="grid grid-cols-2 items-end gap-x-16 gap-y-4 mt-4 md:grid-cols-1">
           <DataInput
+            type="search"
             labelText="Search"
             nameIdHtmlFor="searchCourse"
-            placeholder="Enter course ID"
+            placeholder="Enter Course ID"
             onChange={handleInputChange}
             value={courseId}
             warning={

@@ -16,7 +16,8 @@ const Spinner = (props) => {
   }
   return (
     <>
-      <div className={`${className} ${typeBasedClasses}`}>
+      <div
+        className={`p-4 bg-black bg-opacity-30 rounded-full ${typeBasedClasses} ${className}`}>
         <img
           src={Logo}
           alt="logo"
@@ -45,7 +46,7 @@ const Spinner = (props) => {
 
 Spinner.defaultProps = {
   type: "unset",
-  size: "w-32 h-32",
+  size: "w-36 h-36 sm:w-24 sm:h-24",
   className: "",
 };
 

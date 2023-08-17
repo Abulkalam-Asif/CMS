@@ -120,13 +120,13 @@ const ManageTeachers = () => {
           />
         </div>
         <HR thickness="thin" className="my-2" />
-        <H2
-        type="filled" content="Edit or Delete a Teacher" />
+        <H2 type="filled" content="Edit or Delete a Teacher" />
         <form className="grid grid-cols-2 items-end gap-x-16 gap-y-4 mt-4 md:grid-cols-1">
           <DataInput
+            type="search"
             labelText="Search"
             nameIdHtmlFor="searchTeacher"
-            placeholder="Enter teacher ID"
+            placeholder="Enter Teacher ID"
             onChange={handleInputChange}
             value={teacherId}
             warning={teacherId.length != TEACHER_ID_LENGTH}

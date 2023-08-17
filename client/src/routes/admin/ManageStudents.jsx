@@ -126,7 +126,7 @@ const ManageStudents = () => {
             type="search"
             labelText="Search"
             nameIdHtmlFor="searchStudent"
-            placeholder="Enter roll no."
+            placeholder="Enter Roll No."
             onChange={handleInputChange}
             value={rollNo}
             warning={rollNo.length != STUDENT_ROLL_NO_LENGTH}
