@@ -10,10 +10,11 @@ const Admin = () => {
     setAdminData(userData);
   }, []);
 
-  const adminName =
-    adminData?.name && adminData.name.length > 25
-      ? adminData.name.substring(0, 25) + "..."
-      : adminData?.name;
+  const fullAdminName = adminData?.name;
+  const shortAdminName =
+    fullAdminName?.length > 18
+      ? fullAdminName.substring(0, 18) + "..."
+      : fullAdminName;
 
   return (
     <>
@@ -23,7 +24,12 @@ const Admin = () => {
           content={
             <>
               <span className="text-2xl text-gray-700 md:text-xl">Welcome</span>{" "}
-              <span className="whitespace-nowrap">{adminName}</span>
+              <span className="whitespace-nowrap xs:hidden">
+                {fullAdminName}
+              </span>
+              <span className="whitespace-nowrap hidden xs:inline">
+                {shortAdminName}
+              </span>
             </>
           }
         />
