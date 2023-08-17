@@ -125,7 +125,7 @@ const Table = (props) => {
                           {dataItem[key[0]]}
                         </td>
                       ) : (
-                        <td key={key[0]} className="px-4 py-2">
+                        <td key={key[0]} className="px-4 py-4">
                           <Button
                             content="Delete"
                             onClick={deleteHandler}

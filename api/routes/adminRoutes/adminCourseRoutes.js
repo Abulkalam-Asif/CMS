@@ -12,17 +12,20 @@ adminCourseRouter.put('/:courseId', admin_course_put_validation, admin_course_pu
 
 
 // This is a temporary route to add multiple courses to the database
-adminCourseRouter.post("/temp", (req, res) => {
-  let addCourse = async (course) => {
-    course.courseId = course.courseId.toUpperCase();
-    course = new Course({ ...course });
-    await course.save();
-  }
-  req.body.forEach(course => {
-    addCourse(course);
-  });
-  return res.status(200).json({ message: "Courses added successfully." });
-})
+// (Uncomment it to POST an array of courses to the database for testing purposes)
+
+// adminCourseRouter.post("/temp", (req, res) => {
+//   let addCourse = async (course) => {
+//     course.courseId = course.courseId.toUpperCase();
+//     course = new Course({ ...course });
+//     await course.save();
+//   }
+//   req.body.forEach(course => {
+//     addCourse(course);
+//   });
+//   return res.status(200).json({ message: "Courses added successfully." });
+// })
+
 // This is a temporary route to add multiple courses to the database
 
 

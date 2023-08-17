@@ -15,18 +15,21 @@ adminStudentRouter.put('/:rollNo', admin_student_put_validation, admin_student_p
 
 
 // This is a temporary route to add multiple students to the database
-adminStudentRouter.post("/temp", (req, res) => {
-  let addStudent = async (student) => {
-    student.rollNo = student.rollNo.toUpperCase();
-    let hashedPassword = await bcrypt.hash(student.password, 10);
-    student = new Student({ ...student, password: hashedPassword });
-    await student.save();
-  }
-  req.body.forEach(student => {
-    addStudent(student);
-  });
-  return res.status(200).json({ message: "Students added successfully." });
-})
+// (Uncomment it to POST an array of students to the database for testing purposes)
+
+// adminStudentRouter.post("/temp", (req, res) => {
+//   let addStudent = async (student) => {
+//     student.rollNo = student.rollNo.toUpperCase();
+//     let hashedPassword = await bcrypt.hash(student.password, 10);
+//     student = new Student({ ...student, password: hashedPassword });
+//     await student.save();
+//   }
+//   req.body.forEach(student => {
+//     addStudent(student);
+//   });
+//   return res.status(200).json({ message: "Students added successfully." });
+// })
+
 // This is a temporary route to add multiple students to the database
 
 module.exports = adminStudentRouter;

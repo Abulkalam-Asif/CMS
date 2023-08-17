@@ -4,20 +4,6 @@ const jwt = require("jsonwebtoken");
 const { filterKeys } = require("../../utils");
 const { validationResult } = require("express-validator");
 
-// This is basic admin signup and is not provided on the UI
-const auth_admin_signup = async (req, res) => {
-  // Hashing the password
-  try {
-    const hashedPassword = await bcrypt.hash(req.body["password"], 10);
-    const admin = new Admin({ ...req.body, password: hashedPassword });
-    await admin.save();
-    return res.status(200).json({ message: "Admin added successfully." });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Internal server error." });
-  }
-}
-
 // Admin login controller
 const auth_admin_login = async (req, res) => {
   const errors = validationResult(req);
@@ -76,4 +62,4 @@ const auth_admin_login = async (req, res) => {
   }
 }
 
-module.exports = { auth_admin_signup, auth_admin_login };
+module.exports = { auth_admin_login };

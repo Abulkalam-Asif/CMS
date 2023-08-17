@@ -1,7 +1,7 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { H1, HR, LinkButton, Spinner } from "../../components";
+import { Button, H1, HR, LinkButton, Spinner } from "../../components";
 import {
   useDeleteCourseMutation,
   useGetCoursesAllQuery,
@@ -19,15 +19,15 @@ const DisplayAllCourses = () => {
 
   return (
     <>
-      <div>
+      <div className="flex-1 px-6 py-8">
         <div className="flex justify-between items-center">
           <H1 content="Courses List" />
           <LinkButton
             to="/admin/manageCourses"
             content={
               <>
-                <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
-                Back to Manage Courses
+                <FontAwesomeIcon className="mr-2 xs:mx-1" icon={faArrowLeft} />
+                <span className="inline xs:hidden">Back to Manage Courses</span>
               </>
             }
           />
@@ -41,8 +41,15 @@ const DisplayAllCourses = () => {
               data={coursesData?.coursesList}
               noData={
                 <>
-                  <span className="mr-4 text-lg font-semibold">
-                    No Courses found! Please refresh the page OR
+                  <span className="text-lg font-semibold sm:text-base">
+                    No Courses found! Please{" "}
+                  </span>
+                  <Button
+                    onClick={() => window.location.reload()}
+                    content="Refresh the page"
+                  />
+                  <span className="mx-4 text-2xl font-bold text-pink-700">
+                    OR
                   </span>
                   <LinkButton
                     to="/admin/manageCourses/addNewCourse"

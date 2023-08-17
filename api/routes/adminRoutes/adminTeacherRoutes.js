@@ -14,18 +14,21 @@ adminTeacherRouter.put('/:teacherId', admin_teacher_put_validation, admin_teache
 
 
 // This is a temporary route to add multiple teachers to the database
-adminTeacherRouter.post("/temp", (req, res) => {
-  let addTeacher = async (teacher) => {
-    teacher.teacherId = teacher.teacherId.toUpperCase();
-    let hashedPassword = await bcrypt.hash(teacher.password, 10);
-    teacher = new Teacher({ ...teacher, password: hashedPassword });
-    await teacher.save();
-  }
-  req.body.forEach(teacher => {
-    addTeacher(teacher);
-  });
-  return res.status(200).json({ message: "Teachers added successfully." });
-})
+// (Uncomment it to POST an array of teachers to the database for testing purposes)
+
+// adminTeacherRouter.post("/temp", (req, res) => {
+//   let addTeacher = async (teacher) => {
+//     teacher.teacherId = teacher.teacherId.toUpperCase();
+//     let hashedPassword = await bcrypt.hash(teacher.password, 10);
+//     teacher = new Teacher({ ...teacher, password: hashedPassword });
+//     await teacher.save();
+//   }
+//   req.body.forEach(teacher => {
+//     addTeacher(teacher);
+//   });
+//   return res.status(200).json({ message: "Teachers added successfully." });
+// })
+
 // This is a temporary route to add multiple teachers to the database
 
 
