@@ -34,6 +34,7 @@ const AddEditStudent = () => {
     useUpdateStudentMutation();
   const studentData = useSelector((state) => state.userData?.data?.student);
   const addOrEditStudent = useSelector((state) => state.addOrEditStudent);
+  const [showPassword, setShowPassword] = useState(false);
 
   const defaultStudent = {
     rollNo: "",
@@ -208,6 +209,8 @@ const AddEditStudent = () => {
                 labelText="Set a Password"
                 nameIdHtmlFor="password"
                 type="password"
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
                 onChange={handleInputChange}
                 value={student?.password}
                 placeholder="Set a password to the student"

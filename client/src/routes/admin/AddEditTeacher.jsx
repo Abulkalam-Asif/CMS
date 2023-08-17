@@ -35,6 +35,7 @@ const AddEditTeacher = () => {
     useUpdateTeacherMutation();
   const teacherData = useSelector((state) => state.userData?.data?.teacher);
   const addOrEditTeacher = useSelector((state) => state.addOrEditTeacher);
+  const [showPassword, setShowPassword] = useState(false);
 
   const defaultTeacher = {
     teacherId: "",
@@ -213,6 +214,8 @@ const AddEditTeacher = () => {
                 labelText="Set a Password"
                 nameIdHtmlFor="password"
                 type="password"
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
                 onChange={handleInputChange}
                 value={teacher?.password}
                 placeholder="Set a password to the teacher"
