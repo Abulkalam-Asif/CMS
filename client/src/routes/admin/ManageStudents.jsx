@@ -123,6 +123,7 @@ const ManageStudents = () => {
         <H2 content="Edit or Delete a Student" />
         <form className="grid grid-cols-2 items-end gap-x-16 gap-y-4 mt-4 md:grid-cols-1">
           <DataInput
+            type="search"
             labelText="Search"
             nameIdHtmlFor="searchStudent"
             placeholder="Enter roll no."
@@ -135,7 +136,7 @@ const ManageStudents = () => {
         </form>
         {isFetchingStudentData || isDeletingStudent ? (
           <>
-            <Spinner size="w-24 h-24" type="centralizedSpinner" />
+            <Spinner type="centralizedSpinner" />
           </>
         ) : (
           showStudentData && (

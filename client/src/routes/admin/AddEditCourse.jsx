@@ -157,7 +157,7 @@ const AddEditCourse = () => {
         </div>
         <HR />
         {isAddingCourse || isUpdatingCourse ? (
-          <Spinner size="w-24 h-24" type="centralizedSpinner" />
+          <Spinner type="centralizedSpinner" />
         ) : (
           <form className="px-8 lg:px-2">
             <div className="grid grid-cols-2 gap-x-16 gap-y-4 my-6 md:grid-cols-1">

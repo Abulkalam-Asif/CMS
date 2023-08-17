@@ -37,7 +37,7 @@ const DisplayAllTeachers = () => {
         <HR />
         <div className="mt-4">
           {isGettingTeachers ? (
-            <Spinner size="w-24 h-24" type="centralizedSpinner" />
+            <Spinner type="centralizedSpinner" />
           ) : (
             <Table
               data={teachersData?.teachersList}

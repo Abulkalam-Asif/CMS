@@ -136,7 +136,7 @@ const ManageTeachers = () => {
         </form>
         {isFetchingTeacherData || isDeletingTeacher ? (
           <>
-            <Spinner size="w-24 h-24" type="centralizedSpinner" />
+            <Spinner type="centralizedSpinner" />
           </>
         ) : (
           showTeacherData && (

@@ -35,7 +35,7 @@ const DisplayAllCourses = () => {
         <HR />
         <div className="mt-4">
           {isGettingCourses ? (
-            <Spinner size="w-24 h-24" type="centralizedSpinner" />
+            <Spinner type="centralizedSpinner" />
           ) : (
             <Table
               data={coursesData?.coursesList}

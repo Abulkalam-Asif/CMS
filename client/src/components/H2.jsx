@@ -10,5 +10,8 @@ const H2 = ({ content, className }) => {
     </>
   );
 };
+H2.defaultProps = {
+  className: "",
+};
 
 export default H2;

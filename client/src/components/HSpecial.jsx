@@ -10,5 +10,8 @@ const HSpecial = ({ content, className }) => {
     </>
   );
 };
+HSpecial.defaultProps = {
+  className: "",
+};
 
 export default HSpecial;

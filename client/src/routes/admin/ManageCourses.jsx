@@ -141,7 +141,7 @@ const ManageCourses = () => {
         </form>
         {isFetchingCourseData || isDeletingCourse ? (
           <>
-            <Spinner size="w-24 h-24" type="centralizedSpinner" />
+            <Spinner type="centralizedSpinner" />
           </>
         ) : (
           showCourseData && (

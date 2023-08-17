@@ -6,6 +6,8 @@ const HR = ({ className, thickness }) => {
     borderThickness = "border-2";
   } else if (thickness === "thin") {
     borderThickness = "border-1";
+  } else {
+    borderThickness = "";
   }
   return (
     <>
@@ -16,6 +18,7 @@ const HR = ({ className, thickness }) => {
 
 HR.defaultProps = {
   thickness: "thick",
+  className: "",
 };
 
 export default HR;

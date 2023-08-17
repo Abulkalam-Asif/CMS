@@ -24,7 +24,7 @@ const Navbar = (props) => {
     dispatch(
       showAlert({
         type: "success",
-        message: `Logged out as ${loggedInUserType.toUpperCase()} Successfully.`,
+        message: `Logged out as ${loggedInUserType?.toUpperCase()} Successfully.`,
       })
     );
     dispatch(hideLogoutButton());

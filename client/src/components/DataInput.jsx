@@ -25,7 +25,7 @@ const DataInput = (props) => {
     e.preventDefault();
     setShowPassword((prevState) => !prevState);
   };
-  const [inputType, setInputType] = useState("password");
+  const [inputType, setInputType] = useState(null);
 
   useEffect(() => {
     if (showPassword !== undefined) {
@@ -37,7 +37,7 @@ const DataInput = (props) => {
 
   return (
     <>
-      <div className={`${className}`}>
+      <div className={className}>
         <div className="flex items-center justify-between mb-2 lg:flex-col lg:items-start md:flex-row md:items-center xs:flex-col xs:items-start">
           <label
             className="block mb-2 font-medium text-gray-900"
@@ -53,6 +53,7 @@ const DataInput = (props) => {
         </div>
         <div className="relative">
           <input
+            autoComplete="off"
             className="border-2 w-full border-gray-300 rounded-lg p-2 placeholder:text-gray-400 focus:border-black"
             type={inputType}
             name={nameIdHtmlFor}

@@ -77,7 +77,7 @@ const Table = (props) => {
 
   return deleteDataMutation?.isLoading ? (
     <>
-      <Spinner size="w-24 h-24" type="centralizedSpinner" />
+      <Spinner type="centralizedSpinner" />
     </>
   ) : (
     <>
