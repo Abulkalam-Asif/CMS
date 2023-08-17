@@ -207,6 +207,7 @@ const AddEditStudent = () => {
               <DataInput
                 labelText="Set a Password"
                 nameIdHtmlFor="password"
+                type="password"
                 onChange={handleInputChange}
                 value={student?.password}
                 placeholder="Set a password to the student"
