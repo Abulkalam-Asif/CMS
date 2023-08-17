@@ -1,7 +1,7 @@
 import React from "react";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { H1, HR, LinkButton, Spinner } from "../../components";
+import { Button, H1, HR, LinkButton, Spinner } from "../../components";
 import {
   useGetStudentsAllQuery,
   useDeleteStudentMutation,
@@ -19,15 +19,17 @@ const DisplayAllStudents = () => {
 
   return (
     <>
-      <div>
+      <div className="flex-1 px-6 py-8">
         <div className="flex justify-between items-center">
           <H1 content="Students List" />
           <LinkButton
             to="/admin/manageStudents"
             content={
               <>
-                <FontAwesomeIcon className="mr-2" icon={faArrowLeft} />
-                Back to Manage Students
+                <FontAwesomeIcon className="mr-2 xs:mx-1" icon={faArrowLeft} />
+                <span className="inline xs:hidden">
+                  Back to Manage Students
+                </span>
               </>
             }
           />
@@ -41,8 +43,15 @@ const DisplayAllStudents = () => {
               data={studentsData?.studentsList}
               noData={
                 <>
-                  <span className="mr-4 text-lg font-semibold">
-                    No Students found! Please refresh the page OR
+                  <span className="text-lg font-semibold sm:text-base">
+                    No Students found! Please{" "}
+                  </span>
+                  <Button
+                    onClick={() => window.location.reload()}
+                    content="Refresh the page"
+                  />
+                  <span className="mx-4 text-2xl font-bold text-pink-700">
+                    OR
                   </span>
                   <LinkButton
                     to="/admin/manageStudents/addNewStudent"

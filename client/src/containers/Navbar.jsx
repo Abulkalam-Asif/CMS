@@ -36,7 +36,7 @@ const Navbar = (props) => {
     <>
       <header className="bg-gray-300 flex flex-row justify-between items-center px-10 py-3 lg:px-2 md:px-10 xs:px-3">
         <LogoItem />
-        <nav className="flex gap-4 mr-5 md:hidden">
+        <nav className="flex gap-4 mr-6 md:hidden">
           <LinkButton to="/" content="Home" />
           <LinkButton to="/admin" content="Admin Panel" />
           <LinkButton to="/student" content="Student Panel" />
@@ -45,7 +45,7 @@ const Navbar = (props) => {
         {/* UNDO */}
         {isUserLoggedIn && (
           <Button
-            className="mr-5"
+            className="mr-6"
             size="small"
             type="filled"
             content="Log out"

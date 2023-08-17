@@ -91,7 +91,10 @@ const Table = (props) => {
                   // Check if the current key is in the excludeSort array, if not, sort button is not added for that key
                   const isExcludedFromSort = excludeSort?.includes(key);
                   return (
-                    <th key={index} scope="col" className="px-6 py-3">
+                    <th
+                      key={index}
+                      scope="col"
+                      className="px-6 py-4 whitespace-nowrap">
                       {label}
                       {!isExcludedFromSort && (
                         <button
@@ -122,7 +125,7 @@ const Table = (props) => {
                           {dataItem[key[0]]}
                         </td>
                       ) : (
-                        <td key={key[0]} className="px-6 py-4">
+                        <td key={key[0]} className="px-4 py-2">
                           <Button
                             content="Delete"
                             onClick={deleteHandler}
@@ -140,7 +143,7 @@ const Table = (props) => {
           </table>
         </div>
       ) : (
-        <p className="mt-16 text-center">{noData}</p>
+        <div className="my-12 text-center sm:flex sm:flex-col sm:gap-y-2">{noData}</div>
       )}
     </>
   );
